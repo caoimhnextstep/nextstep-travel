@@ -1,0 +1,4385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextStepTravel v2.4 - Your Perfect Vacation Awaits</title>
+    <meta name="description" content="Book amazing vacation packages with NextStepTravel - featuring enhanced search, hot deals, and trusted booking">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+/* NextStepTravel v2.4 - Complete Styles */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary-blue: #2563eb; --primary-blue-dark: #1d4ed8;
+    --secondary-cyan: #0ea5e9; --accent-purple: #8b5cf6;
+    --success-green: #10b981; --warning-yellow: #f59e0b; --error-red: #ef4444;
+    --text-primary: #1f2937; --text-secondary: #6b7280; --text-light: #9ca3af;
+    --bg-white: #ffffff; --bg-gray-50: #f9fafb; --bg-gray-100: #f3f4f6;
+    --bg-gray-200: #e5e7eb; --border-gray: #d1d5db;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-full: 999px;
+    --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6; color: var(--text-primary);
+    background: var(--bg-gray-50);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.section { padding: 3rem 0; }
+.hidden { display: none !important; }
+
+/* Tooltips */
+.tooltip {
+    position: relative;
+}
+.tooltip::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 10000;
+}
+.tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    z-index: 10000;
+}
+.tooltip:hover::before,
+.tooltip:hover::after {
+    opacity: 1;
+}
+.tooltip:hover::before {
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* Header */
+header {
+    background: #003b95;
+    box-shadow: var(--shadow-md);
+    position: sticky; top: 0; z-index: 1000;
+}
+.header-container {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 1rem 2rem;
+    max-width: 1400px; margin: 0 auto;
+}
+.logo {
+    font-size: 1.5rem; font-weight: 700;
+    color: white; text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-links {
+    display: flex; gap: 1rem; align-items: center;
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none; 
+    background: #febb02;
+    color: #003b95;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+.nav-links a:hover { 
+    background: #ffca3a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(254, 187, 2, 0.4);
+}
+.partner-link {
+    background: #febb02 !important;
+    color: #003b95 !important;
+}
+.partner-link:hover {
+    background: #ffca3a !important;
+}
+.user-section { display: flex; align-items: center; gap: 1rem; }
+.user-email { color: rgba(255,255,255,0.8); font-size: 0.875rem; }
+.btn-logout {
+    padding: 0.5rem 1rem; 
+    background: #febb02;
+    color: #003b95; 
+    border: none; 
+    border-radius: var(--radius-md);
+    cursor: pointer; 
+    font-weight: 600; 
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+.btn-logout:hover {
+    background: #ffca3a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(254, 187, 2, 0.4);
+}
+
+/* Hero Section */
+.hero {
+    background: #003b95;
+    color: white; padding: 4rem 0 8rem 0;
+    text-align: center; position: relative;
+}
+.hero::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+    background-size: cover; opacity: 0.3;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero h1 {
+    font-size: 3rem; margin-bottom: 1rem; font-weight: 700;
+}
+.hero p {
+    font-size: 1.25rem; margin-bottom: 2rem; opacity: 0.95;
+}
+
+/* Trip Tabs */
+.trip-type-tabs {
+    display: flex; justify-content: center;
+    gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+}
+.tab-btn {
+    background: rgba(255,255,255,0.2);
+    color: white; border: 2px solid rgba(255,255,255,0.3);
+    padding: 0.75rem 1.5rem; border-radius: var(--radius-full);
+    cursor: pointer; font-weight: 600; font-size: 0.875rem;
+    transition: all 0.3s; backdrop-filter: blur(10px);
+}
+.tab-btn:hover {
+    background: rgba(255,255,255,0.3); 
+    transform: translateY(-2px);
+}
+.tab-btn.active {
+    background: white; color: #003b95;
+    border-color: white;
+}
+
+/* Hero Search Bar */
+.hero-search-bar {
+    background: white; padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.5fr auto;
+    gap: 1rem; max-width: 1100px; margin: 0 auto;
+    align-items: end;
+}
+.search-field {
+    display: flex; flex-direction: column;
+}
+.search-field label {
+    display: block; font-size: 0.75rem;
+    font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.search-field select, .search-field input {
+    width: 100%; border: none; font-size: 1rem;
+    font-weight: 500; padding: 0.5rem 0;
+    color: var(--text-primary); background: transparent;
+}
+.search-field select:focus, .search-field input:focus {
+    outline: none; border-bottom: 2px solid #0071c2;
+}
+
+/* Autocomplete Dropdown */
+.autocomplete-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    margin-top: 0.5rem;
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.autocomplete-dropdown.active {
+    display: block;
+}
+.autocomplete-item {
+    padding: 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--bg-gray-200);
+    transition: background 0.2s;
+}
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+.autocomplete-item:hover {
+    background: var(--bg-gray-50);
+}
+.autocomplete-item.selected {
+    background: #e6f2ff;
+}
+.autocomplete-destination {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+.autocomplete-country {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+.guest-selector-btn {
+    background: transparent; border: none;
+    padding: 0.5rem 0; cursor: pointer;
+    text-align: left; font-size: 1rem;
+    font-weight: 500; width: 100%; position: relative;
+}
+.guest-selector-btn:hover { color: #0071c2; }
+.btn-search-hero {
+    background: #0071c2;
+    color: white; border: none; padding: 1rem 3rem;
+    font-size: 1.1rem; font-weight: 700;
+    border-radius: var(--radius-md); cursor: pointer;
+    transition: all 0.3s; white-space: nowrap;
+}
+.btn-search-hero:hover {
+    background: #00528a;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,113,194,0.3);
+}
+
+/* Guest Dropdown */
+.guest-dropdown {
+    display: none; position: absolute;
+    top: calc(100% + 8px); left: 0; right: 0;
+    background: white; border-radius: var(--radius-md);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2); 
+    padding: 1.5rem;
+    margin-top: 0.5rem; z-index: 1000;
+    min-width: 300px;
+}
+.guest-dropdown.active { display: block; }
+.guest-row {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 1rem 0;
+    border-bottom: 1px solid var(--bg-gray-200);
+}
+.guest-row:last-child { border-bottom: none; }
+.guest-label h4 {
+    font-size: 1rem; font-weight: 600;
+    color: var(--text-primary);
+}
+.guest-label p {
+    font-size: 0.75rem; color: var(--text-secondary);
+}
+.guest-controls {
+    display: flex; align-items: center; gap: 1rem;
+}
+.guest-btn {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid #0071c2;
+    background: white; color: #0071c2;
+    font-size: 1.25rem; cursor: pointer;
+    display: flex; align-items: center;
+    justify-content: center; transition: all 0.2s;
+}
+.guest-btn:hover:not(:disabled) {
+    background: #0071c2; color: white;
+}
+.guest-btn:disabled {
+    opacity: 0.3; cursor: not-allowed;
+}
+.guest-count {
+    min-width: 30px; text-align: center;
+    font-weight: 600; font-size: 1rem;
+}
+.guest-done-btn {
+    width: 100%; margin-top: 1rem; padding: 0.75rem;
+    background: #0071c2; color: white;
+    border: none; border-radius: var(--radius-md);
+    font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.guest-done-btn:hover { background: #00528a; }
+
+/* Deals Section */
+.deals-section {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    padding: 3rem 0; margin-bottom: 3rem;
+}
+.deals-section h2 {
+    text-align: center; font-size: 2rem;
+    color: var(--text-primary); margin-bottom: 0.5rem;
+}
+.deals-subtitle {
+    text-align: center; color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+.deals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem; margin-top: 2rem;
+}
+.deal-card {
+    background: white; border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-lg);
+    transition: transform 0.3s; position: relative;
+}
+.deal-card:hover { transform: translateY(-8px); }
+.deal-image {
+    height: 200px; background-size: cover;
+    background-position: center; position: relative;
+}
+.deal-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--error-red); color: white;
+    padding: 0.5rem 1rem; border-radius: var(--radius-full);
+    font-weight: 700; font-size: 0.875rem;
+    box-shadow: var(--shadow-md);
+}
+.deal-content { padding: 1.5rem; }
+.deal-content h3 {
+    font-size: 1.5rem; margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.deal-savings {
+    color: var(--success-green); font-weight: 700;
+    font-size: 1.25rem; margin: 0.5rem 0;
+}
+.deal-expires {
+    color: var(--error-red); font-size: 0.875rem;
+    font-weight: 600; margin-bottom: 1rem;
+}
+.btn-deal {
+    width: 100%; padding: 0.75rem;
+    background: #0071c2; color: white;
+    border: none; border-radius: var(--radius-md);
+    font-weight: 600; cursor: pointer; transition: all 0.2s;
+}
+.btn-deal:hover {
+    background: #00528a;
+    transform: translateY(-2px);
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    padding: 1rem 0; display: none;
+    align-items: center; gap: 0.5rem;
+    font-size: 0.875rem;
+}
+.breadcrumb.active { display: flex; }
+.breadcrumb a {
+    color: #0071c2; text-decoration: none;
+}
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .separator { color: var(--text-light); }
+.breadcrumb .current {
+    color: var(--text-secondary); font-weight: 600;
+}
+
+/* Destinations */
+.destinations-header {
+    display: flex; justify-content: space-between;
+    align-items: center; margin-bottom: 2rem;
+}
+.destinations-header h2 {
+    font-size: 2rem; color: var(--text-primary);
+}
+.filter-controls {
+    display: flex; gap: 1rem; align-items: center;
+}
+.filter-select {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--border-gray);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem; cursor: pointer;
+    background: white;
+}
+.filter-select:focus {
+    outline: none; border-color: #0071c2;
+}
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Cards */
+.card {
+    background: white; border-radius: var(--radius-lg);
+    overflow: hidden; box-shadow: var(--shadow-md);
+    transition: all 0.3s; display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-4px); box-shadow: var(--shadow-xl);
+}
+.card.highlighted {
+    animation: highlight-pulse 2s ease-in-out;
+    box-shadow: 0 0 0 4px var(--warning-yellow), var(--shadow-xl);
+}
+@keyframes highlight-pulse {
+    0%, 100% { box-shadow: 0 0 0 4px var(--warning-yellow), var(--shadow-xl); }
+    50% { box-shadow: 0 0 0 8px var(--warning-yellow), var(--shadow-xl); }
+}
+.card-image {
+    width: 100%; height: 220px; object-fit: cover;
+}
+.card-content {
+    padding: 1.5rem; flex: 1;
+    display: flex; flex-direction: column;
+}
+.card-header {
+    display: flex; justify-content: space-between;
+    align-items: start; margin-bottom: 1rem;
+}
+.card-title {
+    font-size: 1.5rem; color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+.card-country {
+    color: var(--text-secondary); font-size: 0.875rem;
+}
+.card-reviews {
+    display: flex; align-items: center;
+    gap: 0.5rem; margin-bottom: 0.5rem;
+}
+.review-score {
+    background: #003b95; color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: 700; font-size: 0.875rem;
+}
+.review-rating {
+    font-weight: 600; color: var(--text-primary);
+}
+.review-count {
+    color: var(--text-secondary); font-size: 0.875rem;
+}
+.urgency-indicator {
+    background: #fef3c7;
+    border-left: 4px solid var(--warning-yellow);
+    padding: 0.75rem; margin: 1rem 0;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; gap: 0.5rem;
+}
+.urgency-text {
+    color: #92400e; font-weight: 600;
+    font-size: 0.875rem;
+}
+.social-proof {
+    color: var(--error-red); font-size: 0.875rem;
+    font-weight: 600; margin-top: 0.5rem;
+}
+.card-description {
+    color: var(--text-secondary); margin-bottom: 1rem;
+    line-height: 1.5; flex: 1;
+}
+.card-features {
+    display: flex; flex-wrap: wrap;
+    gap: 0.5rem; margin-bottom: 1rem;
+}
+.feature-tag {
+    background: var(--bg-gray-100);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+.card-footer {
+    display: flex; justify-content: space-between;
+    align-items: center; padding-top: 1rem;
+    border-top: 1px solid var(--bg-gray-200);
+}
+.card-price { display: flex; flex-direction: column; }
+.price-label {
+    font-size: 0.75rem; color: var(--text-secondary);
+}
+.price-amount {
+    font-size: 1.75rem; font-weight: 700;
+    color: #0071c2;
+}
+.btn-book {
+    padding: 0.75rem 2rem;
+    background: #0071c2; color: white;
+    border: none; border-radius: var(--radius-md);
+    font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-book:hover {
+    background: #00528a;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* View Details Link */
+.btn-details {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: white;
+    color: #0071c2;
+    border: 2px solid #0071c2;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+}
+.btn-details:hover {
+    background: #0071c2;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Trust Section */
+.trust-section {
+    background: white; padding: 4rem 0; margin: 3rem 0;
+}
+.trust-section h2 {
+    text-align: center; font-size: 2rem;
+    margin-bottom: 3rem; color: var(--text-primary);
+}
+.trust-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+.trust-item {
+    text-align: center; padding: 2rem;
+}
+.trust-icon {
+    font-size: 3rem; margin-bottom: 1rem;
+}
+.trust-item h3 {
+    font-size: 1.25rem; margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.trust-item p {
+    color: var(--text-secondary); font-size: 0.875rem;
+}
+
+/* Modal */
+.modal {
+    display: none; position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); z-index: 2000;
+    align-items: center; justify-content: center;
+    padding: 1rem;
+}
+.modal.active { display: flex; }
+.modal-content {
+    background: white; border-radius: var(--radius-lg);
+    width: 100%; max-width: 600px;
+    max-height: 90vh; overflow-y: auto;
+    position: relative;
+}
+.modal-header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--bg-gray-200);
+    display: flex; justify-content: space-between;
+    align-items: center;
+}
+.modal-header h2 {
+    font-size: 1.75rem; color: var(--text-primary);
+}
+.btn-close {
+    background: none; border: none;
+    font-size: 1.5rem; cursor: pointer;
+    color: var(--text-secondary);
+    padding: 0.5rem; line-height: 1;
+    transition: color 0.2s;
+}
+.btn-close:hover { color: var(--text-primary); }
+.modal-body { padding: 2rem; }
+
+/* Forms */
+.form-group { margin-bottom: 1.5rem; }
+.form-group label {
+    display: block; margin-bottom: 0.5rem;
+    font-weight: 600; color: var(--text-primary);
+}
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.75rem;
+    border: 2px solid var(--border-gray);
+    border-radius: var(--radius-md);
+    font-size: 1rem; transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus,
+.form-group textarea:focus {
+    outline: none; border-color: #0071c2;
+}
+
+/* Form Validation Errors */
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: var(--error-red);
+    background: #fef2f2;
+}
+.error-message {
+    color: var(--error-red);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+.error-message.active {
+    display: block;
+}
+.form-group textarea {
+    resize: vertical; min-height: 100px;
+}
+.date-range-picker {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-bottom: 1.5rem;
+}
+.duration-display {
+    grid-column: 1 / -1;
+    background: var(--bg-gray-100);
+    padding: 0.75rem; border-radius: var(--radius-md);
+    text-align: center; font-weight: 600;
+    color: #0071c2;
+}
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem; margin-bottom: 1.5rem;
+}
+.payment-option {
+    border: 2px solid var(--border-gray);
+    border-radius: var(--radius-md);
+    padding: 1rem; text-align: center;
+    cursor: pointer; transition: all 0.2s;
+}
+.payment-option:hover {
+    border-color: #0071c2;
+}
+.payment-option.selected {
+    border-color: #0071c2;
+    background: #e6f2ff;
+}
+.payment-option input[type="radio"] { display: none; }
+.booking-summary {
+    background: var(--bg-gray-50);
+    padding: 1.5rem; border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+}
+.summary-row {
+    display: flex; justify-content: space-between;
+    padding: 0.5rem 0;
+}
+.summary-row.total {
+    border-top: 2px solid var(--border-gray);
+    margin-top: 0.5rem; padding-top: 1rem;
+    font-weight: 700; font-size: 1.25rem;
+}
+.form-actions {
+    display: flex; gap: 1rem;
+    justify-content: flex-end; margin-top: 2rem;
+}
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-gray-200);
+    color: var(--text-primary); border: none;
+    border-radius: var(--radius-md);
+    font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-secondary:hover { background: #d1d5db; }
+.btn-primary {
+    padding: 0.75rem 2rem;
+    background: #0071c2; color: white;
+    border: none; border-radius: var(--radius-md);
+    font-weight: 600; cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-primary:hover {
+    background: #00528a;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Bookings Table */
+.bookings-section {
+    background: white; padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md); margin-top: 2rem;
+}
+.bookings-section h2 {
+    margin-bottom: 1.5rem; color: var(--text-primary);
+}
+.table-container { overflow-x: auto; }
+table {
+    width: 100%; border-collapse: collapse;
+}
+th {
+    background: var(--bg-gray-100);
+    padding: 1rem; text-align: left;
+    font-weight: 600; color: var(--text-primary);
+    cursor: pointer; user-select: none;
+    position: relative;
+}
+th:hover { background: var(--bg-gray-200); }
+th.sortable::after {
+    content: ' ⇅'; color: var(--text-light);
+}
+th.sort-asc::after {
+    content: ' ↑'; color: #0071c2;
+}
+th.sort-desc::after {
+    content: ' ↓'; color: #0071c2;
+}
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--bg-gray-200);
+}
+tr:hover { background: var(--bg-gray-50); }
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem; font-weight: 600;
+}
+.status-confirmed {
+    background: #d1fae5; color: #065f46;
+}
+.status-pending {
+    background: #fef3c7; color: #92400e;
+}
+.status-cancelled {
+    background: #fee2e2; color: #991b1b;
+}
+
+/* File Upload */
+.upload-area {
+    border: 2px dashed var(--border-gray);
+    border-radius: var(--radius-md);
+    padding: 2rem; text-align: center;
+    transition: all 0.2s; cursor: pointer;
+}
+.upload-area:hover {
+    border-color: #0071c2;
+    background: var(--bg-gray-50);
+}
+.upload-area.drag-over {
+    border-color: #0071c2;
+    background: #e6f2ff;
+}
+.upload-icon {
+    font-size: 3rem; margin-bottom: 1rem;
+}
+.upload-text {
+    color: var(--text-secondary); margin-bottom: 0.5rem;
+}
+.file-input { display: none; }
+.file-list { margin-top: 1rem; }
+.file-item {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 0.75rem;
+    background: var(--bg-gray-50);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.5rem;
+}
+.file-name { font-weight: 500; }
+.btn-remove-file {
+    background: var(--error-red); color: white;
+    border: none; padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer; font-size: 0.75rem;
+}
+
+/* Success Message */
+.success-message {
+    background: #d1fae5;
+    border-left: 4px solid var(--success-green);
+    padding: 1.5rem; border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+}
+.success-message h3 {
+    color: #065f46; margin-bottom: 0.5rem;
+}
+.success-message p { color: #047857; }
+.booking-details {
+    margin-top: 1rem; padding-top: 1rem;
+    border-top: 1px solid #a7f3d0;
+}
+.detail-row {
+    display: flex; justify-content: space-between;
+    padding: 0.25rem 0; color: #047857;
+}
+
+/* Loading Spinner */
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+.loading-overlay.active {
+    display: flex;
+}
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+.loading-text {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .hero-search-bar {
+        grid-template-columns: 1fr 1fr;
+    }
+    .btn-search-hero {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    .hero-search-bar {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .destinations-grid {
+        grid-template-columns: 1fr;
+    }
+    .deals-grid {
+        grid-template-columns: 1fr;
+    }
+    .date-range-picker {
+        grid-template-columns: 1fr;
+    }
+    .nav-links { gap: 1rem; }
+    .header-container {
+        flex-direction: column; gap: 1rem;
+    }
+}
+
+/* ========================================
+   TOAST NOTIFICATIONS
+   ======================================== */
+.toast-container {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 420px;
+}
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    background: var(--bg-white);
+    border-left: 4px solid transparent;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: relative;
+}
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+.toast.removing {
+    transform: translateX(120%);
+    opacity: 0;
+    transition: all 0.3s ease-in;
+}
+.toast-success { border-left-color: var(--success-green); }
+.toast-error { border-left-color: var(--error-red); }
+.toast-warning { border-left-color: var(--warning-yellow); }
+.toast-info { border-left-color: var(--secondary-cyan); }
+.toast-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+}
+.toast-body { flex: 1; }
+.toast-title {
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    margin-bottom: 0.125rem;
+}
+.toast-message {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 1.125rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.2s;
+}
+.toast-close:hover { color: var(--text-primary); }
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 4px;
+    right: 0;
+    height: 3px;
+    border-radius: 0 0 var(--radius-md) 0;
+    overflow: hidden;
+}
+.toast-progress-bar {
+    height: 100%;
+    width: 100%;
+    background: var(--success-green);
+    transition: width linear;
+}
+.toast-error .toast-progress-bar { background: var(--error-red); }
+.toast-warning .toast-progress-bar { background: var(--warning-yellow); }
+.toast-info .toast-progress-bar { background: var(--secondary-cyan); }
+
+/* ========================================
+   SKELETON LOADING
+   ======================================== */
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-gray-200) 25%, var(--bg-gray-100) 50%, var(--bg-gray-200) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s ease-in-out infinite;
+    border-radius: var(--radius-md);
+}
+@keyframes skeleton-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+.skeleton-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+.skeleton-image {
+    width: 100%;
+    height: 220px;
+}
+.skeleton-content {
+    padding: 1.5rem;
+}
+.skeleton-line {
+    height: 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 4px;
+}
+.skeleton-line.short { width: 40%; }
+.skeleton-line.medium { width: 70%; }
+.skeleton-line.long { width: 100%; }
+.skeleton-line.title {
+    height: 1.5rem;
+    width: 60%;
+    margin-bottom: 1rem;
+}
+.skeleton-btn {
+    height: 2.5rem;
+    width: 120px;
+    margin-top: 1rem;
+}
+.destinations-grid .skeleton-card {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========================================
+   ACCORDION / FAQ
+   ======================================== */
+.faq-section {
+    padding: 4rem 0;
+    background: white;
+    margin: 3rem 0;
+}
+.faq-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.faq-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+}
+.accordion {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.accordion-item {
+    border: 1px solid var(--bg-gray-200);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+.accordion-item:hover {
+    box-shadow: var(--shadow-sm);
+}
+.accordion-item.active {
+    border-color: var(--secondary-cyan);
+    box-shadow: 0 0 0 1px var(--secondary-cyan), var(--shadow-sm);
+}
+.accordion-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    transition: background 0.2s;
+}
+.accordion-trigger:hover {
+    background: var(--bg-gray-50);
+}
+.accordion-icon {
+    font-size: 1.25rem;
+    transition: transform 0.3s;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+.accordion-item.active .accordion-icon {
+    transform: rotate(180deg);
+    color: var(--secondary-cyan);
+}
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+.accordion-body {
+    padding: 0 1.5rem 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 0.9375rem;
+}
+
+/* ========================================
+   CUSTOMER REVIEWS (Shadow DOM Section)
+   ======================================== */
+.reviews-section {
+    padding: 4rem 0;
+    background: var(--bg-gray-50);
+    margin: 3rem 0;
+}
+.reviews-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+.reviews-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+}
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   IFRAME TERMS & CONDITIONS
+   ======================================== */
+.terms-iframe-section {
+    margin: 1.5rem 0;
+    border: 1px solid var(--bg-gray-200);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+.terms-iframe-header {
+    padding: 0.75rem 1rem;
+    background: var(--bg-gray-50);
+    border-bottom: 1px solid var(--bg-gray-200);
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.terms-iframe-header span {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+.terms-iframe-container {
+    height: 180px;
+    overflow: hidden;
+}
+.terms-iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.terms-agree {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-gray-50);
+    border-top: 1px solid var(--bg-gray-200);
+}
+.terms-agree input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--secondary-cyan);
+    cursor: pointer;
+}
+.terms-agree label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+.upload-errors {
+    margin-top: 0.75rem;
+    color: var(--error-red);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+.upload-errors:empty {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .toast-container {
+        left: 1rem;
+        right: 1rem;
+        max-width: none;
+    }
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   Visual Refresh (Screenshot Match)
+   ======================================== */
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1f2f56;
+    background: #e8edf4;
+}
+header {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #dce2ec;
+    box-shadow: none;
+}
+.header-container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 1.15rem 1rem;
+}
+.logo {
+    font-size: 2.75rem;
+    letter-spacing: -0.02em;
+    color: #1c305e;
+    font-weight: 700;
+}
+.logo span {
+    color: #3a90df;
+}
+.logo em {
+    color: #df6f3a;
+    font-style: normal;
+    font-weight: 700;
+}
+.nav-links {
+    gap: 2rem;
+}
+.nav-links a {
+    background: transparent;
+    color: #1f2f56;
+    padding: 0;
+    font-size: 1.1rem;
+    border-radius: 0;
+}
+.nav-links a:hover {
+    transform: none;
+    box-shadow: none;
+    background: transparent;
+    color: #3a90df;
+}
+.partner-link {
+    display: inline-block;
+    background: linear-gradient(180deg, #5d9fd7 0%, #3f79ad 100%) !important;
+    color: #fff !important;
+    padding: 0.72rem 1.35rem !important;
+    border-radius: 0.55rem !important;
+}
+.partner-link:hover {
+    background: linear-gradient(180deg, #6da9db 0%, #4d85b7 100%) !important;
+}
+.hero {
+    padding: 2.2rem 0 7.5rem;
+    text-align: left;
+    background:
+        linear-gradient(to right, rgba(106, 162, 223, 0.58), rgba(212, 224, 245, 0.3)),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2200&q=80&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.hero::before {
+    display: none;
+}
+.hero::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 66px;
+    background: #e8edf4;
+    border-top-left-radius: 52% 100%;
+    border-top-right-radius: 48% 100%;
+}
+.hero-content {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+.hero h1 {
+    font-size: 3.15rem;
+    color: #1c305e;
+    margin-bottom: 1.2rem;
+}
+.hero p {
+    display: none;
+}
+.trip-type-tabs {
+    display: none;
+}
+.hero-search-bar {
+    background: rgba(241, 246, 252, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 40px rgba(16, 38, 88, 0.15);
+    grid-template-columns: 2.2fr 1.3fr 1.3fr auto;
+    gap: 0;
+    border-radius: 1.4rem;
+    max-width: 1150px;
+    overflow: hidden;
+    padding: 0;
+}
+.hero-search-bar .search-field {
+    background: #fff;
+    padding: 1.2rem 1.25rem;
+    border-right: 1px solid #dce2ec;
+    min-height: 72px;
+    justify-content: center;
+}
+.hero-search-bar .search-field:last-of-type {
+    display: none;
+}
+.hero-search-bar .search-field label {
+    display: none;
+}
+.hero-search-bar input,
+.hero-search-bar select {
+    font-size: 2.1rem;
+    color: #5c6372;
+    font-weight: 500;
+    padding: 0;
+    border: 0;
+}
+.hero-search-bar input::placeholder {
+    color: #7a8190;
+}
+.btn-search-hero {
+    border: 0;
+    min-width: 215px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    background: #fb8b2f;
+    border-radius: 0;
+}
+.btn-search-hero:hover {
+    background: #f17d22;
+    transform: none;
+}
+.deals-section,
+.breadcrumb,
+.filter-controls,
+.trust-section,
+.reviews-section,
+.faq-section {
+    display: none;
+}
+#destinations.section {
+    padding-top: 2.1rem;
+}
+.destinations-header h2 {
+    font-size: 3rem;
+    color: #1c305e;
+}
+.destinations-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.2rem;
+}
+.card {
+    border-radius: 0.95rem;
+    border: 1px solid #dde4ef;
+    box-shadow: none;
+    overflow: hidden;
+}
+.card:hover {
+    transform: translateY(-2px);
+}
+.card-image {
+    height: 230px;
+}
+.card-content {
+    padding: 1.05rem;
+}
+.card-reviews,
+.urgency-indicator,
+.card-description,
+.social-proof,
+.card-features,
+.btn-details {
+    display: none;
+}
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 0.2rem;
+}
+.card-country {
+    color: #4e5a75;
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+}
+.card-footer {
+    margin-top: 0.25rem;
+}
+.price-label {
+    color: #4e5a75;
+    font-size: 2rem;
+}
+.price-amount {
+    font-size: 2rem;
+    font-weight: 500;
+    color: #1f2f56;
+}
+.btn-book {
+    border-radius: 0.5rem;
+    background: #f79034;
+    padding: 0.75rem 1.15rem;
+    font-size: 1.1rem;
+}
+.btn-book:hover {
+    background: #ea7d1d;
+}
+.card[data-destination="bali"] {
+    order: 1;
+}
+.card[data-destination="paris"] {
+    order: 2;
+}
+.card[data-destination="new-york"] {
+    order: 3;
+}
+.card[data-destination="santorini"] {
+    order: 4;
+}
+.card[data-destination="tokyo"],
+.card[data-destination="dubai"] {
+    display: none !important;
+}
+footer {
+    display: none;
+}
+.demo-footer {
+    margin-top: 1.5rem;
+    border-top: 1px solid #d6deea;
+    background: #dfe6f1;
+    padding: 1.05rem 1rem;
+}
+.demo-footer-inner {
+    max-width: 1150px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+}
+.demo-footer-inner a {
+    text-decoration: none;
+    color: #516082;
+    font-size: 1.05rem;
+}
+.demo-chat {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(180deg, #58a8ef 0%, #2d7ecb 100%);
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(29, 74, 139, 0.3);
+    z-index: 1200;
+}
+.test-controls {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 1250;
+    background: rgba(18, 36, 72, 0.95);
+    color: #f8fafc;
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    width: 265px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+.test-controls h4 {
+    font-size: 0.86rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+.test-controls label {
+    display: block;
+    font-size: 0.75rem;
+    margin-bottom: 0.35rem;
+    color: #cbd5e1;
+}
+.test-controls select,
+.test-controls button {
+    width: 100%;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(203, 213, 225, 0.35);
+    padding: 0.45rem 0.6rem;
+    font-size: 0.8rem;
+    font-family: inherit;
+}
+.test-controls select {
+    background: #fff;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+.test-controls button {
+    background: #3a90df;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.test-controls .mode-badge {
+    font-size: 0.75rem;
+    margin-bottom: 0.45rem;
+    color: #fbbf24;
+}
+@media (max-width: 980px) {
+    .header-container {
+        padding: 0.9rem 0.75rem;
+    }
+    .logo {
+        font-size: 1.7rem;
+    }
+    .nav-links {
+        gap: 1rem;
+    }
+    .nav-links a {
+        font-size: 0.95rem;
+    }
+    .hero h1 {
+        font-size: 2.1rem;
+    }
+    .hero-search-bar {
+        grid-template-columns: 1fr;
+        border-radius: 1rem;
+    }
+    .hero-search-bar .search-field {
+        border-right: 0;
+        border-bottom: 1px solid #dce2ec;
+    }
+    .hero-search-bar .search-field:last-of-type {
+        display: none;
+    }
+    .btn-search-hero {
+        min-width: 0;
+        width: 100%;
+        border-radius: 0 0 1rem 1rem;
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+    .destinations-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 640px) {
+    .destinations-grid {
+        grid-template-columns: 1fr;
+    }
+    .demo-chat {
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+    .test-controls {
+        width: calc(100% - 2rem);
+        left: 1rem;
+        right: 1rem;
+    }
+}
+    </style>
+</head>
+<body>
+
+<!-- Toast Container -->
+<div class="toast-container" data-testid="toast-container" id="toast-container"></div>
+
+<!-- Header -->
+<header>
+<div class="header-container">
+<a href="#" class="logo" data-testid="logo">Ne<span>X</span>TStep <em>Travel</em></a>
+<nav>
+<ul class="nav-links">
+<li><a href="#" data-testid="nav-destinations">Home</a></li>
+<li><a href="#my-bookings" data-testid="nav-bookings">Bookings</a></li>
+<li><a href="#faq" data-testid="nav-about">About</a></li>
+<li><a href="#" class="partner-link" data-testid="partner-link">Sign In</a></li>
+</ul>
+</nav>
+<div class="user-section">
+<span class="user-email" data-testid="user-email"></span>
+
+</div>
+</div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+<div class="hero-content">
+<h1>Find your next travel destination</h1>
+<p>Compare handpicked stays and book in minutes</p>
+
+<div class="trip-type-tabs" data-testid="trip-type-tabs">
+<button class="tab-btn tooltip active" data-tab="packages" data-testid="tab-packages" data-tooltip="Flights + Hotels + Activities">Vacation Packages</button>
+<button class="tab-btn tooltip" data-tab="flights" data-testid="tab-flights" data-tooltip="Book flights only">Flights Only</button>
+<button class="tab-btn tooltip" data-tab="hotels" data-testid="tab-hotels" data-tooltip="Accommodation without flights">Hotels Only</button>
+<button class="tab-btn tooltip" data-tab="complete" data-testid="tab-complete" data-tooltip="All-inclusive luxury packages">Complete Packages</button>
+</div>
+
+<div class="hero-search-bar" data-testid="hero-search-bar">
+<div class="search-field">
+<label for="hero-destination-input">Where to?</label>
+<div style="position: relative;">
+<input type="text" 
+       id="hero-destination-input" 
+       data-testid="hero-destination-input"
+       placeholder="Where to?"
+       autocomplete="off">
+<select id="hero-destination" data-testid="hero-destination" style="display: none;">
+<option value="">Select destination</option>
+<option value="paris">Paris, France</option>
+<option value="tokyo">Tokyo, Japan</option>
+<option value="bali">Bali, Indonesia</option>
+<option value="santorini">Santorini, Greece</option>
+<option value="new-york">New York, USA</option>
+<option value="dubai">Dubai, UAE</option>
+</select>
+<div class="autocomplete-dropdown" data-testid="autocomplete-dropdown"></div>
+</div>
+</div>
+<div class="search-field">
+<label>Check-in</label>
+<input type="date" id="hero-checkin" data-testid="hero-checkin" aria-label="Check-in">
+</div>
+<div class="search-field">
+<label>Check-out</label>
+<input type="date" id="hero-checkout" data-testid="hero-checkout" aria-label="Check-out">
+</div>
+<div class="search-field" style="position: relative;">
+<label>Guests</label>
+<button class="guest-selector-btn tooltip" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="guest-dropdown-panel" data-testid="guest-selector-btn" data-tooltip="Select travelers and rooms">
+<span id="guest-display">2 adults · 1 room</span>
+</button>
+<div class="guest-dropdown" id="guest-dropdown-panel" role="dialog" aria-label="Guest selector" data-testid="guest-dropdown">
+<div class="guest-row">
+<div class="guest-label"><h4>Adults</h4><p>Age 13+</p></div>
+<div class="guest-controls">
+<button class="guest-btn" data-testid="adults-minus">−</button>
+<span class="guest-count" data-testid="adults-count">2</span>
+<button class="guest-btn" data-testid="adults-plus">+</button>
+</div>
+</div>
+<div class="guest-row">
+<div class="guest-label"><h4>Children</h4><p>Age 0-12</p></div>
+<div class="guest-controls">
+<button class="guest-btn" data-testid="children-minus">−</button>
+<span class="guest-count" data-testid="children-count">0</span>
+<button class="guest-btn" data-testid="children-plus">+</button>
+</div>
+</div>
+<div class="guest-row">
+<div class="guest-label"><h4>Rooms</h4><p>Number of rooms</p></div>
+<div class="guest-controls">
+<button class="guest-btn" data-testid="rooms-minus">−</button>
+<span class="guest-count" data-testid="rooms-count">1</span>
+<button class="guest-btn" data-testid="rooms-plus">+</button>
+</div>
+</div>
+<button class="guest-done-btn" data-testid="guest-done-btn">Done</button>
+</div>
+</div>
+<button class="btn-search-hero" data-testid="search-hero-btn">Search</button>
+</div>
+</div>
+</section>
+
+<!-- Deals -->
+<section class="deals-section" data-testid="deals-section">
+<div class="container">
+<h2>🔥 Hot Deals - Limited Time Offers</h2>
+<p class="deals-subtitle">Save big on these handpicked destinations</p>
+<div class="deals-grid">
+<div class="deal-card" data-destination="paris" data-testid="deal-card-paris">
+<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800')">
+<span class="deal-badge">-20% OFF</span>
+</div>
+<div class="deal-content">
+<h3>Paris, France</h3>
+<p class="deal-savings">Save €500</p>
+<p class="deal-expires">⏰ Expires in 3 days</p>
+<button class="btn-deal" data-testid="deal-view-btn-paris">View Deal</button>
+</div>
+</div>
+<div class="deal-card" data-destination="bali" data-testid="deal-card-bali">
+<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800')">
+<span class="deal-badge">-15% OFF</span>
+</div>
+<div class="deal-content">
+<h3>Bali, Indonesia</h3>
+<p class="deal-savings">Save €270</p>
+<p class="deal-expires">⏰ Expires in 5 days</p>
+<button class="btn-deal" data-testid="deal-view-btn-bali">View Deal</button>
+</div>
+</div>
+<div class="deal-card" data-destination="tokyo" data-testid="deal-card-tokyo">
+<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800')">
+<span class="deal-badge">-25% OFF</span>
+</div>
+<div class="deal-content">
+<h3>Tokyo, Japan</h3>
+<p class="deal-savings">Save €800</p>
+<p class="deal-expires">⏰ Expires in 2 days</p>
+<button class="btn-deal" data-testid="deal-view-btn-tokyo">View Deal</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Breadcrumb -->
+<div class="container">
+<nav class="breadcrumb" data-testid="breadcrumb">
+<a href="#" data-testid="breadcrumb-home">Home</a>
+<span class="separator">›</span>
+<a href="#destinations" data-testid="breadcrumb-destinations">Destinations</a>
+<span class="separator">›</span>
+<span class="current" data-testid="breadcrumb-current"></span>
+</nav>
+</div>
+
+<!-- Destinations -->
+<section id="destinations" class="section">
+<div class="container">
+<div class="destinations-header">
+<h2>Explore Popular Destinations</h2>
+<div class="filter-controls">
+<select class="filter-select" data-testid="filter-continent">
+<option value="">All Continents</option>
+<option value="europe">Europe</option>
+<option value="asia">Asia</option>
+<option value="north-america">North America</option>
+<option value="middle-east">Middle East</option>
+</select>
+<select class="filter-select" data-testid="filter-price">
+<option value="">All Prices</option>
+<option value="budget">Budget (Under €1000)</option>
+<option value="mid">Mid-range (€1000-€2000)</option>
+<option value="luxury">Luxury (€2000+)</option>
+</select>
+</div>
+</div>
+<div class="destinations-grid" data-testid="destinations-grid">
+
+<!-- Paris Card -->
+<div class="card" data-continent="europe" data-price="1999" data-destination="paris" data-testid="destination-card-paris">
+<img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800" alt="Paris" class="card-image">
+<div class="card-content">
+<div class="card-header">
+<div>
+<h3 class="card-title">Paris</h3>
+<p class="card-country">France</p>
+</div>
+</div>
+<div class="card-reviews" data-testid="card-reviews">
+<span class="review-score" data-testid="review-score">9.2</span>
+<span class="review-rating">Exceptional</span>
+<span class="review-count" data-testid="review-count">(1,247 reviews)</span>
+</div>
+<div class="urgency-indicator" data-testid="urgency-indicator">
+<span>⚡</span>
+<span class="urgency-text">Only 3 rooms left at this price!</span>
+</div>
+<p class="card-description">Experience the magic of the City of Light with iconic landmarks and world-class cuisine.</p>
+<p class="social-proof">🔥 158 people booked this in the last 24 hours</p>
+<div class="card-features">
+<span class="feature-tag">🏨 4-Star Hotel</span>
+<span class="feature-tag">✈️ Direct Flights</span>
+<span class="feature-tag">🍽️ Breakfast Included</span>
+</div>
+<div class="card-footer">
+<div class="card-price">
+<span class="price-label">From</span>
+<span class="price-amount">€225/night</span>
+</div>
+<div style="display: flex; gap: 0.5rem; flex-direction: column;">
+<button class="btn-book" data-testid="book-btn-paris">Book Now</button>
+<button class="btn-details" data-testid="view-details-paris" onclick="openDestinationDetails('paris')">View Full Details →</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Tokyo Card -->
+<div class="card" data-continent="asia" data-price="2499" data-destination="tokyo" data-testid="destination-card-tokyo">
+<img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800" alt="Tokyo" class="card-image">
+<div class="card-content">
+<div class="card-header">
+<div>
+<h3 class="card-title">Tokyo</h3>
+<p class="card-country">Japan</p>
+</div>
+</div>
+<div class="card-reviews" data-testid="card-reviews">
+<span class="review-score" data-testid="review-score">9.5</span>
+<span class="review-rating">Superb</span>
+<span class="review-count" data-testid="review-count">(2,891 reviews)</span>
+</div>
+<div class="urgency-indicator" data-testid="urgency-indicator">
+<span>⚡</span>
+<span class="urgency-text">Last booked 12 minutes ago</span>
+</div>
+<p class="card-description">Discover the perfect blend of ancient tradition and cutting-edge technology.</p>
+<p class="social-proof">🔥 203 people viewing this right now</p>
+<div class="card-features">
+<span class="feature-tag">🏨 5-Star Hotel</span>
+<span class="feature-tag">✈️ Premium Economy</span>
+<span class="feature-tag">🎫 City Pass Included</span>
+</div>
+<div class="card-footer">
+<div class="card-price">
+<span class="price-label">From</span>
+<span class="price-amount">€2,499</span>
+</div>
+<div style="display: flex; gap: 0.5rem; flex-direction: column;">
+<button class="btn-book" data-testid="book-btn-tokyo">Book Now</button>
+<button class="btn-details" data-testid="view-details-tokyo" onclick="openDestinationDetails('tokyo')">View Full Details →</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Bali Card -->
+<div class="card" data-continent="asia" data-price="1299" data-destination="bali" data-testid="destination-card-bali">
+<img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800" alt="Bali" class="card-image">
+<div class="card-content">
+<div class="card-header">
+<div>
+<h3 class="card-title">Bali</h3>
+<p class="card-country">Indonesia</p>
+</div>
+</div>
+<div class="card-reviews" data-testid="card-reviews">
+<span class="review-score" data-testid="review-score">8.9</span>
+<span class="review-rating">Fabulous</span>
+<span class="review-count" data-testid="review-count">(3,456 reviews)</span>
+</div>
+<div class="urgency-indicator" data-testid="urgency-indicator">
+<span>⚡</span>
+<span class="urgency-text">High demand - 5 left!</span>
+</div>
+<p class="card-description">Paradise beaches, lush rice terraces, and spiritual tranquility await you.</p>
+<p class="social-proof">🔥 89 people booked this in the last 24 hours</p>
+<div class="card-features">
+<span class="feature-tag">🏨 Beach Resort</span>
+<span class="feature-tag">✈️ Economy Class</span>
+<span class="feature-tag">🧘 Spa Package</span>
+</div>
+<div class="card-footer">
+<div class="card-price">
+<span class="price-label">From</span>
+<span class="price-amount">€150/night</span>
+</div>
+<div style="display: flex; gap: 0.5rem; flex-direction: column;">
+<button class="btn-book" data-testid="book-btn-bali">Book Now</button>
+<button class="btn-details" data-testid="view-details-bali" onclick="openDestinationDetails('bali')">View Full Details →</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Santorini Card -->
+<div class="card" data-continent="europe" data-price="1799" data-destination="santorini" data-testid="destination-card-santorini">
+<img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800" alt="Cape Town" class="card-image">
+<div class="card-content">
+<div class="card-header">
+<div>
+<h3 class="card-title">Cape Town</h3>
+<p class="card-country">South Africa</p>
+</div>
+</div>
+<div class="card-reviews" data-testid="card-reviews">
+<span class="review-score" data-testid="review-score">9.4</span>
+<span class="review-rating">Wonderful</span>
+<span class="review-count" data-testid="review-count">(1,982 reviews)</span>
+</div>
+<div class="urgency-indicator" data-testid="urgency-indicator">
+<span>⚡</span>
+<span class="urgency-text">In high demand!</span>
+</div>
+<p class="card-description">Stunning sunsets, white-washed buildings, and crystal-clear Aegean waters.</p>
+<p class="social-proof">🔥 127 people viewing this right now</p>
+<div class="card-features">
+<span class="feature-tag">🏨 Luxury Villa</span>
+<span class="feature-tag">✈️ Business Class</span>
+<span class="feature-tag">🍷 Wine Tour Included</span>
+</div>
+<div class="card-footer">
+<div class="card-price">
+<span class="price-label">From</span>
+<span class="price-amount">€160/night</span>
+</div>
+<div style="display: flex; gap: 0.5rem; flex-direction: column;">
+<button class="btn-book" data-testid="book-btn-santorini">Book Now</button>
+<button class="btn-details" data-testid="view-details-santorini" onclick="openDestinationDetails('santorini')">View Full Details →</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- New York Card -->
+<div class="card" data-continent="north-america" data-price="2199" data-destination="new-york" data-testid="destination-card-new-york">
+<img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800" alt="New York" class="card-image">
+<div class="card-content">
+<div class="card-header">
+<div>
+<h3 class="card-title">New York</h3>
+<p class="card-country">USA</p>
+</div>
+</div>
+<div class="card-reviews" data-testid="card-reviews">
+<span class="review-score" data-testid="review-score">9.1</span>
+<span class="review-rating">Superb</span>
+<span class="review-count" data-testid="review-count">(4,521 reviews)</span>
+</div>
+<div class="urgency-indicator" data-testid="urgency-indicator">
+<span>⚡</span>
+<span class="urgency-text">Only 2 packages left!</span>
+</div>
+<p class="card-description">The city that never sleeps - Broadway, Central Park, and endless excitement.</p>
+<p class="social-proof">🔥 245 people booked this in the last 24 hours</p>
+<div class="card-features">
+<span class="feature-tag">🏨 Manhattan Hotel</span>
+<span class="feature-tag">✈️ Premium Economy</span>
+<span class="feature-tag">🎭 Broadway Show</span>
+</div>
+<div class="card-footer">
+<div class="card-price">
+<span class="price-label">From</span>
+<span class="price-amount">€180/night</span>
+</div>
+<div style="display: flex; gap: 0.5rem; flex-direction: column;">
+<button class="btn-book" data-testid="book-btn-new-york">Book Now</button>
+<button class="btn-details" data-testid="view-details-new-york" onclick="openDestinationDetails('new-york')">View Full Details →</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Dubai Card -->
+<div class="card" data-continent="middle-east" data-price="1899" data-destination="dubai" data-testid="destination-card-dubai">
+<img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800" alt="Dubai" class="card-image">
+<div class="card-content">
+<div class="card-header">
+<div>
+<h3 class="card-title">Dubai</h3>
+<p class="card-country">UAE</p>
+</div>
+</div>
+<div class="card-reviews" data-testid="card-reviews">
+<span class="review-score" data-testid="review-score">9.3</span>
+<span class="review-rating">Exceptional</span>
+<span class="review-count" data-testid="review-count">(2,134 reviews)</span>
+</div>
+<div class="urgency-indicator" data-testid="urgency-indicator">
+<span>⚡</span>
+<span class="urgency-text">Selling fast!</span>
+</div>
+<p class="card-description">Luxury shopping, ultramodern architecture, and Arabian hospitality.</p>
+<p class="social-proof">🔥 176 people viewing this right now</p>
+<div class="card-features">
+<span class="feature-tag">🏨 5-Star Resort</span>
+<span class="feature-tag">✈️ Business Class</span>
+<span class="feature-tag">🎢 Theme Park Access</span>
+</div>
+<div class="card-footer">
+<div class="card-price">
+<span class="price-label">From</span>
+<span class="price-amount">€1,899</span>
+</div>
+<div style="display: flex; gap: 0.5rem; flex-direction: column;">
+<button class="btn-book" data-testid="book-btn-dubai">Book Now</button>
+<button class="btn-details" data-testid="view-details-dubai" onclick="openDestinationDetails('dubai')">View Full Details →</button>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- Trust Section -->
+<section class="trust-section" data-testid="trust-section">
+<div class="container">
+<h2>Why Book With NextStepTravel?</h2>
+<div class="trust-grid">
+<div class="trust-item">
+<div class="trust-icon">✓</div>
+<h3>Free Cancellation</h3>
+<p>Cancel up to 24 hours before travel</p>
+</div>
+<div class="trust-item">
+<div class="trust-icon">💰</div>
+<h3>Best Price Guarantee</h3>
+<p>Find it cheaper? We'll match it</p>
+</div>
+<div class="trust-item">
+<div class="trust-icon">🛡️</div>
+<h3>Secure Payment</h3>
+<p>256-bit encryption on all transactions</p>
+</div>
+<div class="trust-item">
+<div class="trust-icon">📞</div>
+<h3>24/7 Support</h3>
+<p>We're here when you need us</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Customer Reviews (Shadow DOM Components) -->
+<section class="reviews-section" data-testid="reviews-section">
+<div class="container">
+<h2>What Our Travelers Say</h2>
+<p class="reviews-subtitle">Real reviews from real adventurers — powered by custom web components</p>
+<div class="reviews-grid" data-testid="reviews-grid">
+
+<travel-review 
+    data-testid="review-sarah"
+    author="Sarah M."
+    location="Dublin, Ireland"
+    destination="Paris"
+    rating="5"
+    date="2025-12-15"
+    text="Absolutely magical trip! The hotel was stunning and the included breakfast was a lovely touch. NextStepTravel made everything so easy — from booking to check-in, it was seamless."
+    avatar="SM"
+    verified="true"
+></travel-review>
+
+<travel-review 
+    data-testid="review-james"
+    author="James K."
+    location="London, UK"
+    destination="Tokyo"
+    rating="4"
+    date="2025-11-28"
+    text="Tokyo was incredible. The city pass included in the package saved us a fortune. Only minor issue was the flight had a short layover, but everything else was perfect."
+    avatar="JK"
+    verified="true"
+></travel-review>
+
+<travel-review 
+    data-testid="review-maria"
+    author="Maria L."
+    location="Barcelona, Spain"
+    destination="Bali"
+    rating="5"
+    date="2025-12-02"
+    text="Paradise found! The beach resort was even better than the photos. The spa package was a wonderful bonus. Will definitely book with NextStepTravel again."
+    avatar="ML"
+    verified="false"
+></travel-review>
+
+<travel-review 
+    data-testid="review-tom"
+    author="Tom W."
+    location="New York, USA"
+    destination="Santorini"
+    rating="5"
+    date="2025-10-19"
+    text="The villa was breathtaking — sunset views right from our balcony. The wine tour was a highlight. Business class made the journey itself a treat."
+    avatar="TW"
+    verified="true"
+></travel-review>
+
+<travel-review 
+    data-testid="review-aisha"
+    author="Aisha R."
+    location="Dubai, UAE"
+    destination="New York"
+    rating="4"
+    date="2025-11-05"
+    text="New York at Christmas is something everyone should experience. The Broadway show included in our package was Les Misérables — unforgettable! Hotel location was great."
+    avatar="AR"
+    verified="true"
+></travel-review>
+
+<travel-review 
+    data-testid="review-chen"
+    author="Chen W."
+    location="Singapore"
+    destination="Dubai"
+    rating="5"
+    date="2025-12-20"
+    text="Dubai exceeded all expectations. The 5-star resort was world-class, and the theme park access was a hit with the whole family. Flawless organization by NextStepTravel."
+    avatar="CW"
+    verified="true"
+></travel-review>
+
+</div>
+</div>
+</section>
+
+<!-- FAQ Accordion -->
+<section class="faq-section" data-testid="faq-section">
+<div class="container">
+<h2>Frequently Asked Questions</h2>
+<p class="faq-subtitle">Everything you need to know about booking with NextStepTravel</p>
+<div class="accordion" data-testid="accordion">
+
+<div class="accordion-item" data-testid="accordion-item-cancellation">
+<button class="accordion-trigger" data-testid="accordion-trigger-cancellation" aria-expanded="false" aria-controls="accordion-content-cancellation">
+<span>What is your cancellation policy?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content" id="accordion-content-cancellation" data-testid="accordion-content-cancellation" role="region">
+<div class="accordion-body">
+You can cancel your booking free of charge up to 24 hours before your scheduled check-in date. Cancellations made within 24 hours of check-in may be subject to a fee equivalent to one night's stay. Refunds are processed within 5-10 business days to your original payment method.
+</div>
+</div>
+</div>
+
+<div class="accordion-item" data-testid="accordion-item-payment">
+<button class="accordion-trigger" data-testid="accordion-trigger-payment" aria-expanded="false" aria-controls="accordion-content-payment">
+<span>What payment methods do you accept?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content" id="accordion-content-payment" data-testid="accordion-content-payment" role="region">
+<div class="accordion-body">
+We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers. All transactions are secured with 256-bit encryption. For bank transfers, please allow 2-3 business days for processing before your booking is confirmed.
+</div>
+</div>
+</div>
+
+<div class="accordion-item" data-testid="accordion-item-documents">
+<button class="accordion-trigger" data-testid="accordion-trigger-documents" aria-expanded="false" aria-controls="accordion-content-documents">
+<span>What travel documents do I need?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content" id="accordion-content-documents" data-testid="accordion-content-documents" role="region">
+<div class="accordion-body">
+Requirements vary by destination. Generally, you will need a valid passport with at least 6 months remaining validity. Some destinations may require a visa. We recommend checking the entry requirements for your specific destination during the booking process. You can upload copies of your documents when completing your booking.
+</div>
+</div>
+</div>
+
+<div class="accordion-item" data-testid="accordion-item-changes">
+<button class="accordion-trigger" data-testid="accordion-trigger-changes" aria-expanded="false" aria-controls="accordion-content-changes">
+<span>Can I modify my booking after confirmation?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content" id="accordion-content-changes" data-testid="accordion-content-changes" role="region">
+<div class="accordion-body">
+Yes, you can modify your booking dates, traveler details, and special requests up to 48 hours before check-in at no extra charge. Changes to the destination or package type may incur a rebooking fee. Contact our 24/7 support team or use the "My Bookings" section to request changes.
+</div>
+</div>
+</div>
+
+<div class="accordion-item" data-testid="accordion-item-insurance">
+<button class="accordion-trigger" data-testid="accordion-trigger-insurance" aria-expanded="false" aria-controls="accordion-content-insurance">
+<span>Is travel insurance included in the package?</span>
+<span class="accordion-icon">▼</span>
+</button>
+<div class="accordion-content" id="accordion-content-insurance" data-testid="accordion-content-insurance" role="region">
+<div class="accordion-body">
+Basic travel insurance covering trip cancellation and medical emergencies is included with all Complete Packages. For Vacation Packages and standalone bookings, travel insurance can be added during checkout for an additional fee. We strongly recommend travel insurance for all international trips.
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- Bookings -->
+<section id="my-bookings" class="section">
+<div class="container">
+<div class="bookings-section">
+<h2>My Bookings</h2>
+<div class="table-container">
+<table data-testid="bookings-table">
+<thead>
+<tr>
+<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="booking-id" data-testid="sort-booking-id">Booking ID</th>
+<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="destination" data-testid="sort-destination">Destination</th>
+<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="date" data-testid="sort-date">Travel Date</th>
+<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="price" data-testid="sort-price">Price</th>
+<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="status" data-testid="sort-status">Status</th>
+</tr>
+</thead>
+<tbody data-testid="bookings-tbody"></tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Booking Modal -->
+<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-testid="booking-modal">
+<div class="modal-content">
+<div class="modal-header">
+<h2 id="modal-title" data-testid="modal-title">Complete Your Booking</h2>
+<button class="btn-close" data-testid="close-modal">&times;</button>
+</div>
+<div class="modal-body">
+<form id="booking-form" data-testid="booking-form">
+<div class="booking-summary">
+<h3 id="booking-destination-name">Paris, France</h3>
+<div class="summary-row">
+<span>Package Price:</span>
+<span id="summary-price">€1,999</span>
+</div>
+<div class="summary-row">
+<span>Taxes & Fees:</span>
+<span>€199</span>
+</div>
+<div class="summary-row total">
+<span>Total:</span>
+<span id="summary-total">€2,198</span>
+</div>
+</div>
+
+<h3>Personal Information</h3>
+<div class="form-group">
+<label for="full-name">Full Name *</label>
+<input type="text" id="full-name" data-testid="full-name" required>
+<span class="error-message" data-testid="error-full-name">Please enter your full name</span>
+</div>
+<div class="form-group">
+<label for="email">Email Address *</label>
+<input type="email" id="email" data-testid="email" required>
+<span class="error-message" data-testid="error-email">Please enter a valid email address</span>
+</div>
+<div class="form-group">
+<label for="phone">Phone Number *</label>
+<input type="tel" id="phone" data-testid="phone" required>
+<span class="error-message" data-testid="error-phone">Please enter a valid phone number</span>
+</div>
+
+<h3>Travel Dates</h3>
+<div class="date-range-picker">
+<div class="form-group">
+<label for="checkin-date">Check-in Date *</label>
+<input type="date" id="checkin-date" data-testid="checkin-date" required>
+<span class="error-message" data-testid="error-checkin">Please select a check-in date</span>
+</div>
+<div class="form-group">
+<label for="checkout-date">Check-out Date *</label>
+<input type="date" id="checkout-date" data-testid="checkout-date" required>
+<span class="error-message" data-testid="error-checkout">Please select a check-out date</span>
+</div>
+<div class="duration-display" data-testid="duration-display">
+<span id="trip-duration">Select dates to see duration</span>
+</div>
+</div>
+
+<div class="form-group">
+<label for="travelers">Number of Travelers *</label>
+<select id="travelers" data-testid="travelers" required>
+<option value="1">1 Traveler</option>
+<option value="2" selected>2 Travelers</option>
+<option value="3">3 Travelers</option>
+<option value="4">4 Travelers</option>
+<option value="5+">5+ Travelers</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="special-requests">Special Requests (Optional)</label>
+<textarea id="special-requests" data-testid="special-requests" placeholder="Any dietary requirements, accessibility needs, etc."></textarea>
+</div>
+
+<h3>Payment Method</h3>
+<div class="payment-methods">
+<label class="payment-option selected" data-testid="payment-credit-card">
+<input type="radio" name="payment" value="credit-card" checked>
+<div>💳 Credit Card</div>
+</label>
+<label class="payment-option" data-testid="payment-paypal">
+<input type="radio" name="payment" value="paypal">
+<div>🅿️ PayPal</div>
+</label>
+<label class="payment-option" data-testid="payment-bank">
+<input type="radio" name="payment" value="bank-transfer">
+<div>🏦 Bank Transfer</div>
+</label>
+</div>
+
+<h3>Travel Documents (Optional)</h3>
+<div class="upload-area" role="button" tabindex="0" aria-label="Upload travel documents" data-testid="upload-area">
+<div class="upload-icon">📄</div>
+<p class="upload-text">Drag and drop files here or click to browse</p>
+<p style="color: var(--text-light); font-size: 0.875rem;">PDF, JPG, PNG (Max 5MB)</p>
+<input type="file" class="file-input" data-testid="file-input" accept=".pdf,.jpg,.jpeg,.png" multiple>
+</div>
+<div class="file-list" data-testid="file-list"></div>
+<div class="upload-errors" role="alert" aria-live="polite" data-testid="upload-errors"></div>
+
+<!-- Terms & Conditions (Iframe) -->
+<div class="terms-iframe-section" data-testid="terms-iframe-section">
+<div class="terms-iframe-header">
+<span>Terms & Conditions</span>
+<span>Please read before confirming</span>
+</div>
+<div class="terms-iframe-container" data-testid="terms-iframe-container">
+<iframe 
+    id="terms-iframe"
+    data-testid="terms-iframe"
+    title="Booking Terms and Conditions"
+    srcdoc="
+    <!DOCTYPE html>
+    <html lang='en'>
+    <head>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 1.25rem; line-height: 1.7; color: #374151; font-size: 0.875rem; }
+        h2 { font-size: 1.125rem; color: #1f2937; margin-bottom: 0.75rem; }
+        h3 { font-size: 0.9375rem; color: #1f2937; margin: 1rem 0 0.5rem; }
+        p { margin-bottom: 0.75rem; }
+        ul { margin: 0.5rem 0 0.75rem 1.5rem; }
+        li { margin-bottom: 0.25rem; }
+        .highlight { background: #fef3c7; padding: 0.75rem; border-radius: 6px; border-left: 3px solid #f59e0b; margin: 1rem 0; }
+        .section { border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem; }
+        button { background: #0071c2; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; }
+        button:hover { background: #00528a; }
+        .footer { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; font-size: 0.75rem; color: #9ca3af; }
+    </style>
+    </head>
+    <body>
+        <h2 data-testid='terms-title'>NextStepTravel Booking Terms &amp; Conditions</h2>
+        <p>Last updated: January 2026</p>
+        
+        <div class='section'>
+            <h3 data-testid='terms-section-booking'>1. Booking Confirmation</h3>
+            <p>Your booking is confirmed upon receipt of payment. A confirmation email with your booking reference number will be sent within 24 hours.</p>
+            <ul>
+                <li data-testid='terms-item-confirmation'>Booking confirmation is subject to availability</li>
+                <li>A valid email address is required for all bookings</li>
+                <li>Booking references begin with BKG- followed by a unique identifier</li>
+            </ul>
+        </div>
+        
+        <div class='section'>
+            <h3 data-testid='terms-section-cancellation'>2. Cancellation Policy</h3>
+            <p>Free cancellation is available up to 24 hours before your scheduled check-in date.</p>
+            <div class='highlight'>
+                <strong>Important:</strong> Cancellations within 24 hours of check-in are subject to a fee equal to one night's accommodation cost.
+            </div>
+        </div>
+        
+        <div class='section'>
+            <h3 data-testid='terms-section-payment'>3. Payment Terms</h3>
+            <p>All prices are displayed in EUR. Payment is processed securely through our encrypted payment gateway.</p>
+            <ul>
+                <li>Credit cards: Visa, Mastercard, American Express</li>
+                <li>PayPal payments are processed immediately</li>
+                <li data-testid='terms-item-bank'>Bank transfers require 2-3 business days</li>
+            </ul>
+        </div>
+        
+        <div class='section'>
+            <h3>4. Travel Documents</h3>
+            <p>Travelers are responsible for ensuring valid travel documents. NextStepTravel does not guarantee visa approval or entry to any destination.</p>
+        </div>
+        
+        <div class='section'>
+            <h3>5. Liability</h3>
+            <p>NextStepTravel acts as an intermediary between travelers and service providers. We are not liable for third-party service failures but will assist in resolution.</p>
+        </div>
+        
+        <div>
+            <h3>6. Contact</h3>
+            <p>For questions about these terms, contact us at <strong data-testid='terms-email'>support@nextsteptravel.com</strong> or call our 24/7 helpline.</p>
+            <button data-testid='terms-accept-btn' onclick='window.parent.postMessage({type: &quot;terms-accepted&quot;}, window.location.origin === &quot;null&quot; ? &quot;*&quot; : window.location.origin)'>I Accept These Terms</button>
+        </div>
+        
+        <div class='footer'>
+            <p>&copy; 2025 NextStepTravel. All rights reserved. This is a demo application for QA automation testing.</p>
+        </div>
+    </body>
+    </html>
+    "
+></iframe>
+</div>
+<div class="terms-agree">
+<input type="checkbox" id="agree-terms-booking" data-testid="agree-terms-booking">
+<label for="agree-terms-booking">I have read and agree to the Terms & Conditions</label>
+</div>
+</div>
+
+<div class="form-actions">
+<button type="button" class="btn-secondary" data-testid="cancel-booking">Cancel</button>
+<button type="submit" class="btn-primary" data-testid="submit-booking">Confirm Booking</button>
+</div>
+</form>
+
+<div class="success-message hidden" data-testid="success-message">
+<h3>🎉 Booking Confirmed!</h3>
+<p>Your booking has been successfully processed.</p>
+<div class="booking-details">
+<div class="detail-row">
+<span>Booking ID:</span>
+<strong id="confirmed-booking-id">BKG-12345</strong>
+</div>
+<div class="detail-row">
+<span>Destination:</span>
+<strong id="confirmed-destination">Paris, France</strong>
+</div>
+<div class="detail-row">
+<span>Travel Date:</span>
+<strong id="confirmed-date">June 15, 2025</strong>
+</div>
+<div class="detail-row">
+<span>Total Paid:</span>
+<strong id="confirmed-total">€2,198</strong>
+</div>
+</div>
+<p style="margin-top: 1rem;">A confirmation email has been sent to your registered email address.</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer style="background: #f5f5f5; border-top: 1px solid #e0e0e0; margin-top: 4rem;">
+  <div class="container" style="padding: 3rem 2rem;">
+    
+    <!-- Popular Destinations -->
+    <div style="margin-bottom: 3rem;">
+      <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+        <button class="tab-btn active" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Domestic cities</button>
+        <button class="tab-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">International cities</button>
+        <button class="tab-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Regions</button>
+        <button class="tab-btn" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Countries</button>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
+        <a href="#" data-testid="footer-dublin" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Dublin hotels</a>
+        <a href="#" data-testid="footer-galway" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Galway hotels</a>
+        <a href="#" data-testid="footer-cork" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Cork hotels</a>
+        <a href="#" data-testid="footer-killarney" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Killarney hotels</a>
+        <a href="#" data-testid="footer-limerick" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Limerick hotels</a>
+        <a href="#" data-testid="footer-waterford" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Waterford hotels</a>
+        <a href="#" data-testid="footer-kilkenny" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Kilkenny hotels</a>
+        <a href="#" data-testid="footer-dingle" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Dingle hotels</a>
+        <a href="#" data-testid="footer-wexford" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Wexford hotels</a>
+        <a href="#" data-testid="footer-ennis" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Ennis hotels</a>
+      </div>
+      
+      <button style="color: #0071c2; background: none; border: none; font-size: 0.875rem; margin-top: 1rem; cursor: pointer;" data-testid="footer-show-more">+ Show more</button>
+    </div>
+    
+    <!-- Quick Links Sections -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; padding: 2rem 0; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">
+      
+      <!-- Support -->
+      <div>
+        <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; color: #333;">Support</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="#" data-testid="footer-manage-trips" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Manage your trips</a>
+          <a href="#" data-testid="footer-contact" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Contact Customer Service</a>
+          <a href="#" data-testid="footer-safety" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Safety resource centre</a>
+        </div>
+      </div>
+      
+      <!-- Discover -->
+      <div>
+        <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; color: #333;">Discover</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="#" data-testid="footer-loyalty" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Genius loyalty programme</a>
+          <a href="#" data-testid="footer-deals" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Seasonal and holiday deals</a>
+          <a href="#" data-testid="footer-articles" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Travel articles</a>
+          <a href="#" data-testid="footer-reviews" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Traveller Review Awards</a>
+        </div>
+      </div>
+      
+      <!-- Terms and settings -->
+      <div>
+        <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; color: #333;">Terms and settings</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="#" data-testid="footer-privacy" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Privacy Notice</a>
+          <a href="#" data-testid="footer-terms" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Terms of Service</a>
+          <a href="#" data-testid="footer-accessibility" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Accessibility Statement</a>
+          <a href="#" data-testid="footer-cookies" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Manage cookie settings</a>
+        </div>
+      </div>
+      
+      <!-- Partners -->
+      <div>
+        <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; color: #333;">Partners</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="#" data-testid="footer-extranet" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Extranet login</a>
+          <a href="#" data-testid="footer-partner-help" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Partner help</a>
+          <a href="#" data-testid="footer-list-property" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">List your property</a>
+          <a href="#" data-testid="footer-affiliate" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Become an affiliate</a>
+        </div>
+      </div>
+      
+      <!-- About -->
+      <div>
+        <h4 style="font-size: 0.875rem; font-weight: 600; margin-bottom: 1rem; color: #333;">About</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <a href="#" data-testid="footer-about" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">About NextStepTravel</a>
+          <a href="#" data-testid="footer-how-we-work" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">How we work</a>
+          <a href="#" data-testid="footer-sustainability" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Sustainability</a>
+          <a href="#" data-testid="footer-careers" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Careers</a>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Copyright & Language -->
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div style="font-size: 0.75rem; color: #6b7280;">
+        © 2025 NextStepTravel™. All rights reserved. | Demo application for QA automation testing.
+      </div>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1.25rem;">🇮🇪</span>
+        <select data-testid="footer-currency" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.875rem;">
+          <option>EUR</option>
+          <option>USD</option>
+          <option>GBP</option>
+        </select>
+        <select data-testid="footer-language" style="border: 1px solid #d1d5db; border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.875rem; margin-left: 0.5rem;">
+          <option>English (IE)</option>
+          <option>English (US)</option>
+          <option>English (UK)</option>
+        </select>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+<div class="demo-footer" data-testid="demo-footer">
+  <div class="demo-footer-inner">
+    <a href="#" data-testid="demo-footer-privacy">Privacy Policy</a>
+    <a href="#" data-testid="demo-footer-terms">Terms of Service</a>
+    <a href="#" data-testid="demo-footer-support">Support</a>
+  </div>
+</div>
+
+<button class="demo-chat" data-testid="demo-chat-btn" aria-label="Open chat support">💬</button>
+<div class="test-controls" data-testid="test-controls">
+  <h4>Automation Lab</h4>
+  <div class="mode-badge" data-testid="test-mode-badge"></div>
+  <label for="api-scenario-select">Mock API Scenario</label>
+  <select id="api-scenario-select" data-testid="api-scenario-select">
+    <option value="normal">Normal responses</option>
+    <option value="error-500">Server error (500)</option>
+    <option value="validation-400">Validation error (400)</option>
+    <option value="timeout">Timeout simulation</option>
+  </select>
+  <button type="button" id="reset-app-state-btn" data-testid="reset-app-state-btn">Reset App State</button>
+</div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" data-testid="loading-overlay">
+<div style="text-align: center;">
+<div class="spinner" data-testid="loading-spinner"></div>
+<div class="loading-text" data-testid="loading-text">Processing your booking...</div>
+</div>
+</div>
+
+<script>
+// NextStepTravel v2.4 - Complete JavaScript
+
+// State
+let currentUser = null;
+let bookings = [];
+let uploadedFiles = [];
+let currentDestination = null;
+let currentSort = { column: null, direction: 'asc' };
+let guestConfig = { adults: 2, children: 0, rooms: 1 };
+let uploadErrors = [];
+
+const urlParams = new URLSearchParams(window.location.search);
+const APP_CONFIG = {
+    testMode: urlParams.get('testMode') === '1' || localStorage.getItem('appTestMode') === '1',
+    mockScenario: urlParams.get('apiScenario') || localStorage.getItem('apiScenario') || 'normal'
+};
+window.__apiScenario = APP_CONFIG.mockScenario;
+
+function delayFor(ms) {
+    return APP_CONFIG.testMode ? 0 : ms;
+}
+
+function schedule(fn, ms) {
+    return setTimeout(fn, delayFor(ms));
+}
+
+function parsePriceToNumber(priceText) {
+    const value = parseInt(String(priceText).replace(/[^\d]/g, ''), 10);
+    return Number.isFinite(value) ? value : 0;
+}
+
+// ========================================
+// TOAST NOTIFICATION SYSTEM
+// ========================================
+let toastId = 0;
+
+function showToast(type, title, message, duration = 5000) {
+    const container = document.getElementById('toast-container');
+    const id = `toast-${++toastId}`;
+    
+    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+    
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    toast.id = id;
+    toast.setAttribute('data-testid', `toast-${type}`);
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `
+        <span class="toast-icon">${icons[type] || icons.info}</span>
+        <div class="toast-body">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close" data-testid="toast-close" aria-label="Dismiss notification">&times;</button>
+        <div class="toast-progress">
+            <div class="toast-progress-bar" style="width: 100%;"></div>
+        </div>
+    `;
+    
+    container.appendChild(toast);
+    
+    // Trigger slide-in animation
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            toast.classList.add('show');
+        });
+    });
+    
+    // Progress bar countdown
+    const progressBar = toast.querySelector('.toast-progress-bar');
+    progressBar.style.transition = `width ${duration}ms linear`;
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            progressBar.style.width = '0%';
+        });
+    });
+    
+    // Close button
+    toast.querySelector('.toast-close').addEventListener('click', () => removeToast(toast));
+    
+    // Auto-remove after duration
+    const timer = schedule(() => removeToast(toast), duration);
+    toast.dataset.timer = timer;
+    
+    return toast;
+}
+
+function removeToast(toast) {
+    if (!toast || !toast.parentNode) return;
+    clearTimeout(parseInt(toast.dataset.timer));
+    toast.classList.remove('show');
+    toast.classList.add('removing');
+    schedule(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 300);
+}
+
+// ========================================
+// SKELETON LOADING
+// ========================================
+function showSkeletonLoading() {
+    const grid = document.querySelector('[data-testid="destinations-grid"]');
+    const realCards = grid.querySelectorAll('.card');
+    
+    // Hide real cards
+    realCards.forEach(card => card.style.display = 'none');
+    
+    // Insert 6 skeleton cards
+    for (let i = 0; i < 6; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'skeleton-card';
+        skeleton.setAttribute('data-testid', `skeleton-card-${i}`);
+        skeleton.innerHTML = `
+            <div class="skeleton skeleton-image"></div>
+            <div class="skeleton-content">
+                <div class="skeleton skeleton-line title"></div>
+                <div class="skeleton skeleton-line short"></div>
+                <div class="skeleton skeleton-line long"></div>
+                <div class="skeleton skeleton-line long"></div>
+                <div class="skeleton skeleton-line medium"></div>
+                <div class="skeleton skeleton-btn skeleton"></div>
+            </div>
+        `;
+        grid.appendChild(skeleton);
+    }
+}
+
+function hideSkeletonLoading() {
+    const grid = document.querySelector('[data-testid="destinations-grid"]');
+    
+    // Remove skeleton cards
+    grid.querySelectorAll('.skeleton-card').forEach(s => s.remove());
+    
+    // Reveal real cards with a staggered fade-in
+    const realCards = grid.querySelectorAll('.card');
+    realCards.forEach((card, i) => {
+        card.style.display = 'flex';
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        
+        schedule(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, i * 100);
+    });
+}
+
+// ========================================
+// ACCORDION
+// ========================================
+function initAccordion() {
+    const triggers = document.querySelectorAll('.accordion-trigger');
+    
+    triggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const item = trigger.closest('.accordion-item');
+            const content = item.querySelector('.accordion-content');
+            const isOpen = item.classList.contains('active');
+            
+            // Close all items
+            document.querySelectorAll('.accordion-item').forEach(accItem => {
+                accItem.classList.remove('active');
+                accItem.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+                accItem.querySelector('.accordion-content').style.maxHeight = null;
+            });
+            
+            // Open clicked item (if it wasn't already open)
+            if (!isOpen) {
+                item.classList.add('active');
+                trigger.setAttribute('aria-expanded', 'true');
+                content.style.maxHeight = content.scrollHeight + 'px';
+            }
+        });
+    });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // checkAuth(); // Removed — public access for course students
+    initEventListeners();
+    initGuestSelector();
+    initDatePickers();
+    loadBookings();
+    updateGuestDisplay();
+    setDefaultDates();
+    initAccordion();
+    initAutomationLabControls();
+    applyTestModeState();
+    
+    // Skeleton loading: show skeletons, then reveal real content after simulated load
+    showSkeletonLoading();
+    schedule(() => {
+        hideSkeletonLoading();
+        showToast('info', 'Destinations loaded', '6 destinations available. Happy browsing!', 3000);
+    }, 1800);
+});
+
+function checkAuth() {
+    // Auth removed — app is publicly accessible
+    const user = localStorage.getItem('currentUser');
+    if (user) {
+        currentUser = JSON.parse(user);
+        document.querySelector('[data-testid="user-email"]').textContent = currentUser.email;
+    }
+}
+
+function setMockScenario(scenario) {
+    window.__apiScenario = scenario || 'normal';
+    localStorage.setItem('apiScenario', window.__apiScenario);
+}
+
+function applyTestModeState() {
+    const badge = document.querySelector('[data-testid="test-mode-badge"]');
+    if (badge) {
+        badge.textContent = APP_CONFIG.testMode
+            ? 'Test mode enabled (deterministic timers/randomness)'
+            : 'Standard mode (realistic delays/randomness)';
+    }
+}
+
+function initAutomationLabControls() {
+    const scenarioSelect = document.querySelector('[data-testid="api-scenario-select"]');
+    const resetButton = document.querySelector('[data-testid="reset-app-state-btn"]');
+
+    if (scenarioSelect) {
+        scenarioSelect.value = window.__apiScenario || 'normal';
+        scenarioSelect.addEventListener('change', () => {
+            setMockScenario(scenarioSelect.value);
+            showToast('info', 'API scenario updated', `Active scenario: ${scenarioSelect.value}`, 2200);
+        });
+    }
+
+    if (resetButton) {
+        resetButton.addEventListener('click', () => {
+            resetAppState();
+            showToast('success', 'State reset', 'App state was reset for a clean test run.', 2600);
+        });
+    }
+}
+
+function resetAppState() {
+    localStorage.removeItem('bookings');
+    localStorage.removeItem('currentUser');
+    localStorage.setItem('apiScenario', 'normal');
+
+    bookings = [];
+    uploadedFiles = [];
+    uploadErrors = [];
+    currentDestination = null;
+    currentSort = { column: null, direction: 'asc' };
+    guestConfig = { adults: 2, children: 0, rooms: 1 };
+    setMockScenario('normal');
+
+    document.querySelectorAll('.toast').forEach((toast) => toast.remove());
+    document.querySelectorAll('.card').forEach((card) => {
+        card.style.display = 'flex';
+        card.classList.remove('highlighted');
+        card.style.opacity = '';
+        card.style.transform = '';
+    });
+
+    const destinationInput = document.getElementById('hero-destination-input');
+    const destinationSelect = document.getElementById('hero-destination');
+    if (destinationInput) destinationInput.value = '';
+    if (destinationSelect) destinationSelect.value = '';
+    document.querySelector('[data-testid="filter-continent"]').value = '';
+    document.querySelector('[data-testid="filter-price"]').value = '';
+    updateBreadcrumb(null);
+
+    const scenarioSelect = document.querySelector('[data-testid="api-scenario-select"]');
+    if (scenarioSelect) scenarioSelect.value = 'normal';
+
+    closeModal();
+    renderUploadErrors();
+    updateGuestCounts();
+    updateGuestDisplay();
+    setDefaultDates();
+    loadBookings();
+}
+
+function initEventListeners() {
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+        });
+    });
+    
+    // Autocomplete search
+    initAutocomplete();
+    
+    // Hero search
+    document.querySelector('[data-testid="search-hero-btn"]').addEventListener('click', performHeroSearch);
+    
+    // Deal buttons
+    document.querySelectorAll('.btn-deal').forEach(btn => {
+        btn.addEventListener('click', handleDealClick);
+    });
+    
+    // Filters
+    document.querySelector('[data-testid="filter-continent"]').addEventListener('change', applyFilters);
+    document.querySelector('[data-testid="filter-price"]').addEventListener('change', applyFilters);
+    
+    // Book buttons
+    document.querySelectorAll('.btn-book').forEach(btn => {
+        btn.addEventListener('click', handleBookClick);
+    });
+    
+    // Modal
+    document.querySelector('[data-testid="close-modal"]').addEventListener('click', closeModal);
+    document.querySelector('[data-testid="cancel-booking"]').addEventListener('click', closeModal);
+    document.querySelector('[data-testid="booking-form"]').addEventListener('submit', handleBookingSubmit);
+    
+    // Payment
+    document.querySelectorAll('.payment-option').forEach(option => {
+        option.addEventListener('click', () => {
+            document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+            option.classList.add('selected');
+            option.querySelector('input').checked = true;
+        });
+    });
+    
+    // File upload
+    const uploadArea = document.querySelector('[data-testid="upload-area"]');
+    const fileInput = document.querySelector('[data-testid="file-input"]');
+    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+    uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('drag-over');
+    });
+    uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+    uploadArea.addEventListener('drop', handleFileDrop);
+    fileInput.addEventListener('change', handleFileSelect);
+    
+    // Table sorting
+    document.querySelectorAll('th.sortable').forEach(th => {
+        th.addEventListener('click', () => sortTable(th.dataset.sort));
+        th.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                sortTable(th.dataset.sort);
+            }
+        });
+    });
+    
+    // Modal outside click
+    document.querySelector('[data-testid="booking-modal"]').addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) closeModal();
+    });
+}
+
+// Guest Selector
+function initGuestSelector() {
+    const guestBtn = document.querySelector('[data-testid="guest-selector-btn"]');
+    const guestDropdown = document.querySelector('[data-testid="guest-dropdown"]');
+    const doneBtn = document.querySelector('[data-testid="guest-done-btn"]');
+    
+    guestBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const nextState = !guestDropdown.classList.contains('active');
+        guestDropdown.classList.toggle('active');
+        guestBtn.setAttribute('aria-expanded', nextState ? 'true' : 'false');
+    });
+    
+    document.addEventListener('click', (e) => {
+        if (!guestBtn.contains(e.target) && !guestDropdown.contains(e.target)) {
+            guestDropdown.classList.remove('active');
+            guestBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
+    
+    doneBtn.addEventListener('click', () => {
+        guestDropdown.classList.remove('active');
+        guestBtn.setAttribute('aria-expanded', 'false');
+        updateGuestDisplay();
+    });
+    
+    // Adults
+    document.querySelector('[data-testid="adults-plus"]').addEventListener('click', () => {
+        guestConfig.adults = Math.min(guestConfig.adults + 1, 10);
+        updateGuestCounts();
+    });
+    document.querySelector('[data-testid="adults-minus"]').addEventListener('click', () => {
+        guestConfig.adults = Math.max(guestConfig.adults - 1, 1);
+        updateGuestCounts();
+    });
+    
+    // Children
+    document.querySelector('[data-testid="children-plus"]').addEventListener('click', () => {
+        guestConfig.children = Math.min(guestConfig.children + 1, 10);
+        updateGuestCounts();
+    });
+    document.querySelector('[data-testid="children-minus"]').addEventListener('click', () => {
+        guestConfig.children = Math.max(guestConfig.children - 1, 0);
+        updateGuestCounts();
+    });
+    
+    // Rooms
+    document.querySelector('[data-testid="rooms-plus"]').addEventListener('click', () => {
+        guestConfig.rooms = Math.min(guestConfig.rooms + 1, 10);
+        updateGuestCounts();
+    });
+    document.querySelector('[data-testid="rooms-minus"]').addEventListener('click', () => {
+        guestConfig.rooms = Math.max(guestConfig.rooms - 1, 1);
+        updateGuestCounts();
+    });
+}
+
+function updateGuestCounts() {
+    document.querySelector('[data-testid="adults-count"]').textContent = guestConfig.adults;
+    document.querySelector('[data-testid="children-count"]').textContent = guestConfig.children;
+    document.querySelector('[data-testid="rooms-count"]').textContent = guestConfig.rooms;
+    document.querySelector('[data-testid="adults-minus"]').disabled = guestConfig.adults <= 1;
+    document.querySelector('[data-testid="children-minus"]').disabled = guestConfig.children <= 0;
+    document.querySelector('[data-testid="rooms-minus"]').disabled = guestConfig.rooms <= 1;
+}
+
+function updateGuestDisplay() {
+    const totalGuests = guestConfig.adults + guestConfig.children;
+    const guestText = totalGuests === 1 ? '1 guest' : `${totalGuests} guests`;
+    const roomText = guestConfig.rooms === 1 ? '1 room' : `${guestConfig.rooms} rooms`;
+    document.getElementById('guest-display').textContent = `${guestText} · ${roomText}`;
+}
+
+// Date Pickers
+function initDatePickers() {
+    const checkinInput = document.getElementById('checkin-date');
+    const checkoutInput = document.getElementById('checkout-date');
+    const today = new Date().toISOString().split('T')[0];
+    
+    checkinInput.setAttribute('min', today);
+    checkoutInput.setAttribute('min', today);
+    
+    checkinInput.addEventListener('change', () => {
+        const checkinDate = new Date(checkinInput.value);
+        const minCheckout = new Date(checkinDate);
+        minCheckout.setDate(minCheckout.getDate() + 1);
+        checkoutInput.setAttribute('min', minCheckout.toISOString().split('T')[0]);
+        calculateDuration();
+    });
+    
+    checkoutInput.addEventListener('change', calculateDuration);
+}
+
+function calculateDuration() {
+    const checkin = document.getElementById('checkin-date').value;
+    const checkout = document.getElementById('checkout-date').value;
+    const durationDisplay = document.getElementById('trip-duration');
+    
+    if (checkin && checkout) {
+        const checkinDate = new Date(checkin);
+        const checkoutDate = new Date(checkout);
+        const diffTime = Math.abs(checkoutDate - checkinDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays > 0) {
+            const nightText = diffDays === 1 ? 'night' : 'nights';
+            durationDisplay.textContent = `${diffDays} ${nightText}`;
+            durationDisplay.style.color = 'var(--primary-blue)';
+        } else {
+            durationDisplay.textContent = 'Check-out must be after check-in';
+            durationDisplay.style.color = 'var(--error-red)';
+        }
+    } else {
+        durationDisplay.textContent = 'Select dates to see duration';
+        durationDisplay.style.color = 'var(--text-secondary)';
+    }
+}
+
+function setDefaultDates() {
+    const today = new Date();
+    const checkinDate = new Date(today);
+    checkinDate.setDate(today.getDate() + 7);
+    const checkoutDate = new Date(today);
+    checkoutDate.setDate(today.getDate() + 14);
+    
+    const heroCheckin = document.getElementById('hero-checkin');
+    const heroCheckout = document.getElementById('hero-checkout');
+    
+    if (heroCheckin) heroCheckin.value = checkinDate.toISOString().split('T')[0];
+    if (heroCheckout) heroCheckout.value = checkoutDate.toISOString().split('T')[0];
+}
+
+// ========================================
+// AUTOCOMPLETE SEARCH
+// ========================================
+function initAutocomplete() {
+    const input = document.getElementById('hero-destination-input');
+    const dropdown = document.querySelector('[data-testid="autocomplete-dropdown"]');
+    const hiddenSelect = document.getElementById('hero-destination');
+    
+    const destinations = [
+        { value: 'paris', name: 'Paris', country: 'France' },
+        { value: 'tokyo', name: 'Tokyo', country: 'Japan' },
+        { value: 'bali', name: 'Bali', country: 'Indonesia' },
+        { value: 'santorini', name: 'Santorini', country: 'Greece' },
+        { value: 'new-york', name: 'New York', country: 'USA' },
+        { value: 'dubai', name: 'Dubai', country: 'UAE' }
+    ];
+    
+    let selectedIndex = -1;
+    
+    input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        
+        if (!query) {
+            dropdown.classList.remove('active');
+            return;
+        }
+        
+        const matches = destinations.filter(dest => 
+            dest.name.toLowerCase().includes(query) ||
+            dest.country.toLowerCase().includes(query)
+        );
+        
+        if (matches.length === 0) {
+            dropdown.classList.remove('active');
+            return;
+        }
+        
+        dropdown.innerHTML = matches.map((dest, index) => `
+            <div class="autocomplete-item" data-value="${dest.value}" data-index="${index}" data-testid="autocomplete-item-${dest.value}">
+                <div class="autocomplete-destination">${dest.name}</div>
+                <div class="autocomplete-country">${dest.country}</div>
+            </div>
+        `).join('');
+        
+        dropdown.classList.add('active');
+        selectedIndex = -1;
+        
+        // Add click handlers
+        dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+            item.addEventListener('click', () => {
+                selectDestination(item.dataset.value, destinations);
+            });
+        });
+    });
+    
+    // Keyboard navigation
+    input.addEventListener('keydown', (e) => {
+        const items = dropdown.querySelectorAll('.autocomplete-item');
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+            updateSelection(items);
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIndex = Math.max(selectedIndex - 1, -1);
+            updateSelection(items);
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            e.preventDefault();
+            const selected = items[selectedIndex];
+            if (selected) {
+                selectDestination(selected.dataset.value, destinations);
+            }
+        } else if (e.key === 'Escape') {
+            dropdown.classList.remove('active');
+        }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.classList.remove('active');
+        }
+    });
+    
+    function updateSelection(items) {
+        items.forEach((item, index) => {
+            if (index === selectedIndex) {
+                item.classList.add('selected');
+                item.scrollIntoView({ block: 'nearest' });
+            } else {
+                item.classList.remove('selected');
+            }
+        });
+    }
+    
+    function selectDestination(value, destinations) {
+        const dest = destinations.find(d => d.value === value);
+        if (dest) {
+            input.value = `${dest.name}, ${dest.country}`;
+            hiddenSelect.value = value;
+            dropdown.classList.remove('active');
+        }
+    }
+}
+
+// ========================================
+// HOT DEALS - VIEW DEAL FUNCTIONALITY
+// ========================================
+function viewDeal(destination) {
+    // Scroll to destinations section
+    const destinationsSection = document.querySelector('[data-testid="destinations-grid"]');
+    if (destinationsSection) {
+        destinationsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    // Wait for scroll, then highlight the destination card
+    schedule(() => {
+        const card = document.querySelector(`[data-testid="destination-card-${destination}"]`);
+        if (card) {
+            // Add highlight effect
+            card.style.transform = 'scale(1.05)';
+            card.style.boxShadow = '0 20px 60px rgba(0, 113, 194, 0.3)';
+            card.style.border = '3px solid #0071c2';
+            card.style.transition = 'all 0.3s ease';
+            
+            // Remove highlight after 3 seconds
+            schedule(() => {
+                card.style.transform = '';
+                card.style.boxShadow = '';
+                card.style.border = '';
+            }, 3000);
+            
+            // Scroll card into perfect view
+            card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, 500);
+}
+
+// ========================================
+// HERO SEARCH
+// ========================================
+function performHeroSearch() {
+    const destination = document.getElementById('hero-destination').value;
+    
+    if (destination) {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            if (card.dataset.destination === destination) {
+                card.style.display = 'flex';
+                schedule(() => {
+                    card.classList.add('highlighted');
+                    schedule(() => card.classList.remove('highlighted'), 2000);
+                }, 300);
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        updateBreadcrumb(destination);
+    }
+    document.getElementById('destinations').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Deals
+function handleDealClick(e) {
+    const card = e.target.closest('.deal-card');
+    const destination = card.dataset.destination;
+    const destCard = document.querySelector(`[data-testid="destination-card-${destination}"]`);
+    
+    if (destCard) {
+        destCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        schedule(() => {
+            destCard.classList.add('highlighted');
+            schedule(() => destCard.classList.remove('highlighted'), 2000);
+        }, 300);
+        updateBreadcrumb(destination);
+    }
+}
+
+// Breadcrumb
+function updateBreadcrumb(destination) {
+    const breadcrumb = document.querySelector('[data-testid="breadcrumb"]');
+    const current = document.querySelector('[data-testid="breadcrumb-current"]');
+    
+    if (destination) {
+        const names = {
+            'paris': 'Paris, France', 'tokyo': 'Tokyo, Japan',
+            'bali': 'Bali, Indonesia', 'santorini': 'Santorini, Greece',
+            'new-york': 'New York, USA', 'dubai': 'Dubai, UAE'
+        };
+        current.textContent = names[destination] || destination;
+        breadcrumb.classList.add('active');
+    } else {
+        breadcrumb.classList.remove('active');
+    }
+}
+
+// Filtering
+function applyFilters() {
+    const continentFilter = document.querySelector('[data-testid="filter-continent"]').value;
+    const priceFilter = document.querySelector('[data-testid="filter-price"]').value;
+    const cards = document.querySelectorAll('.card');
+    
+    let visibleCount = 0;
+    cards.forEach(card => {
+        let showCard = true;
+        if (continentFilter && card.dataset.continent !== continentFilter) showCard = false;
+        if (priceFilter) {
+            const price = parseInt(card.dataset.price);
+            if (priceFilter === 'budget' && price >= 1000) showCard = false;
+            if (priceFilter === 'mid' && (price < 1000 || price >= 2000)) showCard = false;
+            if (priceFilter === 'luxury' && price < 2000) showCard = false;
+        }
+        card.style.display = showCard ? 'flex' : 'none';
+        if (showCard) visibleCount++;
+    });
+    
+    if (continentFilter || priceFilter) {
+        if (visibleCount === 0) {
+            showToast('warning', 'No results', 'No destinations match your filters. Try adjusting your criteria.', 3000);
+        } else {
+            showToast('info', 'Filters applied', `Showing ${visibleCount} destination${visibleCount !== 1 ? 's' : ''}.`, 2500);
+        }
+    }
+}
+
+// Booking Modal
+function handleBookClick(e) {
+    const btn = e.target;
+    const card = btn.closest('.card');
+    const destination = card.querySelector('.card-title').textContent;
+    const country = card.querySelector('.card-country').textContent;
+    const price = card.querySelector('.price-amount').textContent;
+    
+    currentDestination = {
+        name: `${destination}, ${country}`,
+        price: price,
+        destination: card.dataset.destination
+    };
+    
+    document.getElementById('booking-destination-name').textContent = currentDestination.name;
+    document.getElementById('summary-price').textContent = currentDestination.price;
+    
+    const priceNum = parseInt(currentDestination.price.replace(/[€,]/g, ''));
+    const tax = Math.round(priceNum * 0.1);
+    const total = priceNum + tax;
+    document.getElementById('summary-total').textContent = `€${total.toLocaleString()}`;
+    document.getElementById('email').value = currentUser ? currentUser.email : '';
+    
+    openModal();
+    updateBreadcrumb(card.dataset.destination);
+}
+
+function openModal() {
+    document.querySelector('[data-testid="booking-modal"]').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.querySelector('[data-testid="booking-modal"]').classList.remove('active');
+    document.body.style.overflow = 'auto';
+    resetForm();
+}
+
+function resetForm() {
+    document.getElementById('booking-form').reset();
+    document.querySelector('[data-testid="success-message"]').classList.add('hidden');
+    document.getElementById('booking-form').classList.remove('hidden');
+    uploadedFiles = [];
+    uploadErrors = [];
+    document.querySelector('[data-testid="file-list"]').innerHTML = '';
+    renderUploadErrors();
+    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+    document.querySelector('[data-testid="payment-credit-card"]').classList.add('selected');
+}
+
+// File Upload
+function handleFileDrop(e) {
+    e.preventDefault();
+    const uploadArea = document.querySelector('[data-testid="upload-area"]');
+    uploadArea.classList.remove('drag-over');
+    const files = Array.from(e.dataTransfer.files);
+    addFiles(files);
+}
+
+function handleFileSelect(e) {
+    const files = Array.from(e.target.files);
+    addFiles(files);
+}
+
+function addFiles(files) {
+    uploadErrors = [];
+    files.forEach(file => {
+        if (file.size > 5 * 1024 * 1024) {
+            uploadErrors.push(`${file.name} is too large. Maximum file size is 5MB.`);
+            return;
+        }
+        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+        if (file.type && !allowedTypes.includes(file.type)) {
+            uploadErrors.push(`${file.name} has an unsupported file type.`);
+            return;
+        }
+        uploadedFiles.push(file);
+    });
+    updateFileList();
+    renderUploadErrors();
+}
+
+function updateFileList() {
+    const fileList = document.querySelector('[data-testid="file-list"]');
+    fileList.innerHTML = uploadedFiles.map((file, index) => `
+        <div class="file-item">
+            <span class="file-name">${file.name}</span>
+            <button type="button" class="btn-remove-file" onclick="removeFile(${index})">Remove</button>
+        </div>
+    `).join('');
+}
+
+function removeFile(index) {
+    uploadedFiles.splice(index, 1);
+    updateFileList();
+}
+
+function renderUploadErrors() {
+    const errorsNode = document.querySelector('[data-testid="upload-errors"]');
+    if (!errorsNode) return;
+    errorsNode.innerHTML = uploadErrors.map(error => `<div>${error}</div>`).join('');
+}
+
+// Booking Submission
+function handleBookingSubmit(e) {
+    e.preventDefault();
+    
+    // Clear previous errors
+    document.querySelectorAll('.error-message').forEach(msg => msg.classList.remove('active'));
+    document.querySelectorAll('.error').forEach(field => field.classList.remove('error'));
+    
+    // Validate form
+    let isValid = true;
+    const errors = [];
+    
+    // Full name validation
+    const fullName = document.getElementById('full-name');
+    if (!fullName.value.trim()) {
+        showError('full-name', 'error-full-name');
+        isValid = false;
+        errors.push('Full name is required');
+    }
+    
+    // Email validation
+    const email = document.getElementById('email');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.value.trim()) {
+        showError('email', 'error-email', 'Email is required');
+        isValid = false;
+        errors.push('Email is required');
+    } else if (!emailRegex.test(email.value)) {
+        showError('email', 'error-email', 'Please enter a valid email address');
+        isValid = false;
+        errors.push('Invalid email format');
+    }
+    
+    // Phone validation
+    const phone = document.getElementById('phone');
+    const phoneRegex = /^[\d\s\-\+\(\)]+$/;
+    if (!phone.value.trim()) {
+        showError('phone', 'error-phone', 'Phone number is required');
+        isValid = false;
+        errors.push('Phone is required');
+    } else if (phone.value.trim().length < 10 || !phoneRegex.test(phone.value)) {
+        showError('phone', 'error-phone', 'Please enter a valid phone number (min 10 digits)');
+        isValid = false;
+        errors.push('Invalid phone format');
+    }
+    
+    // Date validations
+    const checkin = document.getElementById('checkin-date');
+    const checkout = document.getElementById('checkout-date');
+    
+    if (!checkin.value) {
+        showError('checkin-date', 'error-checkin');
+        isValid = false;
+        errors.push('Check-in date is required');
+    }
+    
+    if (!checkout.value) {
+        showError('checkout-date', 'error-checkout');
+        isValid = false;
+        errors.push('Check-out date is required');
+    }
+    
+    if (checkin.value && checkout.value) {
+        const checkinDate = new Date(checkin.value);
+        const checkoutDate = new Date(checkout.value);
+        if (checkoutDate <= checkinDate) {
+            showError('checkout-date', 'error-checkout', 'Check-out must be after check-in');
+            isValid = false;
+            errors.push('Invalid date range');
+        }
+    }
+
+    const agreeTerms = document.getElementById('agree-terms-booking');
+    if (agreeTerms && !agreeTerms.checked) {
+        isValid = false;
+        errors.push('Terms must be accepted');
+        showToast('warning', 'Terms required', 'Please accept the Terms & Conditions before confirming your booking.', 4000);
+        agreeTerms.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    // If validation fails, stop here
+    if (!isValid) {
+        console.log('Validation errors:', errors);
+        showToast('error', 'Please fix the errors', `${errors.length} field${errors.length > 1 ? 's' : ''} need${errors.length === 1 ? 's' : ''} your attention.`, 4000);
+        // Scroll to first error
+        const firstError = document.querySelector('.error');
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+    }
+    
+    // Show loading state
+    showLoadingState();
+    
+    const formData = {
+        bookingId: `BKG-${Date.now().toString().slice(-6)}`,
+        destination: currentDestination.name,
+        fullName: fullName.value,
+        email: email.value,
+        phone: phone.value,
+        checkinDate: checkin.value,
+        checkoutDate: checkout.value,
+        travelers: document.getElementById('travelers').value,
+        specialRequests: document.getElementById('special-requests').value,
+        paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+        price: currentDestination.price,
+        status: 'Confirmed',
+        bookingDate: new Date().toISOString().split('T')[0]
+    };
+    
+    // Simulate API call delay
+    schedule(() => {
+        hideLoadingState();
+        
+        bookings.push(formData);
+        saveBookingsToStorage();
+        
+        document.getElementById('booking-form').classList.add('hidden');
+        const successMessage = document.querySelector('[data-testid="success-message"]');
+        const activeBug = new URLSearchParams(window.location.search).get('bug');
+        if (activeBug === 'no-confirmation') {
+          // Bug active: confirmation heading is suppressed for testing purposes
+          return;
+        }
+        successMessage.classList.remove('hidden');
+        
+        document.getElementById('confirmed-booking-id').textContent = formData.bookingId;
+        document.getElementById('confirmed-destination').textContent = formData.destination;
+        document.getElementById('confirmed-date').textContent = new Date(formData.checkinDate).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+        document.getElementById('confirmed-total').textContent = document.getElementById('summary-total').textContent;
+        
+        loadBookings();
+        showToast('success', 'Booking Confirmed!', `Your trip to ${formData.destination} has been booked. Booking ID: ${formData.bookingId}`);
+        schedule(() => closeModal(), 5000);
+    }, 1500);
+}
+
+function showError(fieldId, errorId, customMessage = null) {
+    const field = document.getElementById(fieldId);
+    const errorMsg = document.querySelector(`[data-testid="${errorId}"]`);
+    
+    field.classList.add('error');
+    errorMsg.classList.add('active');
+    
+    if (customMessage) {
+        errorMsg.textContent = customMessage;
+    }
+}
+
+function showLoadingState(message = 'Processing your booking...') {
+    const overlay = document.querySelector('[data-testid="loading-overlay"]');
+    const loadingText = document.querySelector('[data-testid="loading-text"]');
+    if (loadingText) loadingText.textContent = message;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function hideLoadingState() {
+    const overlay = document.querySelector('[data-testid="loading-overlay"]');
+    overlay.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+async function withLoadingState(message, fn) {
+    showLoadingState(message);
+    try {
+        return await fn();
+    } finally {
+        hideLoadingState();
+    }
+}
+
+// Bookings Table
+function loadBookings() {
+    const saved = localStorage.getItem('bookings');
+    if (saved) bookings = JSON.parse(saved);
+    
+    if (bookings.length === 0) {
+        bookings = [
+            {
+                bookingId: 'BKG-001', destination: 'Paris, France',
+                checkinDate: '2025-06-15', price: '€1,999', status: 'Confirmed'
+            },
+            {
+                bookingId: 'BKG-002', destination: 'Tokyo, Japan',
+                checkinDate: '2025-07-20', price: '€2,499', status: 'Pending'
+            }
+        ];
+        saveBookingsToStorage();
+    }
+    renderBookingsTable();
+}
+
+function saveBookingsToStorage() {
+    localStorage.setItem('bookings', JSON.stringify(bookings));
+}
+
+function renderBookingsTable() {
+    const tbody = document.querySelector('[data-testid="bookings-tbody"]');
+    if (bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="text-center">No bookings yet</td></tr>';
+        return;
+    }
+    tbody.innerHTML = bookings.map(booking => `
+        <tr>
+            <td>${booking.bookingId}</td>
+            <td>${booking.destination}</td>
+            <td>${new Date(booking.checkinDate).toLocaleDateString()}</td>
+            <td>${booking.price}</td>
+            <td><span class="status-badge status-${booking.status.toLowerCase()}">${booking.status}</span></td>
+        </tr>
+    `).join('');
+}
+
+// Table Sorting
+function sortTable(column) {
+    const headers = document.querySelectorAll('th.sortable');
+    if (currentSort.column === column) {
+        currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+        currentSort.column = column;
+        currentSort.direction = 'asc';
+    }
+    
+    headers.forEach(th => {
+        th.classList.remove('sort-asc', 'sort-desc');
+        th.setAttribute('aria-sort', 'none');
+        if (th.dataset.sort === column) {
+            th.classList.add(`sort-${currentSort.direction}`);
+            th.setAttribute('aria-sort', currentSort.direction === 'asc' ? 'ascending' : 'descending');
+        }
+    });
+    
+    bookings.sort((a, b) => {
+        let aVal, bVal;
+        switch(column) {
+            case 'booking-id': aVal = a.bookingId; bVal = b.bookingId; break;
+            case 'destination': aVal = a.destination; bVal = b.destination; break;
+            case 'date': aVal = new Date(a.checkinDate); bVal = new Date(b.checkinDate); break;
+            case 'price': aVal = parseInt(a.price.replace(/[€,]/g, '')); bVal = parseInt(b.price.replace(/[€,]/g, '')); break;
+            case 'status': aVal = a.status; bVal = b.status; break;
+            default: return 0;
+        }
+        if (aVal === bVal) return 0;
+        if (currentSort.direction === 'asc') {
+            return aVal > bVal ? 1 : -1;
+        }
+        return aVal < bVal ? 1 : -1;
+    });
+    renderBookingsTable();
+}
+
+// Logout
+// ========================================
+// DESTINATION DETAILS (NEW WINDOW)
+// ========================================
+function openDestinationDetails(destinationId) {
+    // Get destination data from API
+    window.API.getDestination(destinationId).then(response => {
+        if (!response.success) {
+            alert('Destination not found');
+            return;
+        }
+        
+        const dest = response.data;
+        
+        // Create HTML for new window
+        const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${dest.name}, ${dest.country} - Full Details</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: #f9fafb;
+        }
+        .header {
+            background: #003b95;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .hero-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .score {
+            background: #003b95;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature-box {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .price-box {
+            background: linear-gradient(135deg, #0071c2 0%, #003b95 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #0071c2;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        h2 { margin: 2rem 0 1rem; color: #1f2937; }
+        p { color: #6b7280; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 data-testid="destination-title">${dest.name}, ${dest.country}</h1>
+        <p>${dest.description}</p>
+    </div>
+    
+    <div class="container">
+        <img src="${dest.imageUrl}" alt="${dest.name}" class="hero-image" data-testid="destination-image">
+        
+        <div class="content">
+            <div class="rating">
+                <span class="score" data-testid="detail-rating">${dest.rating}</span>
+                <div>
+                    <strong>Exceptional</strong>
+                    <p>${dest.reviewCount.toLocaleString()} reviews</p>
+                </div>
+            </div>
+            
+            <h2>What's Included</h2>
+            <div class="features">
+                ${dest.features.map(f => `<div class="feature-box">✓ ${f}</div>`).join('')}
+            </div>
+            
+            <h2>About This Destination</h2>
+            <p>${dest.description}</p>
+            <p>This ${dest.continent} destination offers the perfect blend of culture, adventure, and relaxation. 
+            Whether you're exploring ancient landmarks, savoring local cuisine, or simply soaking in the atmosphere, 
+            ${dest.name} promises an unforgettable experience.</p>
+            
+            <div class="price-box">
+                <p>Complete Package from</p>
+                <div class="price" data-testid="detail-price">€${dest.price.toLocaleString()}</div>
+                <p>Per person | All-inclusive package</p>
+                <a href="#" class="btn" onclick="window.close(); return false;">Return to Book</a>
+            </div>
+            
+            <h2>Quick Facts</h2>
+            <p><strong>Continent:</strong> ${dest.continent.charAt(0).toUpperCase() + dest.continent.slice(1).replace('-', ' ')}</p>
+            <p><strong>Best for:</strong> Couples, Families, Solo Travelers</p>
+            <p><strong>Currency:</strong> ${dest.currency}</p>
+            <p><strong>Availability:</strong> ${dest.available ? '✓ Available' : '✗ Sold Out'}</p>
+        </div>
+    </div>
+</body>
+</html>
+        `;
+        
+        // Open new window with the HTML
+        const newWindow = window.open('', '_blank', 'width=1000,height=800');
+        newWindow.document.write(html);
+        newWindow.document.close();
+    });
+}
+
+// Initialize guest counts
+updateGuestCounts();
+
+// ========================================
+// SHADOW DOM: <travel-review> Custom Element
+// ========================================
+// This web component renders entirely inside a Shadow DOM
+// Teaching value:
+//   - Students learn locator('travel-review').locator('...')  won't work
+//   - Must use page.locator('travel-review').first().evaluate() or
+//     specific Playwright shadow DOM piercing techniques
+//   - Real-world: Salesforce Lightning, Workday, Lit/Stencil components
+
+class TravelReview extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+    }
+    
+    connectedCallback() {
+        const author = this.getAttribute('author') || 'Anonymous';
+        const location = this.getAttribute('location') || '';
+        const destination = this.getAttribute('destination') || '';
+        const rating = parseInt(this.getAttribute('rating')) || 5;
+        const date = this.getAttribute('date') || '';
+        const text = this.getAttribute('text') || '';
+        const avatar = this.getAttribute('avatar') || '?';
+        const verified = this.getAttribute('verified') === 'true';
+        const deterministicCount = (name) => {
+            const seed = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+            return 3 + (seed % 20);
+        };
+        const helpfulBaseCount = APP_CONFIG.testMode
+            ? deterministicCount(author || destination || 'review')
+            : Math.floor(Math.random() * 20 + 3);
+        
+        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        const formattedDate = date ? new Date(date).toLocaleDateString('en-US', { 
+            year: 'numeric', month: 'short', day: 'numeric' 
+        }) : '';
+        
+        this.shadowRoot.innerHTML = `
+            <style>
+                :host {
+                    display: block;
+                }
+                .review-card {
+                    background: white;
+                    border-radius: 12px;
+                    padding: 1.5rem;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                    border: 1px solid #e5e7eb;
+                    transition: transform 0.2s, box-shadow 0.2s;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                }
+                .review-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+                }
+                .review-header {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    margin-bottom: 1rem;
+                }
+                .avatar {
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #003b95, #0071c2);
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 700;
+                    font-size: 0.875rem;
+                    flex-shrink: 0;
+                }
+                .author-info {
+                    flex: 1;
+                }
+                .author-name {
+                    font-weight: 600;
+                    color: #1f2937;
+                    font-size: 0.9375rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                }
+                .verified-badge {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.25rem;
+                    background: #ecfdf5;
+                    color: #059669;
+                    font-size: 0.6875rem;
+                    font-weight: 600;
+                    padding: 0.125rem 0.5rem;
+                    border-radius: 99px;
+                }
+                .author-location {
+                    font-size: 0.8125rem;
+                    color: #6b7280;
+                }
+                .star-rating {
+                    color: #f59e0b;
+                    font-size: 1.125rem;
+                    letter-spacing: 1px;
+                    margin-bottom: 0.25rem;
+                }
+                .review-meta {
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                    margin-bottom: 0.75rem;
+                    display: flex;
+                    gap: 0.75rem;
+                }
+                .review-text {
+                    color: #374151;
+                    font-size: 0.9375rem;
+                    line-height: 1.6;
+                    flex: 1;
+                }
+                .helpful-section {
+                    margin-top: 1rem;
+                    padding-top: 0.75rem;
+                    border-top: 1px solid #f3f4f6;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .helpful-btn {
+                    background: none;
+                    border: 1px solid #d1d5db;
+                    border-radius: 6px;
+                    padding: 0.375rem 0.75rem;
+                    font-size: 0.8125rem;
+                    color: #6b7280;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.375rem;
+                }
+                .helpful-btn:hover {
+                    border-color: #0071c2;
+                    color: #0071c2;
+                    background: #f0f7ff;
+                }
+                .helpful-btn.active {
+                    border-color: #0071c2;
+                    color: #0071c2;
+                    background: #e0efff;
+                }
+                .helpful-count {
+                    font-size: 0.75rem;
+                    color: #9ca3af;
+                }
+            </style>
+            <div class="review-card" data-testid="shadow-review-card">
+                <div class="review-header">
+                    <div class="avatar" data-testid="shadow-avatar">${avatar}</div>
+                    <div class="author-info">
+                        <div class="author-name" data-testid="shadow-author-name">
+                            ${author}
+                            ${verified ? '<span class="verified-badge" data-testid="shadow-verified-badge">✓ Verified</span>' : ''}
+                        </div>
+                        <div class="author-location" data-testid="shadow-author-location">${location}</div>
+                    </div>
+                </div>
+                <div class="star-rating" data-testid="shadow-star-rating" aria-label="${rating} out of 5 stars">${stars}</div>
+                <div class="review-meta">
+                    <span data-testid="shadow-destination">Stayed in: ${destination}</span>
+                    <span data-testid="shadow-date">${formattedDate}</span>
+                </div>
+                <div class="review-text" data-testid="shadow-review-text">${text}</div>
+                <div class="helpful-section">
+                    <button class="helpful-btn" data-testid="shadow-helpful-btn">
+                        👍 Helpful
+                    </button>
+                    <span class="helpful-count" data-testid="shadow-helpful-count">${helpfulBaseCount} people found this helpful</span>
+                </div>
+            </div>
+        `;
+        
+        // Helpful button interaction
+        const helpfulBtn = this.shadowRoot.querySelector('.helpful-btn');
+        const helpfulCount = this.shadowRoot.querySelector('.helpful-count');
+        
+        helpfulBtn.addEventListener('click', () => {
+            const isActive = helpfulBtn.classList.toggle('active');
+            const currentCount = parseInt(helpfulCount.textContent);
+            helpfulCount.textContent = `${isActive ? currentCount + 1 : currentCount - 1} people found this helpful`;
+            
+            // Dispatch custom event (students can listen for this in tests)
+            this.dispatchEvent(new CustomEvent('helpful-toggled', { 
+                detail: { active: isActive, reviewAuthor: author },
+                bubbles: true, composed: true
+            }));
+        });
+    }
+}
+
+// Register the custom element
+customElements.define('travel-review', TravelReview);
+
+// ========================================
+// IFRAME MESSAGE HANDLER
+// ========================================
+// Listens for the "I Accept These Terms" button click inside the iframe
+window.addEventListener('message', (event) => {
+    const termsIframe = document.getElementById('terms-iframe');
+    const expectedSource = termsIframe ? termsIframe.contentWindow : null;
+    const expectedOrigin = window.location.protocol === 'file:' ? 'null' : window.location.origin;
+    if (event.origin !== expectedOrigin || event.source !== expectedSource) {
+        return;
+    }
+
+    if (event.data && event.data.type === 'terms-accepted') {
+        const checkbox = document.getElementById('agree-terms-booking');
+        if (checkbox && !checkbox.checked) {
+            checkbox.checked = true;
+            showToast('success', 'Terms accepted', 'You have agreed to the Terms & Conditions.', 3000);
+        }
+    }
+});
+
+// ========================================
+// MOCK API LAYER (v2.4)
+// ========================================
+// Uses real fetch() calls that Playwright can intercept with page.route()
+// Includes a built-in mock handler so the app works without a backend
+// 
+// Teaching value:
+//   - Students see real network requests in DevTools Network tab
+//   - page.route('**/api/destinations') intercepts these calls
+//   - page.route() can return custom data, error responses, slow responses
+//   - Combines naturally with page.waitForResponse() assertions
+
+// --- Mock Data Store ---
+const DESTINATIONS_DATA = [
+    {
+        id: 'paris', name: 'Paris', country: 'France', continent: 'europe',
+        price: 1999, currency: 'EUR', rating: 9.2, reviewCount: 1247,
+        description: 'Experience the magic of the City of Light with iconic landmarks and world-class cuisine.',
+        features: ['4-Star Hotel', 'Direct Flights', 'Breakfast Included'],
+        imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800',
+        available: true
+    },
+    {
+        id: 'tokyo', name: 'Tokyo', country: 'Japan', continent: 'asia',
+        price: 2499, currency: 'EUR', rating: 9.5, reviewCount: 2891,
+        description: 'Discover the perfect blend of ancient tradition and cutting-edge technology.',
+        features: ['5-Star Hotel', 'Premium Economy', 'City Pass Included'],
+        imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800',
+        available: true
+    },
+    {
+        id: 'bali', name: 'Bali', country: 'Indonesia', continent: 'asia',
+        price: 1299, currency: 'EUR', rating: 8.9, reviewCount: 3456,
+        description: 'Paradise beaches, lush rice terraces, and spiritual tranquility await you.',
+        features: ['Beach Resort', 'Economy Class', 'Spa Package'],
+        imageUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
+        available: true
+    },
+    {
+        id: 'santorini', name: 'Santorini', country: 'Greece', continent: 'europe',
+        price: 1799, currency: 'EUR', rating: 9.4, reviewCount: 1982,
+        description: 'Stunning sunsets, white-washed buildings, and crystal-clear Aegean waters.',
+        features: ['Luxury Villa', 'Business Class', 'Wine Tour Included'],
+        imageUrl: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800',
+        available: true
+    },
+    {
+        id: 'new-york', name: 'New York', country: 'USA', continent: 'north-america',
+        price: 2199, currency: 'EUR', rating: 9.1, reviewCount: 4521,
+        description: 'The city that never sleeps - Broadway, Central Park, and endless excitement.',
+        features: ['Manhattan Hotel', 'Premium Economy', 'Broadway Show'],
+        imageUrl: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800',
+        available: true
+    },
+    {
+        id: 'dubai', name: 'Dubai', country: 'UAE', continent: 'middle-east',
+        price: 1899, currency: 'EUR', rating: 9.3, reviewCount: 2134,
+        description: 'Luxury shopping, ultramodern architecture, and Arabian hospitality.',
+        features: ['5-Star Resort', 'Business Class', 'Theme Park Access'],
+        imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
+        available: true
+    }
+];
+
+// --- Mock Request Handler ---
+// Intercepts fetch calls to /api/* and returns mock responses
+// This runs ONLY if no external handler (like Playwright's page.route) handles it first
+const originalFetch = window.fetch;
+
+window.fetch = async function(url, options = {}) {
+    const urlStr = typeof url === 'string' ? url : url.toString();
+    
+    // Only intercept /api/* requests
+    if (!urlStr.includes('/api/')) {
+        return originalFetch.call(this, url, options);
+    }
+    
+    // Try real fetch first (allows Playwright page.route to intercept)
+    // If it fails (no server), fall back to mock
+    try {
+        const realResponse = await originalFetch.call(this, url, options);
+        // If we got a real response (not a network error), use it
+        if (realResponse.ok || realResponse.status > 0) {
+            return realResponse;
+        }
+    } catch (e) {
+        // Network error — no server running. Use mock below.
+    }
+    
+    // --- Mock Response Logic ---
+    const method = (options.method || 'GET').toUpperCase();
+    const body = options.body ? JSON.parse(options.body) : null;
+    const scenario = window.__apiScenario || 'normal';
+
+    if (scenario === 'timeout') {
+        await new Promise(resolve => setTimeout(resolve, APP_CONFIG.testMode ? 50 : 4500));
+        return mockResponse(504, {
+            success: false,
+            error: 'Request timed out',
+            code: 'TIMEOUT'
+        });
+    }
+
+    if (scenario === 'error-500') {
+        return mockResponse(500, {
+            success: false,
+            error: 'Internal server error (simulated)',
+            code: 'SERVER_ERROR'
+        });
+    }
+
+    if (scenario === 'validation-400') {
+        return mockResponse(400, {
+            success: false,
+            error: 'Validation failed (simulated)',
+            code: 'VALIDATION_ERROR'
+        });
+    }
+    
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, delayFor(200 + Math.random() * 300)));
+    
+    // Route: GET /api/destinations
+    if (urlStr.match(/\/api\/destinations\/?$/) && method === 'GET') {
+        const params = new URL(urlStr, window.location.origin).searchParams;
+        let filtered = [...DESTINATIONS_DATA];
+        
+        if (params.get('continent')) {
+            filtered = filtered.filter(d => d.continent === params.get('continent'));
+        }
+        if (params.get('maxPrice')) {
+            filtered = filtered.filter(d => d.price <= parseInt(params.get('maxPrice')));
+        }
+        if (params.get('minPrice')) {
+            filtered = filtered.filter(d => d.price >= parseInt(params.get('minPrice')));
+        }
+        
+        return mockResponse(200, {
+            success: true, data: filtered, count: filtered.length,
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Route: GET /api/destinations/:id
+    if (urlStr.match(/\/api\/destinations\/[\w-]+/) && method === 'GET') {
+        const id = urlStr.split('/api/destinations/')[1].split('?')[0];
+        const dest = DESTINATIONS_DATA.find(d => d.id === id);
+        
+        if (!dest) {
+            return mockResponse(404, {
+                success: false, error: 'Destination not found', code: 'NOT_FOUND'
+            });
+        }
+        
+        return mockResponse(200, {
+            success: true, data: dest, timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Route: GET /api/bookings
+    if (urlStr.match(/\/api\/bookings\/?$/) && method === 'GET') {
+        const allBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        
+        return mockResponse(200, {
+            success: true, data: allBookings, count: allBookings.length,
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Route: POST /api/bookings
+    if (urlStr.match(/\/api\/bookings\/?$/) && method === 'POST') {
+        const required = ['destination', 'checkinDate', 'checkoutDate', 'fullName', 'email'];
+        const missing = required.filter(field => !body[field]);
+        
+        if (missing.length > 0) {
+            return mockResponse(400, {
+                success: false,
+                error: `Missing required fields: ${missing.join(', ')}`,
+                code: 'VALIDATION_ERROR'
+            });
+        }
+        
+        const booking = {
+            bookingId: `BKG-${Date.now().toString().slice(-6)}`,
+            ...body,
+            status: 'Confirmed',
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        const savedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        savedBookings.push(booking);
+        localStorage.setItem('bookings', JSON.stringify(savedBookings));
+        
+        return mockResponse(201, {
+            success: true, data: booking,
+            message: 'Booking created successfully',
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Route: DELETE /api/bookings/:id
+    if (urlStr.match(/\/api\/bookings\/[\w-]+/) && method === 'DELETE') {
+        const bookingId = urlStr.split('/api/bookings/')[1].split('?')[0];
+        const savedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        const index = savedBookings.findIndex(b => b.bookingId === bookingId);
+        
+        if (index === -1) {
+            return mockResponse(404, {
+                success: false, error: 'Booking not found', code: 'NOT_FOUND'
+            });
+        }
+        
+        savedBookings[index].status = 'Cancelled';
+        savedBookings[index].updatedAt = new Date().toISOString();
+        localStorage.setItem('bookings', JSON.stringify(savedBookings));
+        
+        return mockResponse(200, {
+            success: true, data: savedBookings[index],
+            message: 'Booking cancelled successfully',
+            timestamp: new Date().toISOString()
+        });
+    }
+    
+    // Fallback: unrecognised API route
+    return mockResponse(404, {
+        success: false, error: 'Endpoint not found', code: 'NOT_FOUND'
+    });
+};
+
+function mockResponse(status, body) {
+    const statusMap = {
+        200: 'OK',
+        201: 'Created',
+        400: 'Bad Request',
+        404: 'Not Found',
+        500: 'Internal Server Error',
+        504: 'Gateway Timeout'
+    };
+    return new Response(JSON.stringify(body), {
+        status: status,
+        statusText: statusMap[status] || 'Error',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Mock-Response': 'true'
+        }
+    });
+}
+
+// --- High-Level API Wrapper ---
+// Convenience methods that use fetch() internally
+// These are what the app calls — and what students will learn to mock
+window.API = {
+    baseURL: '/api',
+
+    async request(url, options = {}, loadingText = 'Loading...') {
+        return withLoadingState(loadingText, async () => {
+            try {
+                const response = await fetch(url, options);
+                const payload = await response.json();
+                if (!response.ok) {
+                    return {
+                        success: false,
+                        ...(payload || {}),
+                        status: response.status
+                    };
+                }
+                return payload;
+            } catch (error) {
+                return {
+                    success: false,
+                    error: error?.message || 'Network failure',
+                    code: 'NETWORK_ERROR'
+                };
+            }
+        });
+    },
+    
+    async getDestinations(filters = {}) {
+        const params = new URLSearchParams();
+        if (filters.continent) params.set('continent', filters.continent);
+        if (filters.maxPrice) params.set('maxPrice', filters.maxPrice);
+        if (filters.minPrice) params.set('minPrice', filters.minPrice);
+        const queryStr = params.toString();
+        const url = `/api/destinations${queryStr ? '?' + queryStr : ''}`;
+
+        return this.request(url, {}, 'Loading destinations...');
+    },
+    
+    async getDestination(destinationId) {
+        return this.request(`/api/destinations/${destinationId}`, {}, 'Loading destination details...');
+    },
+    
+    async getBookings(userId) {
+        return this.request('/api/bookings', {}, 'Loading bookings...');
+    },
+    
+    async createBooking(bookingData) {
+        return this.request('/api/bookings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(bookingData)
+        }, 'Creating booking...');
+    },
+    
+    async cancelBooking(bookingId) {
+        return this.request(`/api/bookings/${bookingId}`, {
+            method: 'DELETE'
+        }, 'Cancelling booking...');
+    }
+};
+
+// Expose for testing via page.evaluate()
+window.testAPI = {
+    getDestinations: (filters) => window.API.getDestinations(filters),
+    getBookings: (userId) => window.API.getBookings(userId),
+    createBooking: (data) => window.API.createBooking(data),
+    getDestination: (id) => window.API.getDestination(id),
+    cancelBooking: (id) => window.API.cancelBooking(id),
+    // Bonus: direct access to mock data for test assertions
+    getMockDestinations: () => DESTINATIONS_DATA
+};
+
+// Expose UI helpers for testing
+window.testHelpers = {
+    showToast: showToast,
+    removeToast: removeToast,
+    showSkeletonLoading: showSkeletonLoading,
+    hideSkeletonLoading: hideSkeletonLoading,
+    resetAppState: resetAppState,
+    setMockScenario: setMockScenario,
+    getToastCount: () => document.querySelectorAll('.toast').length,
+    getActiveAccordion: () => document.querySelector('.accordion-item.active')?.getAttribute('data-testid') || null,
+    isTestMode: () => APP_CONFIG.testMode
+};
+
+</script>
+</body>
+</html>
