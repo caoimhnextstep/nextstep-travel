@@ -1624,7 +1624,6 @@ let guestConfig = { adults: 2, children: 0, rooms: 1 };
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
     initEventListeners();
     initGuestSelector();
     initDatePickers();
@@ -1634,19 +1633,10 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function checkAuth() {
-    const user = localStorage.getItem('currentUser');
-    if (!user) {
-        window.location.href = 'nextsteptravel-login.html';
-        return;
-    }
-    currentUser = JSON.parse(user);
-    document.querySelector('[data-testid="user-email"]').textContent = currentUser.email;
+    // Authentication removed — site is publicly accessible
 }
 
 function initEventListeners() {
-    // Logout
-    document.querySelector('[data-testid="logout-btn"]').addEventListener('click', logout);
-    
     // Tabs
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -2374,7 +2364,6 @@ function sortTable(column) {
 // Logout
 function logout() {
     localStorage.removeItem('currentUser');
-    window.location.href = 'nextsteptravel-login.html';
 }
 
 // ========================================
