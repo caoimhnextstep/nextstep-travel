@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NextStepTravel v2.4 - Your Perfect Vacation Awaits</title>
+    <title>NextStepTravel v2.1 - Your Perfect Vacation Awaits</title>
     <meta name="description" content="Book amazing vacation packages with NextStepTravel - featuring enhanced search, hot deals, and trusted booking">
     <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-/* NextStepTravel v2.4 - Complete Styles */
+/* NextStepTravel v2.1 - Complete Styles */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -892,720 +891,23 @@ tr:hover { background: var(--bg-gray-50); }
         flex-direction: column; gap: 1rem;
     }
 }
-
-/* ========================================
-   TOAST NOTIFICATIONS
-   ======================================== */
-.toast-container {
-    position: fixed;
-    top: 1.5rem;
-    right: 1.5rem;
-    z-index: 10000;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    max-width: 420px;
-}
-.toast {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 1rem 1.25rem;
-    border-radius: var(--radius-md);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    background: var(--bg-white);
-    border-left: 4px solid transparent;
-    transform: translateX(120%);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    position: relative;
-}
-.toast.show {
-    transform: translateX(0);
-    opacity: 1;
-}
-.toast.removing {
-    transform: translateX(120%);
-    opacity: 0;
-    transition: all 0.3s ease-in;
-}
-.toast-success { border-left-color: var(--success-green); }
-.toast-error { border-left-color: var(--error-red); }
-.toast-warning { border-left-color: var(--warning-yellow); }
-.toast-info { border-left-color: var(--secondary-cyan); }
-.toast-icon {
-    font-size: 1.25rem;
-    flex-shrink: 0;
-    margin-top: 0.125rem;
-}
-.toast-body { flex: 1; }
-.toast-title {
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    margin-bottom: 0.125rem;
-}
-.toast-message {
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-}
-.toast-close {
-    background: none;
-    border: none;
-    font-size: 1.125rem;
-    color: var(--text-light);
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-    flex-shrink: 0;
-    transition: color 0.2s;
-}
-.toast-close:hover { color: var(--text-primary); }
-.toast-progress {
-    position: absolute;
-    bottom: 0;
-    left: 4px;
-    right: 0;
-    height: 3px;
-    border-radius: 0 0 var(--radius-md) 0;
-    overflow: hidden;
-}
-.toast-progress-bar {
-    height: 100%;
-    width: 100%;
-    background: var(--success-green);
-    transition: width linear;
-}
-.toast-error .toast-progress-bar { background: var(--error-red); }
-.toast-warning .toast-progress-bar { background: var(--warning-yellow); }
-.toast-info .toast-progress-bar { background: var(--secondary-cyan); }
-
-/* ========================================
-   SKELETON LOADING
-   ======================================== */
-.skeleton {
-    background: linear-gradient(90deg, var(--bg-gray-200) 25%, var(--bg-gray-100) 50%, var(--bg-gray-200) 75%);
-    background-size: 200% 100%;
-    animation: skeleton-shimmer 1.5s ease-in-out infinite;
-    border-radius: var(--radius-md);
-}
-@keyframes skeleton-shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-.skeleton-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-}
-.skeleton-image {
-    width: 100%;
-    height: 220px;
-}
-.skeleton-content {
-    padding: 1.5rem;
-}
-.skeleton-line {
-    height: 1rem;
-    margin-bottom: 0.75rem;
-    border-radius: 4px;
-}
-.skeleton-line.short { width: 40%; }
-.skeleton-line.medium { width: 70%; }
-.skeleton-line.long { width: 100%; }
-.skeleton-line.title {
-    height: 1.5rem;
-    width: 60%;
-    margin-bottom: 1rem;
-}
-.skeleton-btn {
-    height: 2.5rem;
-    width: 120px;
-    margin-top: 1rem;
-}
-.destinations-grid .skeleton-card {
-    display: flex;
-    flex-direction: column;
-}
-
-/* ========================================
-   ACCORDION / FAQ
-   ======================================== */
-.faq-section {
-    padding: 4rem 0;
-    background: white;
-    margin: 3rem 0;
-}
-.faq-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-.faq-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-}
-.accordion {
-    max-width: 800px;
-    margin: 0 auto;
-}
-.accordion-item {
-    border: 1px solid var(--bg-gray-200);
-    border-radius: var(--radius-md);
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-    transition: box-shadow 0.2s;
-}
-.accordion-item:hover {
-    box-shadow: var(--shadow-sm);
-}
-.accordion-item.active {
-    border-color: var(--secondary-cyan);
-    box-shadow: 0 0 0 1px var(--secondary-cyan), var(--shadow-sm);
-}
-.accordion-trigger {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.25rem 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    transition: background 0.2s;
-}
-.accordion-trigger:hover {
-    background: var(--bg-gray-50);
-}
-.accordion-icon {
-    font-size: 1.25rem;
-    transition: transform 0.3s;
-    color: var(--text-secondary);
-    flex-shrink: 0;
-}
-.accordion-item.active .accordion-icon {
-    transform: rotate(180deg);
-    color: var(--secondary-cyan);
-}
-.accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-.accordion-body {
-    padding: 0 1.5rem 1.25rem;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    font-size: 0.9375rem;
-}
-
-/* ========================================
-   CUSTOMER REVIEWS (Shadow DOM Section)
-   ======================================== */
-.reviews-section {
-    padding: 4rem 0;
-    background: var(--bg-gray-50);
-    margin: 3rem 0;
-}
-.reviews-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-}
-.reviews-subtitle {
-    text-align: center;
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-}
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* ========================================
-   IFRAME TERMS & CONDITIONS
-   ======================================== */
-.terms-iframe-section {
-    margin: 1.5rem 0;
-    border: 1px solid var(--bg-gray-200);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-}
-.terms-iframe-header {
-    padding: 0.75rem 1rem;
-    background: var(--bg-gray-50);
-    border-bottom: 1px solid var(--bg-gray-200);
-    font-weight: 600;
-    font-size: 0.875rem;
-    color: var(--text-primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.terms-iframe-header span {
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    font-weight: 400;
-}
-.terms-iframe-container {
-    height: 180px;
-    overflow: hidden;
-}
-.terms-iframe-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-.terms-agree {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    background: var(--bg-gray-50);
-    border-top: 1px solid var(--bg-gray-200);
-}
-.terms-agree input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--secondary-cyan);
-    cursor: pointer;
-}
-.terms-agree label {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    cursor: pointer;
-}
-.upload-errors {
-    margin-top: 0.75rem;
-    color: var(--error-red);
-    font-size: 0.875rem;
-    font-weight: 600;
-}
-.upload-errors:empty {
-    display: none;
-}
-
-@media (max-width: 768px) {
-    .toast-container {
-        left: 1rem;
-        right: 1rem;
-        max-width: none;
-    }
-    .reviews-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ========================================
-   Visual Refresh (Screenshot Match)
-   ======================================== */
-body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: #1f2f56;
-    background: #e8edf4;
-}
-header {
-    position: sticky;
-    top: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid #dce2ec;
-    box-shadow: none;
-}
-.header-container {
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: 1.15rem 1rem;
-}
-.logo {
-    font-size: 2.75rem;
-    letter-spacing: -0.02em;
-    color: #1c305e;
-    font-weight: 700;
-}
-.logo span {
-    color: #3a90df;
-}
-.logo em {
-    color: #df6f3a;
-    font-style: normal;
-    font-weight: 700;
-}
-.nav-links {
-    gap: 2rem;
-}
-.nav-links a {
-    background: transparent;
-    color: #1f2f56;
-    padding: 0;
-    font-size: 1.1rem;
-    border-radius: 0;
-}
-.nav-links a:hover {
-    transform: none;
-    box-shadow: none;
-    background: transparent;
-    color: #3a90df;
-}
-.partner-link {
-    display: inline-block;
-    background: linear-gradient(180deg, #5d9fd7 0%, #3f79ad 100%) !important;
-    color: #fff !important;
-    padding: 0.72rem 1.35rem !important;
-    border-radius: 0.55rem !important;
-}
-.partner-link:hover {
-    background: linear-gradient(180deg, #6da9db 0%, #4d85b7 100%) !important;
-}
-.hero {
-    padding: 2.2rem 0 7.5rem;
-    text-align: left;
-    background:
-        linear-gradient(to right, rgba(106, 162, 223, 0.58), rgba(212, 224, 245, 0.3)),
-        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2200&q=80&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-.hero::before {
-    display: none;
-}
-.hero::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 66px;
-    background: #e8edf4;
-    border-top-left-radius: 52% 100%;
-    border-top-right-radius: 48% 100%;
-}
-.hero-content {
-    max-width: 1150px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-.hero h1 {
-    font-size: 3.15rem;
-    color: #1c305e;
-    margin-bottom: 1.2rem;
-}
-.hero p {
-    display: none;
-}
-.trip-type-tabs {
-    display: none;
-}
-.hero-search-bar {
-    background: rgba(241, 246, 252, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 12px 40px rgba(16, 38, 88, 0.15);
-    grid-template-columns: 2.2fr 1.3fr 1.3fr auto;
-    gap: 0;
-    border-radius: 1.4rem;
-    max-width: 1150px;
-    overflow: hidden;
-    padding: 0;
-}
-.hero-search-bar .search-field {
-    background: #fff;
-    padding: 1.2rem 1.25rem;
-    border-right: 1px solid #dce2ec;
-    min-height: 72px;
-    justify-content: center;
-}
-.hero-search-bar .search-field:last-of-type {
-    display: none;
-}
-.hero-search-bar .search-field label {
-    display: none;
-}
-.hero-search-bar input,
-.hero-search-bar select {
-    font-size: 2.1rem;
-    color: #5c6372;
-    font-weight: 500;
-    padding: 0;
-    border: 0;
-}
-.hero-search-bar input::placeholder {
-    color: #7a8190;
-}
-.btn-search-hero {
-    border: 0;
-    min-width: 215px;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-    background: #fb8b2f;
-    border-radius: 0;
-}
-.btn-search-hero:hover {
-    background: #f17d22;
-    transform: none;
-}
-.deals-section,
-.breadcrumb,
-.filter-controls,
-.trust-section,
-.reviews-section,
-.faq-section {
-    display: none;
-}
-#destinations.section {
-    padding-top: 2.1rem;
-}
-.destinations-header h2 {
-    font-size: 3rem;
-    color: #1c305e;
-}
-.destinations-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1.2rem;
-}
-.card {
-    border-radius: 0.95rem;
-    border: 1px solid #dde4ef;
-    box-shadow: none;
-    overflow: hidden;
-}
-.card:hover {
-    transform: translateY(-2px);
-}
-.card-image {
-    height: 230px;
-}
-.card-content {
-    padding: 1.05rem;
-}
-.card-reviews,
-.urgency-indicator,
-.card-description,
-.social-proof,
-.card-features,
-.btn-details {
-    display: none;
-}
-.card-title {
-    font-size: 2rem;
-    margin-bottom: 0.2rem;
-}
-.card-country {
-    color: #4e5a75;
-    font-size: 1.15rem;
-    margin-bottom: 0.3rem;
-}
-.card-footer {
-    margin-top: 0.25rem;
-}
-.price-label {
-    color: #4e5a75;
-    font-size: 2rem;
-}
-.price-amount {
-    font-size: 2rem;
-    font-weight: 500;
-    color: #1f2f56;
-}
-.btn-book {
-    border-radius: 0.5rem;
-    background: #f79034;
-    padding: 0.75rem 1.15rem;
-    font-size: 1.1rem;
-}
-.btn-book:hover {
-    background: #ea7d1d;
-}
-.card[data-destination="bali"] {
-    order: 1;
-}
-.card[data-destination="paris"] {
-    order: 2;
-}
-.card[data-destination="new-york"] {
-    order: 3;
-}
-.card[data-destination="santorini"] {
-    order: 4;
-}
-.card[data-destination="tokyo"],
-.card[data-destination="dubai"] {
-    display: none !important;
-}
-footer {
-    display: none;
-}
-.demo-footer {
-    margin-top: 1.5rem;
-    border-top: 1px solid #d6deea;
-    background: #dfe6f1;
-    padding: 1.05rem 1rem;
-}
-.demo-footer-inner {
-    max-width: 1150px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 1.2rem;
-}
-.demo-footer-inner a {
-    text-decoration: none;
-    color: #516082;
-    font-size: 1.05rem;
-}
-.demo-chat {
-    position: fixed;
-    right: 2rem;
-    bottom: 2rem;
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    border: none;
-    background: linear-gradient(180deg, #58a8ef 0%, #2d7ecb 100%);
-    color: #fff;
-    font-size: 2rem;
-    cursor: pointer;
-    box-shadow: 0 10px 24px rgba(29, 74, 139, 0.3);
-    z-index: 1200;
-}
-.test-controls {
-    position: fixed;
-    left: 1rem;
-    bottom: 1rem;
-    z-index: 1250;
-    background: rgba(18, 36, 72, 0.95);
-    color: #f8fafc;
-    border-radius: 0.75rem;
-    padding: 0.75rem;
-    width: 265px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-}
-.test-controls h4 {
-    font-size: 0.86rem;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-.test-controls label {
-    display: block;
-    font-size: 0.75rem;
-    margin-bottom: 0.35rem;
-    color: #cbd5e1;
-}
-.test-controls select,
-.test-controls button {
-    width: 100%;
-    border-radius: 0.5rem;
-    border: 1px solid rgba(203, 213, 225, 0.35);
-    padding: 0.45rem 0.6rem;
-    font-size: 0.8rem;
-    font-family: inherit;
-}
-.test-controls select {
-    background: #fff;
-    color: #0f172a;
-    margin-bottom: 0.5rem;
-}
-.test-controls button {
-    background: #3a90df;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-.test-controls .mode-badge {
-    font-size: 0.75rem;
-    margin-bottom: 0.45rem;
-    color: #fbbf24;
-}
-@media (max-width: 980px) {
-    .header-container {
-        padding: 0.9rem 0.75rem;
-    }
-    .logo {
-        font-size: 1.7rem;
-    }
-    .nav-links {
-        gap: 1rem;
-    }
-    .nav-links a {
-        font-size: 0.95rem;
-    }
-    .hero h1 {
-        font-size: 2.1rem;
-    }
-    .hero-search-bar {
-        grid-template-columns: 1fr;
-        border-radius: 1rem;
-    }
-    .hero-search-bar .search-field {
-        border-right: 0;
-        border-bottom: 1px solid #dce2ec;
-    }
-    .hero-search-bar .search-field:last-of-type {
-        display: none;
-    }
-    .btn-search-hero {
-        min-width: 0;
-        width: 100%;
-        border-radius: 0 0 1rem 1rem;
-        padding: 1rem;
-        font-size: 1.2rem;
-    }
-    .destinations-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-@media (max-width: 640px) {
-    .destinations-grid {
-        grid-template-columns: 1fr;
-    }
-    .demo-chat {
-        width: 56px;
-        height: 56px;
-        font-size: 1.5rem;
-        right: 1rem;
-        bottom: 1rem;
-    }
-    .test-controls {
-        width: calc(100% - 2rem);
-        left: 1rem;
-        right: 1rem;
-    }
-}
     </style>
 </head>
 <body>
-
-<!-- Toast Container -->
-<div class="toast-container" data-testid="toast-container" id="toast-container"></div>
-
 <!-- Header -->
 <header>
 <div class="header-container">
-<a href="#" class="logo" data-testid="logo">Ne<span>X</span>TStep <em>Travel</em></a>
+<a href="#" class="logo" data-testid="logo">NextStepTravel</a>
 <nav>
 <ul class="nav-links">
-<li><a href="#" data-testid="nav-destinations">Home</a></li>
-<li><a href="#my-bookings" data-testid="nav-bookings">Bookings</a></li>
-<li><a href="#faq" data-testid="nav-about">About</a></li>
-<li><a href="#" class="partner-link" data-testid="partner-link">Sign In</a></li>
+<li><a href="#destinations" data-testid="nav-destinations">Destinations</a></li>
+<li><a href="#my-bookings" data-testid="nav-bookings">My Bookings</a></li>
+<li><a href="#" class="partner-link tooltip" data-testid="partner-link" data-tooltip="Become a NextStep partner">List Your Property</a></li>
 </ul>
 </nav>
 <div class="user-section">
 <span class="user-email" data-testid="user-email"></span>
-
+<button class="btn-logout tooltip" data-testid="logout-btn" data-tooltip="Sign out of your account">Logout</button>
 </div>
 </div>
 </header>
@@ -1613,8 +915,8 @@ footer {
 <!-- Hero -->
 <section class="hero">
 <div class="hero-content">
-<h1>Find your next travel destination</h1>
-<p>Compare handpicked stays and book in minutes</p>
+<h1>Discover Your Next Adventure</h1>
+<p>Handpicked destinations, unbeatable prices, memories that last forever</p>
 
 <div class="trip-type-tabs" data-testid="trip-type-tabs">
 <button class="tab-btn tooltip active" data-tab="packages" data-testid="tab-packages" data-tooltip="Flights + Hotels + Activities">Vacation Packages</button>
@@ -1625,12 +927,12 @@ footer {
 
 <div class="hero-search-bar" data-testid="hero-search-bar">
 <div class="search-field">
-<label for="hero-destination-input">Where to?</label>
+<label>Where are you going?</label>
 <div style="position: relative;">
-<input type="text" 
+<input type="search"
        id="hero-destination-input" 
        data-testid="hero-destination-input"
-       placeholder="Where to?"
+       placeholder="Search destinations..."
        autocomplete="off">
 <select id="hero-destination" data-testid="hero-destination" style="display: none;">
 <option value="">Select destination</option>
@@ -1646,18 +948,18 @@ footer {
 </div>
 <div class="search-field">
 <label>Check-in</label>
-<input type="date" id="hero-checkin" data-testid="hero-checkin" aria-label="Check-in">
+<input type="date" id="hero-checkin" data-testid="hero-checkin">
 </div>
 <div class="search-field">
 <label>Check-out</label>
-<input type="date" id="hero-checkout" data-testid="hero-checkout" aria-label="Check-out">
+<input type="date" id="hero-checkout" data-testid="hero-checkout">
 </div>
 <div class="search-field" style="position: relative;">
 <label>Guests</label>
-<button class="guest-selector-btn tooltip" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="guest-dropdown-panel" data-testid="guest-selector-btn" data-tooltip="Select travelers and rooms">
+<button class="guest-selector-btn tooltip" data-testid="guest-selector-btn" data-tooltip="Select travelers and rooms">
 <span id="guest-display">2 adults · 1 room</span>
 </button>
-<div class="guest-dropdown" id="guest-dropdown-panel" role="dialog" aria-label="Guest selector" data-testid="guest-dropdown">
+<div class="guest-dropdown" data-testid="guest-dropdown">
 <div class="guest-row">
 <div class="guest-label"><h4>Adults</h4><p>Age 13+</p></div>
 <div class="guest-controls">
@@ -1685,7 +987,7 @@ footer {
 <button class="guest-done-btn" data-testid="guest-done-btn">Done</button>
 </div>
 </div>
-<button class="btn-search-hero" data-testid="search-hero-btn">Search</button>
+<button class="btn-search-hero tooltip" data-testid="search-hero-btn" data-tooltip="Find your perfect vacation">Search</button>
 </div>
 </div>
 </section>
@@ -1697,36 +999,36 @@ footer {
 <p class="deals-subtitle">Save big on these handpicked destinations</p>
 <div class="deals-grid">
 <div class="deal-card" data-destination="paris" data-testid="deal-card-paris">
-<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800')">
+<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800')">">
 <span class="deal-badge">-20% OFF</span>
 </div>
 <div class="deal-content">
 <h3>Paris, France</h3>
 <p class="deal-savings">Save €500</p>
 <p class="deal-expires">⏰ Expires in 3 days</p>
-<button class="btn-deal" data-testid="deal-view-btn-paris">View Deal</button>
+<button class="btn-deal" data-testid="deal-view-btn-paris" onclick="viewDeal('paris')">View Deal</button>
 </div>
 </div>
 <div class="deal-card" data-destination="bali" data-testid="deal-card-bali">
-<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800')">
+<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800')">">
 <span class="deal-badge">-15% OFF</span>
 </div>
 <div class="deal-content">
 <h3>Bali, Indonesia</h3>
 <p class="deal-savings">Save €270</p>
 <p class="deal-expires">⏰ Expires in 5 days</p>
-<button class="btn-deal" data-testid="deal-view-btn-bali">View Deal</button>
+<button class="btn-deal" data-testid="deal-view-btn-bali" onclick="viewDeal('bali')">View Deal</button>
 </div>
 </div>
 <div class="deal-card" data-destination="tokyo" data-testid="deal-card-tokyo">
-<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800')">
+<div class="deal-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800')">">
 <span class="deal-badge">-25% OFF</span>
 </div>
 <div class="deal-content">
 <h3>Tokyo, Japan</h3>
 <p class="deal-savings">Save €800</p>
 <p class="deal-expires">⏰ Expires in 2 days</p>
-<button class="btn-deal" data-testid="deal-view-btn-tokyo">View Deal</button>
+<button class="btn-deal" data-testid="deal-view-btn-tokyo" onclick="viewDeal('tokyo')">View Deal</button>
 </div>
 </div>
 </div>
@@ -1748,7 +1050,7 @@ footer {
 <section id="destinations" class="section">
 <div class="container">
 <div class="destinations-header">
-<h2>Explore Popular Destinations</h2>
+<h2>Popular Destinations</h2>
 <div class="filter-controls">
 <select class="filter-select" data-testid="filter-continent">
 <option value="">All Continents</option>
@@ -1796,7 +1098,7 @@ footer {
 <div class="card-footer">
 <div class="card-price">
 <span class="price-label">From</span>
-<span class="price-amount">€225/night</span>
+<span class="price-amount">€1,999</span>
 </div>
 <div style="display: flex; gap: 0.5rem; flex-direction: column;">
 <button class="btn-book" data-testid="book-btn-paris">Book Now</button>
@@ -1874,7 +1176,7 @@ footer {
 <div class="card-footer">
 <div class="card-price">
 <span class="price-label">From</span>
-<span class="price-amount">€150/night</span>
+<span class="price-amount">€1,299</span>
 </div>
 <div style="display: flex; gap: 0.5rem; flex-direction: column;">
 <button class="btn-book" data-testid="book-btn-bali">Book Now</button>
@@ -1886,12 +1188,12 @@ footer {
 
 <!-- Santorini Card -->
 <div class="card" data-continent="europe" data-price="1799" data-destination="santorini" data-testid="destination-card-santorini">
-<img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800" alt="Cape Town" class="card-image">
+<img src="https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800" alt="Santorini" class="card-image">
 <div class="card-content">
 <div class="card-header">
 <div>
-<h3 class="card-title">Cape Town</h3>
-<p class="card-country">South Africa</p>
+<h3 class="card-title">Santorini</h3>
+<p class="card-country">Greece</p>
 </div>
 </div>
 <div class="card-reviews" data-testid="card-reviews">
@@ -1913,7 +1215,7 @@ footer {
 <div class="card-footer">
 <div class="card-price">
 <span class="price-label">From</span>
-<span class="price-amount">€160/night</span>
+<span class="price-amount">€1,799</span>
 </div>
 <div style="display: flex; gap: 0.5rem; flex-direction: column;">
 <button class="btn-book" data-testid="book-btn-santorini">Book Now</button>
@@ -1952,7 +1254,7 @@ footer {
 <div class="card-footer">
 <div class="card-price">
 <span class="price-label">From</span>
-<span class="price-amount">€180/night</span>
+<span class="price-amount">€2,199</span>
 </div>
 <div style="display: flex; gap: 0.5rem; flex-direction: column;">
 <button class="btn-book" data-testid="book-btn-new-york">Book Now</button>
@@ -2034,160 +1336,6 @@ footer {
 </div>
 </section>
 
-<!-- Customer Reviews (Shadow DOM Components) -->
-<section class="reviews-section" data-testid="reviews-section">
-<div class="container">
-<h2>What Our Travelers Say</h2>
-<p class="reviews-subtitle">Real reviews from real adventurers — powered by custom web components</p>
-<div class="reviews-grid" data-testid="reviews-grid">
-
-<travel-review 
-    data-testid="review-sarah"
-    author="Sarah M."
-    location="Dublin, Ireland"
-    destination="Paris"
-    rating="5"
-    date="2025-12-15"
-    text="Absolutely magical trip! The hotel was stunning and the included breakfast was a lovely touch. NextStepTravel made everything so easy — from booking to check-in, it was seamless."
-    avatar="SM"
-    verified="true"
-></travel-review>
-
-<travel-review 
-    data-testid="review-james"
-    author="James K."
-    location="London, UK"
-    destination="Tokyo"
-    rating="4"
-    date="2025-11-28"
-    text="Tokyo was incredible. The city pass included in the package saved us a fortune. Only minor issue was the flight had a short layover, but everything else was perfect."
-    avatar="JK"
-    verified="true"
-></travel-review>
-
-<travel-review 
-    data-testid="review-maria"
-    author="Maria L."
-    location="Barcelona, Spain"
-    destination="Bali"
-    rating="5"
-    date="2025-12-02"
-    text="Paradise found! The beach resort was even better than the photos. The spa package was a wonderful bonus. Will definitely book with NextStepTravel again."
-    avatar="ML"
-    verified="false"
-></travel-review>
-
-<travel-review 
-    data-testid="review-tom"
-    author="Tom W."
-    location="New York, USA"
-    destination="Santorini"
-    rating="5"
-    date="2025-10-19"
-    text="The villa was breathtaking — sunset views right from our balcony. The wine tour was a highlight. Business class made the journey itself a treat."
-    avatar="TW"
-    verified="true"
-></travel-review>
-
-<travel-review 
-    data-testid="review-aisha"
-    author="Aisha R."
-    location="Dubai, UAE"
-    destination="New York"
-    rating="4"
-    date="2025-11-05"
-    text="New York at Christmas is something everyone should experience. The Broadway show included in our package was Les Misérables — unforgettable! Hotel location was great."
-    avatar="AR"
-    verified="true"
-></travel-review>
-
-<travel-review 
-    data-testid="review-chen"
-    author="Chen W."
-    location="Singapore"
-    destination="Dubai"
-    rating="5"
-    date="2025-12-20"
-    text="Dubai exceeded all expectations. The 5-star resort was world-class, and the theme park access was a hit with the whole family. Flawless organization by NextStepTravel."
-    avatar="CW"
-    verified="true"
-></travel-review>
-
-</div>
-</div>
-</section>
-
-<!-- FAQ Accordion -->
-<section class="faq-section" data-testid="faq-section">
-<div class="container">
-<h2>Frequently Asked Questions</h2>
-<p class="faq-subtitle">Everything you need to know about booking with NextStepTravel</p>
-<div class="accordion" data-testid="accordion">
-
-<div class="accordion-item" data-testid="accordion-item-cancellation">
-<button class="accordion-trigger" data-testid="accordion-trigger-cancellation" aria-expanded="false" aria-controls="accordion-content-cancellation">
-<span>What is your cancellation policy?</span>
-<span class="accordion-icon">▼</span>
-</button>
-<div class="accordion-content" id="accordion-content-cancellation" data-testid="accordion-content-cancellation" role="region">
-<div class="accordion-body">
-You can cancel your booking free of charge up to 24 hours before your scheduled check-in date. Cancellations made within 24 hours of check-in may be subject to a fee equivalent to one night's stay. Refunds are processed within 5-10 business days to your original payment method.
-</div>
-</div>
-</div>
-
-<div class="accordion-item" data-testid="accordion-item-payment">
-<button class="accordion-trigger" data-testid="accordion-trigger-payment" aria-expanded="false" aria-controls="accordion-content-payment">
-<span>What payment methods do you accept?</span>
-<span class="accordion-icon">▼</span>
-</button>
-<div class="accordion-content" id="accordion-content-payment" data-testid="accordion-content-payment" role="region">
-<div class="accordion-body">
-We accept all major credit cards (Visa, Mastercard, American Express), PayPal, and bank transfers. All transactions are secured with 256-bit encryption. For bank transfers, please allow 2-3 business days for processing before your booking is confirmed.
-</div>
-</div>
-</div>
-
-<div class="accordion-item" data-testid="accordion-item-documents">
-<button class="accordion-trigger" data-testid="accordion-trigger-documents" aria-expanded="false" aria-controls="accordion-content-documents">
-<span>What travel documents do I need?</span>
-<span class="accordion-icon">▼</span>
-</button>
-<div class="accordion-content" id="accordion-content-documents" data-testid="accordion-content-documents" role="region">
-<div class="accordion-body">
-Requirements vary by destination. Generally, you will need a valid passport with at least 6 months remaining validity. Some destinations may require a visa. We recommend checking the entry requirements for your specific destination during the booking process. You can upload copies of your documents when completing your booking.
-</div>
-</div>
-</div>
-
-<div class="accordion-item" data-testid="accordion-item-changes">
-<button class="accordion-trigger" data-testid="accordion-trigger-changes" aria-expanded="false" aria-controls="accordion-content-changes">
-<span>Can I modify my booking after confirmation?</span>
-<span class="accordion-icon">▼</span>
-</button>
-<div class="accordion-content" id="accordion-content-changes" data-testid="accordion-content-changes" role="region">
-<div class="accordion-body">
-Yes, you can modify your booking dates, traveler details, and special requests up to 48 hours before check-in at no extra charge. Changes to the destination or package type may incur a rebooking fee. Contact our 24/7 support team or use the "My Bookings" section to request changes.
-</div>
-</div>
-</div>
-
-<div class="accordion-item" data-testid="accordion-item-insurance">
-<button class="accordion-trigger" data-testid="accordion-trigger-insurance" aria-expanded="false" aria-controls="accordion-content-insurance">
-<span>Is travel insurance included in the package?</span>
-<span class="accordion-icon">▼</span>
-</button>
-<div class="accordion-content" id="accordion-content-insurance" data-testid="accordion-content-insurance" role="region">
-<div class="accordion-body">
-Basic travel insurance covering trip cancellation and medical emergencies is included with all Complete Packages. For Vacation Packages and standalone bookings, travel insurance can be added during checkout for an additional fee. We strongly recommend travel insurance for all international trips.
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</section>
-
 <!-- Bookings -->
 <section id="my-bookings" class="section">
 <div class="container">
@@ -2197,11 +1345,11 @@ Basic travel insurance covering trip cancellation and medical emergencies is inc
 <table data-testid="bookings-table">
 <thead>
 <tr>
-<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="booking-id" data-testid="sort-booking-id">Booking ID</th>
-<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="destination" data-testid="sort-destination">Destination</th>
-<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="date" data-testid="sort-date">Travel Date</th>
-<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="price" data-testid="sort-price">Price</th>
-<th class="sortable" role="button" tabindex="0" aria-sort="none" data-sort="status" data-testid="sort-status">Status</th>
+<th class="sortable" data-sort="booking-id" data-testid="sort-booking-id">Booking ID</th>
+<th class="sortable" data-sort="destination" data-testid="sort-destination">Destination</th>
+<th class="sortable" data-sort="date" data-testid="sort-date">Travel Date</th>
+<th class="sortable" data-sort="price" data-testid="sort-price">Price</th>
+<th class="sortable" data-sort="status" data-testid="sort-status">Status</th>
 </tr>
 </thead>
 <tbody data-testid="bookings-tbody"></tbody>
@@ -2212,10 +1360,10 @@ Basic travel insurance covering trip cancellation and medical emergencies is inc
 </section>
 
 <!-- Booking Modal -->
-<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-testid="booking-modal">
+<div class="modal" data-testid="booking-modal">
 <div class="modal-content">
 <div class="modal-header">
-<h2 id="modal-title" data-testid="modal-title">Complete Your Booking</h2>
+<h2 data-testid="modal-title">Complete Your Booking</h2>
 <button class="btn-close" data-testid="close-modal">&times;</button>
 </div>
 <div class="modal-body">
@@ -2303,106 +1451,13 @@ Basic travel insurance covering trip cancellation and medical emergencies is inc
 </div>
 
 <h3>Travel Documents (Optional)</h3>
-<div class="upload-area" role="button" tabindex="0" aria-label="Upload travel documents" data-testid="upload-area">
+<div class="upload-area" data-testid="upload-area">
 <div class="upload-icon">📄</div>
 <p class="upload-text">Drag and drop files here or click to browse</p>
 <p style="color: var(--text-light); font-size: 0.875rem;">PDF, JPG, PNG (Max 5MB)</p>
 <input type="file" class="file-input" data-testid="file-input" accept=".pdf,.jpg,.jpeg,.png" multiple>
 </div>
 <div class="file-list" data-testid="file-list"></div>
-<div class="upload-errors" role="alert" aria-live="polite" data-testid="upload-errors"></div>
-
-<!-- Terms & Conditions (Iframe) -->
-<div class="terms-iframe-section" data-testid="terms-iframe-section">
-<div class="terms-iframe-header">
-<span>Terms & Conditions</span>
-<span>Please read before confirming</span>
-</div>
-<div class="terms-iframe-container" data-testid="terms-iframe-container">
-<iframe 
-    id="terms-iframe"
-    data-testid="terms-iframe"
-    title="Booking Terms and Conditions"
-    srcdoc="
-    <!DOCTYPE html>
-    <html lang='en'>
-    <head>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; padding: 1.25rem; line-height: 1.7; color: #374151; font-size: 0.875rem; }
-        h2 { font-size: 1.125rem; color: #1f2937; margin-bottom: 0.75rem; }
-        h3 { font-size: 0.9375rem; color: #1f2937; margin: 1rem 0 0.5rem; }
-        p { margin-bottom: 0.75rem; }
-        ul { margin: 0.5rem 0 0.75rem 1.5rem; }
-        li { margin-bottom: 0.25rem; }
-        .highlight { background: #fef3c7; padding: 0.75rem; border-radius: 6px; border-left: 3px solid #f59e0b; margin: 1rem 0; }
-        .section { border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 1rem; }
-        button { background: #0071c2; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; }
-        button:hover { background: #00528a; }
-        .footer { text-align: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e5e7eb; font-size: 0.75rem; color: #9ca3af; }
-    </style>
-    </head>
-    <body>
-        <h2 data-testid='terms-title'>NextStepTravel Booking Terms &amp; Conditions</h2>
-        <p>Last updated: January 2026</p>
-        
-        <div class='section'>
-            <h3 data-testid='terms-section-booking'>1. Booking Confirmation</h3>
-            <p>Your booking is confirmed upon receipt of payment. A confirmation email with your booking reference number will be sent within 24 hours.</p>
-            <ul>
-                <li data-testid='terms-item-confirmation'>Booking confirmation is subject to availability</li>
-                <li>A valid email address is required for all bookings</li>
-                <li>Booking references begin with BKG- followed by a unique identifier</li>
-            </ul>
-        </div>
-        
-        <div class='section'>
-            <h3 data-testid='terms-section-cancellation'>2. Cancellation Policy</h3>
-            <p>Free cancellation is available up to 24 hours before your scheduled check-in date.</p>
-            <div class='highlight'>
-                <strong>Important:</strong> Cancellations within 24 hours of check-in are subject to a fee equal to one night's accommodation cost.
-            </div>
-        </div>
-        
-        <div class='section'>
-            <h3 data-testid='terms-section-payment'>3. Payment Terms</h3>
-            <p>All prices are displayed in EUR. Payment is processed securely through our encrypted payment gateway.</p>
-            <ul>
-                <li>Credit cards: Visa, Mastercard, American Express</li>
-                <li>PayPal payments are processed immediately</li>
-                <li data-testid='terms-item-bank'>Bank transfers require 2-3 business days</li>
-            </ul>
-        </div>
-        
-        <div class='section'>
-            <h3>4. Travel Documents</h3>
-            <p>Travelers are responsible for ensuring valid travel documents. NextStepTravel does not guarantee visa approval or entry to any destination.</p>
-        </div>
-        
-        <div class='section'>
-            <h3>5. Liability</h3>
-            <p>NextStepTravel acts as an intermediary between travelers and service providers. We are not liable for third-party service failures but will assist in resolution.</p>
-        </div>
-        
-        <div>
-            <h3>6. Contact</h3>
-            <p>For questions about these terms, contact us at <strong data-testid='terms-email'>support@nextsteptravel.com</strong> or call our 24/7 helpline.</p>
-            <button data-testid='terms-accept-btn' onclick='window.parent.postMessage({type: &quot;terms-accepted&quot;}, window.location.origin === &quot;null&quot; ? &quot;*&quot; : window.location.origin)'>I Accept These Terms</button>
-        </div>
-        
-        <div class='footer'>
-            <p>&copy; 2025 NextStepTravel. All rights reserved. This is a demo application for QA automation testing.</p>
-        </div>
-    </body>
-    </html>
-    "
-></iframe>
-</div>
-<div class="terms-agree">
-<input type="checkbox" id="agree-terms-booking" data-testid="agree-terms-booking">
-<label for="agree-terms-booking">I have read and agree to the Terms & Conditions</label>
-</div>
-</div>
 
 <div class="form-actions">
 <button type="button" class="btn-secondary" data-testid="cancel-booking">Cancel</button>
@@ -2497,7 +1552,7 @@ Basic travel insurance covering trip cancellation and medical emergencies is inc
           <a href="#" data-testid="footer-privacy" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Privacy Notice</a>
           <a href="#" data-testid="footer-terms" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Terms of Service</a>
           <a href="#" data-testid="footer-accessibility" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Accessibility Statement</a>
-          <a href="#" data-testid="footer-cookies" style="color: #0071c2; text-decoration: none; font-size: 0.875rem;">Manage cookie settings</a>
+          <a href="#" data-testid="footer-cookies" style="color: #0071c2; text-decoration: none; font-size: 0.875rm;">Manage cookie settings</a>
         </div>
       </div>
       
@@ -2548,28 +1603,6 @@ Basic travel insurance covering trip cancellation and medical emergencies is inc
   </div>
 </footer>
 
-<div class="demo-footer" data-testid="demo-footer">
-  <div class="demo-footer-inner">
-    <a href="#" data-testid="demo-footer-privacy">Privacy Policy</a>
-    <a href="#" data-testid="demo-footer-terms">Terms of Service</a>
-    <a href="#" data-testid="demo-footer-support">Support</a>
-  </div>
-</div>
-
-<button class="demo-chat" data-testid="demo-chat-btn" aria-label="Open chat support">💬</button>
-<div class="test-controls" data-testid="test-controls">
-  <h4>Automation Lab</h4>
-  <div class="mode-badge" data-testid="test-mode-badge"></div>
-  <label for="api-scenario-select">Mock API Scenario</label>
-  <select id="api-scenario-select" data-testid="api-scenario-select">
-    <option value="normal">Normal responses</option>
-    <option value="error-500">Server error (500)</option>
-    <option value="validation-400">Validation error (400)</option>
-    <option value="timeout">Timeout simulation</option>
-  </select>
-  <button type="button" id="reset-app-state-btn" data-testid="reset-app-state-btn">Reset App State</button>
-</div>
-
 <!-- Loading Overlay -->
 <div class="loading-overlay" data-testid="loading-overlay">
 <div style="text-align: center;">
@@ -2579,7 +1612,7 @@ Basic travel insurance covering trip cancellation and medical emergencies is inc
 </div>
 
 <script>
-// NextStepTravel v2.4 - Complete JavaScript
+// NextStepTravel v2.1 - Complete JavaScript
 
 // State
 let currentUser = null;
@@ -2588,279 +1621,32 @@ let uploadedFiles = [];
 let currentDestination = null;
 let currentSort = { column: null, direction: 'asc' };
 let guestConfig = { adults: 2, children: 0, rooms: 1 };
-let uploadErrors = [];
-
-const urlParams = new URLSearchParams(window.location.search);
-const APP_CONFIG = {
-    testMode: urlParams.get('testMode') === '1' || localStorage.getItem('appTestMode') === '1',
-    mockScenario: urlParams.get('apiScenario') || localStorage.getItem('apiScenario') || 'normal'
-};
-window.__apiScenario = APP_CONFIG.mockScenario;
-
-function delayFor(ms) {
-    return APP_CONFIG.testMode ? 0 : ms;
-}
-
-function schedule(fn, ms) {
-    return setTimeout(fn, delayFor(ms));
-}
-
-function parsePriceToNumber(priceText) {
-    const value = parseInt(String(priceText).replace(/[^\d]/g, ''), 10);
-    return Number.isFinite(value) ? value : 0;
-}
-
-// ========================================
-// TOAST NOTIFICATION SYSTEM
-// ========================================
-let toastId = 0;
-
-function showToast(type, title, message, duration = 5000) {
-    const container = document.getElementById('toast-container');
-    const id = `toast-${++toastId}`;
-    
-    const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
-    
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
-    toast.id = id;
-    toast.setAttribute('data-testid', `toast-${type}`);
-    toast.setAttribute('role', 'alert');
-    toast.innerHTML = `
-        <span class="toast-icon">${icons[type] || icons.info}</span>
-        <div class="toast-body">
-            <div class="toast-title">${title}</div>
-            <div class="toast-message">${message}</div>
-        </div>
-        <button class="toast-close" data-testid="toast-close" aria-label="Dismiss notification">&times;</button>
-        <div class="toast-progress">
-            <div class="toast-progress-bar" style="width: 100%;"></div>
-        </div>
-    `;
-    
-    container.appendChild(toast);
-    
-    // Trigger slide-in animation
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            toast.classList.add('show');
-        });
-    });
-    
-    // Progress bar countdown
-    const progressBar = toast.querySelector('.toast-progress-bar');
-    progressBar.style.transition = `width ${duration}ms linear`;
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            progressBar.style.width = '0%';
-        });
-    });
-    
-    // Close button
-    toast.querySelector('.toast-close').addEventListener('click', () => removeToast(toast));
-    
-    // Auto-remove after duration
-    const timer = schedule(() => removeToast(toast), duration);
-    toast.dataset.timer = timer;
-    
-    return toast;
-}
-
-function removeToast(toast) {
-    if (!toast || !toast.parentNode) return;
-    clearTimeout(parseInt(toast.dataset.timer));
-    toast.classList.remove('show');
-    toast.classList.add('removing');
-    schedule(() => {
-        if (toast.parentNode) toast.parentNode.removeChild(toast);
-    }, 300);
-}
-
-// ========================================
-// SKELETON LOADING
-// ========================================
-function showSkeletonLoading() {
-    const grid = document.querySelector('[data-testid="destinations-grid"]');
-    const realCards = grid.querySelectorAll('.card');
-    
-    // Hide real cards
-    realCards.forEach(card => card.style.display = 'none');
-    
-    // Insert 6 skeleton cards
-    for (let i = 0; i < 6; i++) {
-        const skeleton = document.createElement('div');
-        skeleton.className = 'skeleton-card';
-        skeleton.setAttribute('data-testid', `skeleton-card-${i}`);
-        skeleton.innerHTML = `
-            <div class="skeleton skeleton-image"></div>
-            <div class="skeleton-content">
-                <div class="skeleton skeleton-line title"></div>
-                <div class="skeleton skeleton-line short"></div>
-                <div class="skeleton skeleton-line long"></div>
-                <div class="skeleton skeleton-line long"></div>
-                <div class="skeleton skeleton-line medium"></div>
-                <div class="skeleton skeleton-btn skeleton"></div>
-            </div>
-        `;
-        grid.appendChild(skeleton);
-    }
-}
-
-function hideSkeletonLoading() {
-    const grid = document.querySelector('[data-testid="destinations-grid"]');
-    
-    // Remove skeleton cards
-    grid.querySelectorAll('.skeleton-card').forEach(s => s.remove());
-    
-    // Reveal real cards with a staggered fade-in
-    const realCards = grid.querySelectorAll('.card');
-    realCards.forEach((card, i) => {
-        card.style.display = 'flex';
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-        
-        schedule(() => {
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-        }, i * 100);
-    });
-}
-
-// ========================================
-// ACCORDION
-// ========================================
-function initAccordion() {
-    const triggers = document.querySelectorAll('.accordion-trigger');
-    
-    triggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
-            const item = trigger.closest('.accordion-item');
-            const content = item.querySelector('.accordion-content');
-            const isOpen = item.classList.contains('active');
-            
-            // Close all items
-            document.querySelectorAll('.accordion-item').forEach(accItem => {
-                accItem.classList.remove('active');
-                accItem.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
-                accItem.querySelector('.accordion-content').style.maxHeight = null;
-            });
-            
-            // Open clicked item (if it wasn't already open)
-            if (!isOpen) {
-                item.classList.add('active');
-                trigger.setAttribute('aria-expanded', 'true');
-                content.style.maxHeight = content.scrollHeight + 'px';
-            }
-        });
-    });
-}
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // checkAuth(); // Removed — public access for course students
+    checkAuth();
     initEventListeners();
     initGuestSelector();
     initDatePickers();
     loadBookings();
     updateGuestDisplay();
     setDefaultDates();
-    initAccordion();
-    initAutomationLabControls();
-    applyTestModeState();
-    
-    // Skeleton loading: show skeletons, then reveal real content after simulated load
-    showSkeletonLoading();
-    schedule(() => {
-        hideSkeletonLoading();
-        showToast('info', 'Destinations loaded', '6 destinations available. Happy browsing!', 3000);
-    }, 1800);
 });
 
 function checkAuth() {
-    // Auth removed — app is publicly accessible
     const user = localStorage.getItem('currentUser');
-    if (user) {
-        currentUser = JSON.parse(user);
-        document.querySelector('[data-testid="user-email"]').textContent = currentUser.email;
+    if (!user) {
+        window.location.href = 'nextsteptravel-login.html';
+        return;
     }
-}
-
-function setMockScenario(scenario) {
-    window.__apiScenario = scenario || 'normal';
-    localStorage.setItem('apiScenario', window.__apiScenario);
-}
-
-function applyTestModeState() {
-    const badge = document.querySelector('[data-testid="test-mode-badge"]');
-    if (badge) {
-        badge.textContent = APP_CONFIG.testMode
-            ? 'Test mode enabled (deterministic timers/randomness)'
-            : 'Standard mode (realistic delays/randomness)';
-    }
-}
-
-function initAutomationLabControls() {
-    const scenarioSelect = document.querySelector('[data-testid="api-scenario-select"]');
-    const resetButton = document.querySelector('[data-testid="reset-app-state-btn"]');
-
-    if (scenarioSelect) {
-        scenarioSelect.value = window.__apiScenario || 'normal';
-        scenarioSelect.addEventListener('change', () => {
-            setMockScenario(scenarioSelect.value);
-            showToast('info', 'API scenario updated', `Active scenario: ${scenarioSelect.value}`, 2200);
-        });
-    }
-
-    if (resetButton) {
-        resetButton.addEventListener('click', () => {
-            resetAppState();
-            showToast('success', 'State reset', 'App state was reset for a clean test run.', 2600);
-        });
-    }
-}
-
-function resetAppState() {
-    localStorage.removeItem('bookings');
-    localStorage.removeItem('currentUser');
-    localStorage.setItem('apiScenario', 'normal');
-
-    bookings = [];
-    uploadedFiles = [];
-    uploadErrors = [];
-    currentDestination = null;
-    currentSort = { column: null, direction: 'asc' };
-    guestConfig = { adults: 2, children: 0, rooms: 1 };
-    setMockScenario('normal');
-
-    document.querySelectorAll('.toast').forEach((toast) => toast.remove());
-    document.querySelectorAll('.card').forEach((card) => {
-        card.style.display = 'flex';
-        card.classList.remove('highlighted');
-        card.style.opacity = '';
-        card.style.transform = '';
-    });
-
-    const destinationInput = document.getElementById('hero-destination-input');
-    const destinationSelect = document.getElementById('hero-destination');
-    if (destinationInput) destinationInput.value = '';
-    if (destinationSelect) destinationSelect.value = '';
-    document.querySelector('[data-testid="filter-continent"]').value = '';
-    document.querySelector('[data-testid="filter-price"]').value = '';
-    updateBreadcrumb(null);
-
-    const scenarioSelect = document.querySelector('[data-testid="api-scenario-select"]');
-    if (scenarioSelect) scenarioSelect.value = 'normal';
-
-    closeModal();
-    renderUploadErrors();
-    updateGuestCounts();
-    updateGuestDisplay();
-    setDefaultDates();
-    loadBookings();
+    currentUser = JSON.parse(user);
+    document.querySelector('[data-testid="user-email"]').textContent = currentUser.email;
 }
 
 function initEventListeners() {
+    // Logout
+    document.querySelector('[data-testid="logout-btn"]').addEventListener('click', logout);
+    
     // Tabs
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -2907,12 +1693,6 @@ function initEventListeners() {
     const uploadArea = document.querySelector('[data-testid="upload-area"]');
     const fileInput = document.querySelector('[data-testid="file-input"]');
     uploadArea.addEventListener('click', () => fileInput.click());
-    uploadArea.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            fileInput.click();
-        }
-    });
     uploadArea.addEventListener('dragover', (e) => {
         e.preventDefault();
         uploadArea.classList.add('drag-over');
@@ -2924,12 +1704,6 @@ function initEventListeners() {
     // Table sorting
     document.querySelectorAll('th.sortable').forEach(th => {
         th.addEventListener('click', () => sortTable(th.dataset.sort));
-        th.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                sortTable(th.dataset.sort);
-            }
-        });
     });
     
     // Modal outside click
@@ -2946,21 +1720,17 @@ function initGuestSelector() {
     
     guestBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const nextState = !guestDropdown.classList.contains('active');
         guestDropdown.classList.toggle('active');
-        guestBtn.setAttribute('aria-expanded', nextState ? 'true' : 'false');
     });
     
     document.addEventListener('click', (e) => {
         if (!guestBtn.contains(e.target) && !guestDropdown.contains(e.target)) {
             guestDropdown.classList.remove('active');
-            guestBtn.setAttribute('aria-expanded', 'false');
         }
     });
     
     doneBtn.addEventListener('click', () => {
         guestDropdown.classList.remove('active');
-        guestBtn.setAttribute('aria-expanded', 'false');
         updateGuestDisplay();
     });
     
@@ -3187,7 +1957,7 @@ function viewDeal(destination) {
     }
     
     // Wait for scroll, then highlight the destination card
-    schedule(() => {
+    setTimeout(() => {
         const card = document.querySelector(`[data-testid="destination-card-${destination}"]`);
         if (card) {
             // Add highlight effect
@@ -3197,7 +1967,7 @@ function viewDeal(destination) {
             card.style.transition = 'all 0.3s ease';
             
             // Remove highlight after 3 seconds
-            schedule(() => {
+            setTimeout(() => {
                 card.style.transform = '';
                 card.style.boxShadow = '';
                 card.style.border = '';
@@ -3220,9 +1990,9 @@ function performHeroSearch() {
         cards.forEach(card => {
             if (card.dataset.destination === destination) {
                 card.style.display = 'flex';
-                schedule(() => {
+                setTimeout(() => {
                     card.classList.add('highlighted');
-                    schedule(() => card.classList.remove('highlighted'), 2000);
+                    setTimeout(() => card.classList.remove('highlighted'), 2000);
                 }, 300);
             } else {
                 card.style.display = 'none';
@@ -3241,9 +2011,9 @@ function handleDealClick(e) {
     
     if (destCard) {
         destCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        schedule(() => {
+        setTimeout(() => {
             destCard.classList.add('highlighted');
-            schedule(() => destCard.classList.remove('highlighted'), 2000);
+            setTimeout(() => destCard.classList.remove('highlighted'), 2000);
         }, 300);
         updateBreadcrumb(destination);
     }
@@ -3273,7 +2043,6 @@ function applyFilters() {
     const priceFilter = document.querySelector('[data-testid="filter-price"]').value;
     const cards = document.querySelectorAll('.card');
     
-    let visibleCount = 0;
     cards.forEach(card => {
         let showCard = true;
         if (continentFilter && card.dataset.continent !== continentFilter) showCard = false;
@@ -3284,16 +2053,7 @@ function applyFilters() {
             if (priceFilter === 'luxury' && price < 2000) showCard = false;
         }
         card.style.display = showCard ? 'flex' : 'none';
-        if (showCard) visibleCount++;
     });
-    
-    if (continentFilter || priceFilter) {
-        if (visibleCount === 0) {
-            showToast('warning', 'No results', 'No destinations match your filters. Try adjusting your criteria.', 3000);
-        } else {
-            showToast('info', 'Filters applied', `Showing ${visibleCount} destination${visibleCount !== 1 ? 's' : ''}.`, 2500);
-        }
-    }
 }
 
 // Booking Modal
@@ -3317,7 +2077,7 @@ function handleBookClick(e) {
     const tax = Math.round(priceNum * 0.1);
     const total = priceNum + tax;
     document.getElementById('summary-total').textContent = `€${total.toLocaleString()}`;
-    document.getElementById('email').value = currentUser ? currentUser.email : '';
+    document.getElementById('email').value = currentUser.email;
     
     openModal();
     updateBreadcrumb(card.dataset.destination);
@@ -3339,9 +2099,7 @@ function resetForm() {
     document.querySelector('[data-testid="success-message"]').classList.add('hidden');
     document.getElementById('booking-form').classList.remove('hidden');
     uploadedFiles = [];
-    uploadErrors = [];
     document.querySelector('[data-testid="file-list"]').innerHTML = '';
-    renderUploadErrors();
     document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
     document.querySelector('[data-testid="payment-credit-card"]').classList.add('selected');
 }
@@ -3361,21 +2119,14 @@ function handleFileSelect(e) {
 }
 
 function addFiles(files) {
-    uploadErrors = [];
     files.forEach(file => {
         if (file.size > 5 * 1024 * 1024) {
-            uploadErrors.push(`${file.name} is too large. Maximum file size is 5MB.`);
-            return;
-        }
-        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-        if (file.type && !allowedTypes.includes(file.type)) {
-            uploadErrors.push(`${file.name} has an unsupported file type.`);
+            alert(`${file.name} is too large. Maximum file size is 5MB.`);
             return;
         }
         uploadedFiles.push(file);
     });
     updateFileList();
-    renderUploadErrors();
 }
 
 function updateFileList() {
@@ -3391,12 +2142,6 @@ function updateFileList() {
 function removeFile(index) {
     uploadedFiles.splice(index, 1);
     updateFileList();
-}
-
-function renderUploadErrors() {
-    const errorsNode = document.querySelector('[data-testid="upload-errors"]');
-    if (!errorsNode) return;
-    errorsNode.innerHTML = uploadErrors.map(error => `<div>${error}</div>`).join('');
 }
 
 // Booking Submission
@@ -3470,19 +2215,10 @@ function handleBookingSubmit(e) {
             errors.push('Invalid date range');
         }
     }
-
-    const agreeTerms = document.getElementById('agree-terms-booking');
-    if (agreeTerms && !agreeTerms.checked) {
-        isValid = false;
-        errors.push('Terms must be accepted');
-        showToast('warning', 'Terms required', 'Please accept the Terms & Conditions before confirming your booking.', 4000);
-        agreeTerms.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
     
     // If validation fails, stop here
     if (!isValid) {
         console.log('Validation errors:', errors);
-        showToast('error', 'Please fix the errors', `${errors.length} field${errors.length > 1 ? 's' : ''} need${errors.length === 1 ? 's' : ''} your attention.`, 4000);
         // Scroll to first error
         const firstError = document.querySelector('.error');
         if (firstError) {
@@ -3511,7 +2247,7 @@ function handleBookingSubmit(e) {
     };
     
     // Simulate API call delay
-    schedule(() => {
+    setTimeout(() => {
         hideLoadingState();
         
         bookings.push(formData);
@@ -3519,11 +2255,6 @@ function handleBookingSubmit(e) {
         
         document.getElementById('booking-form').classList.add('hidden');
         const successMessage = document.querySelector('[data-testid="success-message"]');
-        const activeBug = new URLSearchParams(window.location.search).get('bug');
-        if (activeBug === 'no-confirmation') {
-          // Bug active: confirmation heading is suppressed for testing purposes
-          return;
-        }
         successMessage.classList.remove('hidden');
         
         document.getElementById('confirmed-booking-id').textContent = formData.bookingId;
@@ -3534,8 +2265,7 @@ function handleBookingSubmit(e) {
         document.getElementById('confirmed-total').textContent = document.getElementById('summary-total').textContent;
         
         loadBookings();
-        showToast('success', 'Booking Confirmed!', `Your trip to ${formData.destination} has been booked. Booking ID: ${formData.bookingId}`);
-        schedule(() => closeModal(), 5000);
+        setTimeout(() => closeModal(), 5000);
     }, 1500);
 }
 
@@ -3551,10 +2281,8 @@ function showError(fieldId, errorId, customMessage = null) {
     }
 }
 
-function showLoadingState(message = 'Processing your booking...') {
+function showLoadingState() {
     const overlay = document.querySelector('[data-testid="loading-overlay"]');
-    const loadingText = document.querySelector('[data-testid="loading-text"]');
-    if (loadingText) loadingText.textContent = message;
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -3563,15 +2291,6 @@ function hideLoadingState() {
     const overlay = document.querySelector('[data-testid="loading-overlay"]');
     overlay.classList.remove('active');
     document.body.style.overflow = 'auto';
-}
-
-async function withLoadingState(message, fn) {
-    showLoadingState(message);
-    try {
-        return await fn();
-    } finally {
-        hideLoadingState();
-    }
 }
 
 // Bookings Table
@@ -3628,10 +2347,8 @@ function sortTable(column) {
     
     headers.forEach(th => {
         th.classList.remove('sort-asc', 'sort-desc');
-        th.setAttribute('aria-sort', 'none');
         if (th.dataset.sort === column) {
             th.classList.add(`sort-${currentSort.direction}`);
-            th.setAttribute('aria-sort', currentSort.direction === 'asc' ? 'ascending' : 'descending');
         }
     });
     
@@ -3645,16 +2362,21 @@ function sortTable(column) {
             case 'status': aVal = a.status; bVal = b.status; break;
             default: return 0;
         }
-        if (aVal === bVal) return 0;
         if (currentSort.direction === 'asc') {
             return aVal > bVal ? 1 : -1;
+        } else {
+            return aVal < bVal ? 1 : -1;
         }
-        return aVal < bVal ? 1 : -1;
     });
     renderBookingsTable();
 }
 
 // Logout
+function logout() {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'nextsteptravel-login.html';
+}
+
 // ========================================
 // DESTINATION DETAILS (NEW WINDOW)
 // ========================================
@@ -3819,565 +2541,238 @@ function openDestinationDetails(destinationId) {
 updateGuestCounts();
 
 // ========================================
-// SHADOW DOM: <travel-review> Custom Element
+// MOCK API ENDPOINTS (v2.2)
 // ========================================
-// This web component renders entirely inside a Shadow DOM
-// Teaching value:
-//   - Students learn locator('travel-review').locator('...')  won't work
-//   - Must use page.locator('travel-review').first().evaluate() or
-//     specific Playwright shadow DOM piercing techniques
-//   - Real-world: Salesforce Lightning, Workday, Lit/Stencil components
+// This simulates real API endpoints for teaching API testing
+// Students can intercept these with Playwright's route handling
 
-class TravelReview extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-    }
+window.API = {
+    baseURL: '/api',
     
-    connectedCallback() {
-        const author = this.getAttribute('author') || 'Anonymous';
-        const location = this.getAttribute('location') || '';
-        const destination = this.getAttribute('destination') || '';
-        const rating = parseInt(this.getAttribute('rating')) || 5;
-        const date = this.getAttribute('date') || '';
-        const text = this.getAttribute('text') || '';
-        const avatar = this.getAttribute('avatar') || '?';
-        const verified = this.getAttribute('verified') === 'true';
-        const deterministicCount = (name) => {
-            const seed = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-            return 3 + (seed % 20);
-        };
-        const helpfulBaseCount = APP_CONFIG.testMode
-            ? deterministicCount(author || destination || 'review')
-            : Math.floor(Math.random() * 20 + 3);
+    // GET /api/destinations
+    async getDestinations(filters = {}) {
+        // Simulate network delay
+        await new Promise(resolve => setTimeout(resolve, 300));
         
-        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-        const formattedDate = date ? new Date(date).toLocaleDateString('en-US', { 
-            year: 'numeric', month: 'short', day: 'numeric' 
-        }) : '';
+        const destinations = [
+            {
+                id: 'paris',
+                name: 'Paris',
+                country: 'France',
+                continent: 'europe',
+                price: 1999,
+                currency: 'EUR',
+                rating: 9.2,
+                reviewCount: 1247,
+                description: 'Experience the magic of the City of Light with iconic landmarks and world-class cuisine.',
+                features: ['4-Star Hotel', 'Direct Flights', 'Breakfast Included'],
+                imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800',
+                available: true
+            },
+            {
+                id: 'tokyo',
+                name: 'Tokyo',
+                country: 'Japan',
+                continent: 'asia',
+                price: 2499,
+                currency: 'EUR',
+                rating: 9.5,
+                reviewCount: 2891,
+                description: 'Discover the perfect blend of ancient tradition and cutting-edge technology.',
+                features: ['5-Star Hotel', 'Premium Economy', 'City Pass Included'],
+                imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800',
+                available: true
+            },
+            {
+                id: 'bali',
+                name: 'Bali',
+                country: 'Indonesia',
+                continent: 'asia',
+                price: 1299,
+                currency: 'EUR',
+                rating: 8.9,
+                reviewCount: 3456,
+                description: 'Paradise beaches, lush rice terraces, and spiritual tranquility await you.',
+                features: ['Beach Resort', 'Economy Class', 'Spa Package'],
+                imageUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
+                available: true
+            },
+            {
+                id: 'santorini',
+                name: 'Santorini',
+                country: 'Greece',
+                continent: 'europe',
+                price: 1799,
+                currency: 'EUR',
+                rating: 9.4,
+                reviewCount: 1982,
+                description: 'Stunning sunsets, white-washed buildings, and crystal-clear Aegean waters.',
+                features: ['Luxury Villa', 'Business Class', 'Wine Tour Included'],
+                imageUrl: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800',
+                available: true
+            },
+            {
+                id: 'new-york',
+                name: 'New York',
+                country: 'USA',
+                continent: 'north-america',
+                price: 2199,
+                currency: 'EUR',
+                rating: 9.1,
+                reviewCount: 4521,
+                description: 'The city that never sleeps - Broadway, Central Park, and endless excitement.',
+                features: ['Manhattan Hotel', 'Premium Economy', 'Broadway Show'],
+                imageUrl: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800',
+                available: true
+            },
+            {
+                id: 'dubai',
+                name: 'Dubai',
+                country: 'UAE',
+                continent: 'middle-east',
+                price: 1899,
+                currency: 'EUR',
+                rating: 9.3,
+                reviewCount: 2134,
+                description: 'Luxury shopping, ultramodern architecture, and Arabian hospitality.',
+                features: ['5-Star Resort', 'Business Class', 'Theme Park Access'],
+                imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
+                available: true
+            }
+        ];
         
-        this.shadowRoot.innerHTML = `
-            <style>
-                :host {
-                    display: block;
-                }
-                .review-card {
-                    background: white;
-                    border-radius: 12px;
-                    padding: 1.5rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-                    border: 1px solid #e5e7eb;
-                    transition: transform 0.2s, box-shadow 0.2s;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                }
-                .review-card:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-                }
-                .review-header {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.75rem;
-                    margin-bottom: 1rem;
-                }
-                .avatar {
-                    width: 48px;
-                    height: 48px;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, #003b95, #0071c2);
-                    color: white;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: 700;
-                    font-size: 0.875rem;
-                    flex-shrink: 0;
-                }
-                .author-info {
-                    flex: 1;
-                }
-                .author-name {
-                    font-weight: 600;
-                    color: #1f2937;
-                    font-size: 0.9375rem;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.375rem;
-                }
-                .verified-badge {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 0.25rem;
-                    background: #ecfdf5;
-                    color: #059669;
-                    font-size: 0.6875rem;
-                    font-weight: 600;
-                    padding: 0.125rem 0.5rem;
-                    border-radius: 99px;
-                }
-                .author-location {
-                    font-size: 0.8125rem;
-                    color: #6b7280;
-                }
-                .star-rating {
-                    color: #f59e0b;
-                    font-size: 1.125rem;
-                    letter-spacing: 1px;
-                    margin-bottom: 0.25rem;
-                }
-                .review-meta {
-                    font-size: 0.75rem;
-                    color: #9ca3af;
-                    margin-bottom: 0.75rem;
-                    display: flex;
-                    gap: 0.75rem;
-                }
-                .review-text {
-                    color: #374151;
-                    font-size: 0.9375rem;
-                    line-height: 1.6;
-                    flex: 1;
-                }
-                .helpful-section {
-                    margin-top: 1rem;
-                    padding-top: 0.75rem;
-                    border-top: 1px solid #f3f4f6;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                .helpful-btn {
-                    background: none;
-                    border: 1px solid #d1d5db;
-                    border-radius: 6px;
-                    padding: 0.375rem 0.75rem;
-                    font-size: 0.8125rem;
-                    color: #6b7280;
-                    cursor: pointer;
-                    transition: all 0.2s;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.375rem;
-                }
-                .helpful-btn:hover {
-                    border-color: #0071c2;
-                    color: #0071c2;
-                    background: #f0f7ff;
-                }
-                .helpful-btn.active {
-                    border-color: #0071c2;
-                    color: #0071c2;
-                    background: #e0efff;
-                }
-                .helpful-count {
-                    font-size: 0.75rem;
-                    color: #9ca3af;
-                }
-            </style>
-            <div class="review-card" data-testid="shadow-review-card">
-                <div class="review-header">
-                    <div class="avatar" data-testid="shadow-avatar">${avatar}</div>
-                    <div class="author-info">
-                        <div class="author-name" data-testid="shadow-author-name">
-                            ${author}
-                            ${verified ? '<span class="verified-badge" data-testid="shadow-verified-badge">✓ Verified</span>' : ''}
-                        </div>
-                        <div class="author-location" data-testid="shadow-author-location">${location}</div>
-                    </div>
-                </div>
-                <div class="star-rating" data-testid="shadow-star-rating" aria-label="${rating} out of 5 stars">${stars}</div>
-                <div class="review-meta">
-                    <span data-testid="shadow-destination">Stayed in: ${destination}</span>
-                    <span data-testid="shadow-date">${formattedDate}</span>
-                </div>
-                <div class="review-text" data-testid="shadow-review-text">${text}</div>
-                <div class="helpful-section">
-                    <button class="helpful-btn" data-testid="shadow-helpful-btn">
-                        👍 Helpful
-                    </button>
-                    <span class="helpful-count" data-testid="shadow-helpful-count">${helpfulBaseCount} people found this helpful</span>
-                </div>
-            </div>
-        `;
+        // Apply filters
+        let filtered = destinations;
         
-        // Helpful button interaction
-        const helpfulBtn = this.shadowRoot.querySelector('.helpful-btn');
-        const helpfulCount = this.shadowRoot.querySelector('.helpful-count');
-        
-        helpfulBtn.addEventListener('click', () => {
-            const isActive = helpfulBtn.classList.toggle('active');
-            const currentCount = parseInt(helpfulCount.textContent);
-            helpfulCount.textContent = `${isActive ? currentCount + 1 : currentCount - 1} people found this helpful`;
-            
-            // Dispatch custom event (students can listen for this in tests)
-            this.dispatchEvent(new CustomEvent('helpful-toggled', { 
-                detail: { active: isActive, reviewAuthor: author },
-                bubbles: true, composed: true
-            }));
-        });
-    }
-}
-
-// Register the custom element
-customElements.define('travel-review', TravelReview);
-
-// ========================================
-// IFRAME MESSAGE HANDLER
-// ========================================
-// Listens for the "I Accept These Terms" button click inside the iframe
-window.addEventListener('message', (event) => {
-    const termsIframe = document.getElementById('terms-iframe');
-    const expectedSource = termsIframe ? termsIframe.contentWindow : null;
-    const expectedOrigin = window.location.protocol === 'file:' ? 'null' : window.location.origin;
-    if (event.origin !== expectedOrigin || event.source !== expectedSource) {
-        return;
-    }
-
-    if (event.data && event.data.type === 'terms-accepted') {
-        const checkbox = document.getElementById('agree-terms-booking');
-        if (checkbox && !checkbox.checked) {
-            checkbox.checked = true;
-            showToast('success', 'Terms accepted', 'You have agreed to the Terms & Conditions.', 3000);
-        }
-    }
-});
-
-// ========================================
-// MOCK API LAYER (v2.4)
-// ========================================
-// Uses real fetch() calls that Playwright can intercept with page.route()
-// Includes a built-in mock handler so the app works without a backend
-// 
-// Teaching value:
-//   - Students see real network requests in DevTools Network tab
-//   - page.route('**/api/destinations') intercepts these calls
-//   - page.route() can return custom data, error responses, slow responses
-//   - Combines naturally with page.waitForResponse() assertions
-
-// --- Mock Data Store ---
-const DESTINATIONS_DATA = [
-    {
-        id: 'paris', name: 'Paris', country: 'France', continent: 'europe',
-        price: 1999, currency: 'EUR', rating: 9.2, reviewCount: 1247,
-        description: 'Experience the magic of the City of Light with iconic landmarks and world-class cuisine.',
-        features: ['4-Star Hotel', 'Direct Flights', 'Breakfast Included'],
-        imageUrl: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800',
-        available: true
-    },
-    {
-        id: 'tokyo', name: 'Tokyo', country: 'Japan', continent: 'asia',
-        price: 2499, currency: 'EUR', rating: 9.5, reviewCount: 2891,
-        description: 'Discover the perfect blend of ancient tradition and cutting-edge technology.',
-        features: ['5-Star Hotel', 'Premium Economy', 'City Pass Included'],
-        imageUrl: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800',
-        available: true
-    },
-    {
-        id: 'bali', name: 'Bali', country: 'Indonesia', continent: 'asia',
-        price: 1299, currency: 'EUR', rating: 8.9, reviewCount: 3456,
-        description: 'Paradise beaches, lush rice terraces, and spiritual tranquility await you.',
-        features: ['Beach Resort', 'Economy Class', 'Spa Package'],
-        imageUrl: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800',
-        available: true
-    },
-    {
-        id: 'santorini', name: 'Santorini', country: 'Greece', continent: 'europe',
-        price: 1799, currency: 'EUR', rating: 9.4, reviewCount: 1982,
-        description: 'Stunning sunsets, white-washed buildings, and crystal-clear Aegean waters.',
-        features: ['Luxury Villa', 'Business Class', 'Wine Tour Included'],
-        imageUrl: 'https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800',
-        available: true
-    },
-    {
-        id: 'new-york', name: 'New York', country: 'USA', continent: 'north-america',
-        price: 2199, currency: 'EUR', rating: 9.1, reviewCount: 4521,
-        description: 'The city that never sleeps - Broadway, Central Park, and endless excitement.',
-        features: ['Manhattan Hotel', 'Premium Economy', 'Broadway Show'],
-        imageUrl: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800',
-        available: true
-    },
-    {
-        id: 'dubai', name: 'Dubai', country: 'UAE', continent: 'middle-east',
-        price: 1899, currency: 'EUR', rating: 9.3, reviewCount: 2134,
-        description: 'Luxury shopping, ultramodern architecture, and Arabian hospitality.',
-        features: ['5-Star Resort', 'Business Class', 'Theme Park Access'],
-        imageUrl: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800',
-        available: true
-    }
-];
-
-// --- Mock Request Handler ---
-// Intercepts fetch calls to /api/* and returns mock responses
-// This runs ONLY if no external handler (like Playwright's page.route) handles it first
-const originalFetch = window.fetch;
-
-window.fetch = async function(url, options = {}) {
-    const urlStr = typeof url === 'string' ? url : url.toString();
-    
-    // Only intercept /api/* requests
-    if (!urlStr.includes('/api/')) {
-        return originalFetch.call(this, url, options);
-    }
-    
-    // Try real fetch first (allows Playwright page.route to intercept)
-    // If it fails (no server), fall back to mock
-    try {
-        const realResponse = await originalFetch.call(this, url, options);
-        // If we got a real response (not a network error), use it
-        if (realResponse.ok || realResponse.status > 0) {
-            return realResponse;
-        }
-    } catch (e) {
-        // Network error — no server running. Use mock below.
-    }
-    
-    // --- Mock Response Logic ---
-    const method = (options.method || 'GET').toUpperCase();
-    const body = options.body ? JSON.parse(options.body) : null;
-    const scenario = window.__apiScenario || 'normal';
-
-    if (scenario === 'timeout') {
-        await new Promise(resolve => setTimeout(resolve, APP_CONFIG.testMode ? 50 : 4500));
-        return mockResponse(504, {
-            success: false,
-            error: 'Request timed out',
-            code: 'TIMEOUT'
-        });
-    }
-
-    if (scenario === 'error-500') {
-        return mockResponse(500, {
-            success: false,
-            error: 'Internal server error (simulated)',
-            code: 'SERVER_ERROR'
-        });
-    }
-
-    if (scenario === 'validation-400') {
-        return mockResponse(400, {
-            success: false,
-            error: 'Validation failed (simulated)',
-            code: 'VALIDATION_ERROR'
-        });
-    }
-    
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, delayFor(200 + Math.random() * 300)));
-    
-    // Route: GET /api/destinations
-    if (urlStr.match(/\/api\/destinations\/?$/) && method === 'GET') {
-        const params = new URL(urlStr, window.location.origin).searchParams;
-        let filtered = [...DESTINATIONS_DATA];
-        
-        if (params.get('continent')) {
-            filtered = filtered.filter(d => d.continent === params.get('continent'));
-        }
-        if (params.get('maxPrice')) {
-            filtered = filtered.filter(d => d.price <= parseInt(params.get('maxPrice')));
-        }
-        if (params.get('minPrice')) {
-            filtered = filtered.filter(d => d.price >= parseInt(params.get('minPrice')));
+        if (filters.continent) {
+            filtered = filtered.filter(d => d.continent === filters.continent);
         }
         
-        return mockResponse(200, {
-            success: true, data: filtered, count: filtered.length,
+        if (filters.maxPrice) {
+            filtered = filtered.filter(d => d.price <= filters.maxPrice);
+        }
+        
+        if (filters.minPrice) {
+            filtered = filtered.filter(d => d.price >= filters.minPrice);
+        }
+        
+        return {
+            success: true,
+            data: filtered,
+            count: filtered.length,
             timestamp: new Date().toISOString()
-        });
-    }
+        };
+    },
     
-    // Route: GET /api/destinations/:id
-    if (urlStr.match(/\/api\/destinations\/[\w-]+/) && method === 'GET') {
-        const id = urlStr.split('/api/destinations/')[1].split('?')[0];
-        const dest = DESTINATIONS_DATA.find(d => d.id === id);
+    // GET /api/bookings
+    async getBookings(userId) {
+        await new Promise(resolve => setTimeout(resolve, 200));
         
-        if (!dest) {
-            return mockResponse(404, {
-                success: false, error: 'Destination not found', code: 'NOT_FOUND'
-            });
-        }
-        
-        return mockResponse(200, {
-            success: true, data: dest, timestamp: new Date().toISOString()
-        });
-    }
-    
-    // Route: GET /api/bookings
-    if (urlStr.match(/\/api\/bookings\/?$/) && method === 'GET') {
         const allBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
         
-        return mockResponse(200, {
-            success: true, data: allBookings, count: allBookings.length,
+        return {
+            success: true,
+            data: allBookings,
+            count: allBookings.length,
             timestamp: new Date().toISOString()
-        });
-    }
+        };
+    },
     
-    // Route: POST /api/bookings
-    if (urlStr.match(/\/api\/bookings\/?$/) && method === 'POST') {
+    // POST /api/bookings
+    async createBooking(bookingData) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        // Validate required fields
         const required = ['destination', 'checkinDate', 'checkoutDate', 'fullName', 'email'];
-        const missing = required.filter(field => !body[field]);
+        const missing = required.filter(field => !bookingData[field]);
         
         if (missing.length > 0) {
-            return mockResponse(400, {
+            return {
                 success: false,
                 error: `Missing required fields: ${missing.join(', ')}`,
                 code: 'VALIDATION_ERROR'
-            });
+            };
         }
         
+        // Create booking
         const booking = {
             bookingId: `BKG-${Date.now().toString().slice(-6)}`,
-            ...body,
+            ...bookingData,
             status: 'Confirmed',
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString()
         };
         
-        const savedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-        savedBookings.push(booking);
-        localStorage.setItem('bookings', JSON.stringify(savedBookings));
+        // Save to localStorage
+        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        bookings.push(booking);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
         
-        return mockResponse(201, {
-            success: true, data: booking,
+        return {
+            success: true,
+            data: booking,
             message: 'Booking created successfully',
             timestamp: new Date().toISOString()
-        });
-    }
+        };
+    },
     
-    // Route: DELETE /api/bookings/:id
-    if (urlStr.match(/\/api\/bookings\/[\w-]+/) && method === 'DELETE') {
-        const bookingId = urlStr.split('/api/bookings/')[1].split('?')[0];
-        const savedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-        const index = savedBookings.findIndex(b => b.bookingId === bookingId);
+    // GET /api/destinations/:id
+    async getDestination(destinationId) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        const allDestinations = await this.getDestinations();
+        const destination = allDestinations.data.find(d => d.id === destinationId);
+        
+        if (!destination) {
+            return {
+                success: false,
+                error: 'Destination not found',
+                code: 'NOT_FOUND'
+            };
+        }
+        
+        return {
+            success: true,
+            data: destination,
+            timestamp: new Date().toISOString()
+        };
+    },
+    
+    // DELETE /api/bookings/:id
+    async cancelBooking(bookingId) {
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        const index = bookings.findIndex(b => b.bookingId === bookingId);
         
         if (index === -1) {
-            return mockResponse(404, {
-                success: false, error: 'Booking not found', code: 'NOT_FOUND'
-            });
+            return {
+                success: false,
+                error: 'Booking not found',
+                code: 'NOT_FOUND'
+            };
         }
         
-        savedBookings[index].status = 'Cancelled';
-        savedBookings[index].updatedAt = new Date().toISOString();
-        localStorage.setItem('bookings', JSON.stringify(savedBookings));
+        bookings[index].status = 'Cancelled';
+        bookings[index].updatedAt = new Date().toISOString();
+        localStorage.setItem('bookings', JSON.stringify(bookings));
         
-        return mockResponse(200, {
-            success: true, data: savedBookings[index],
+        return {
+            success: true,
+            data: bookings[index],
             message: 'Booking cancelled successfully',
             timestamp: new Date().toISOString()
-        });
-    }
-    
-    // Fallback: unrecognised API route
-    return mockResponse(404, {
-        success: false, error: 'Endpoint not found', code: 'NOT_FOUND'
-    });
-};
-
-function mockResponse(status, body) {
-    const statusMap = {
-        200: 'OK',
-        201: 'Created',
-        400: 'Bad Request',
-        404: 'Not Found',
-        500: 'Internal Server Error',
-        504: 'Gateway Timeout'
-    };
-    return new Response(JSON.stringify(body), {
-        status: status,
-        statusText: statusMap[status] || 'Error',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Mock-Response': 'true'
-        }
-    });
-}
-
-// --- High-Level API Wrapper ---
-// Convenience methods that use fetch() internally
-// These are what the app calls — and what students will learn to mock
-window.API = {
-    baseURL: '/api',
-
-    async request(url, options = {}, loadingText = 'Loading...') {
-        return withLoadingState(loadingText, async () => {
-            try {
-                const response = await fetch(url, options);
-                const payload = await response.json();
-                if (!response.ok) {
-                    return {
-                        success: false,
-                        ...(payload || {}),
-                        status: response.status
-                    };
-                }
-                return payload;
-            } catch (error) {
-                return {
-                    success: false,
-                    error: error?.message || 'Network failure',
-                    code: 'NETWORK_ERROR'
-                };
-            }
-        });
-    },
-    
-    async getDestinations(filters = {}) {
-        const params = new URLSearchParams();
-        if (filters.continent) params.set('continent', filters.continent);
-        if (filters.maxPrice) params.set('maxPrice', filters.maxPrice);
-        if (filters.minPrice) params.set('minPrice', filters.minPrice);
-        const queryStr = params.toString();
-        const url = `/api/destinations${queryStr ? '?' + queryStr : ''}`;
-
-        return this.request(url, {}, 'Loading destinations...');
-    },
-    
-    async getDestination(destinationId) {
-        return this.request(`/api/destinations/${destinationId}`, {}, 'Loading destination details...');
-    },
-    
-    async getBookings(userId) {
-        return this.request('/api/bookings', {}, 'Loading bookings...');
-    },
-    
-    async createBooking(bookingData) {
-        return this.request('/api/bookings', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(bookingData)
-        }, 'Creating booking...');
-    },
-    
-    async cancelBooking(bookingId) {
-        return this.request(`/api/bookings/${bookingId}`, {
-            method: 'DELETE'
-        }, 'Cancelling booking...');
+        };
     }
 };
 
-// Expose for testing via page.evaluate()
+// Expose API for testing
 window.testAPI = {
     getDestinations: (filters) => window.API.getDestinations(filters),
     getBookings: (userId) => window.API.getBookings(userId),
     createBooking: (data) => window.API.createBooking(data),
     getDestination: (id) => window.API.getDestination(id),
-    cancelBooking: (id) => window.API.cancelBooking(id),
-    // Bonus: direct access to mock data for test assertions
-    getMockDestinations: () => DESTINATIONS_DATA
-};
-
-// Expose UI helpers for testing
-window.testHelpers = {
-    showToast: showToast,
-    removeToast: removeToast,
-    showSkeletonLoading: showSkeletonLoading,
-    hideSkeletonLoading: hideSkeletonLoading,
-    resetAppState: resetAppState,
-    setMockScenario: setMockScenario,
-    getToastCount: () => document.querySelectorAll('.toast').length,
-    getActiveAccordion: () => document.querySelector('.accordion-item.active')?.getAttribute('data-testid') || null,
-    isTestMode: () => APP_CONFIG.testMode
+    cancelBooking: (id) => window.API.cancelBooking(id)
 };
 
 </script>
