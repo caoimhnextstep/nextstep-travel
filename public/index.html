@@ -1973,8 +1973,27 @@ function viewDeal(destination) {
 // HERO SEARCH
 // ========================================
 function performHeroSearch() {
-    const destination = document.getElementById('hero-destination').value;
-    
+    let destination = document.getElementById('hero-destination').value;
+
+    // If the hidden select is empty, fall back to the text input value
+    if (!destination) {
+        const inputText = document.getElementById('hero-destination-input').value.trim().toLowerCase();
+        if (inputText) {
+            const destinationList = [
+                { value: 'paris', name: 'paris' },
+                { value: 'tokyo', name: 'tokyo' },
+                { value: 'bali', name: 'bali' },
+                { value: 'santorini', name: 'santorini' },
+                { value: 'new-york', name: 'new york' },
+                { value: 'dubai', name: 'dubai' }
+            ];
+            const match = destinationList.find(d =>
+                d.name.includes(inputText) || inputText.includes(d.name)
+            );
+            if (match) destination = match.value;
+        }
+    }
+
     if (destination) {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
