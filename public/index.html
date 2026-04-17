@@ -2788,7 +2788,6 @@ window.API = {
 
 // ── NextStepQA highlight listener ────────────────────────────────────────────
 (function () {
-    var ORIGIN = 'https://nextstepqa.com';
     var HIGHLIGHT_CLASS = 'nextstep-highlight';
 
     function clearHighlight() {
@@ -2878,12 +2877,13 @@ window.API = {
     }
 
     window.addEventListener('message', function (event) {
-        // Accept messages from any nextstepqa.com origin or localhost (dev)
         if (
-            event.origin !== ORIGIN &&
-            !event.origin.startsWith('http://localhost') &&
-            !event.origin.startsWith('https://localhost')
+            event.origin !== 'https://nextstepqa.com' &&
+            !event.origin.includes('localhost') &&
+            event.origin !== 'null' &&
+            event.origin !== ''
         ) return;
+        console.log('NEXTSTEP message received:', event.data);
 
         var data = event.data;
         if (!data || !data.type) return;
